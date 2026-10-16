@@ -172,6 +172,16 @@ svg.hands .finger:focus-visible .skin{stroke-width:3}
 .key.white.mark-sel{background:#c9d3fb}
 .key.black.mark-sel{background:linear-gradient(#5b74ea,#2f4fd8 30%)}
 
+.sound-tip{margin:0;padding:10px 14px;border-radius:10px;background:var(--accent-soft);color:var(--ink);font-size:15px}
+details.more summary{cursor:pointer;font-family:var(--f-display);font-weight:700;font-size:18px}
+details.more[open] summary{margin-bottom:6px}
+.key .lbl{white-space:pre-line;text-align:center}
+.strip .count{width:100%;font-size:15px;color:var(--muted)}
+.strip .count b{color:var(--ink)}
+.todo{list-style:none;padding-left:0 !important}
+.todo label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.todo input{width:18px;height:18px;margin-top:3px;accent-color:var(--good);flex:none}
+.todo input:checked + span{color:var(--muted);text-decoration:line-through}
 footer{color:var(--muted);font-size:13px}
 @media (prefers-reduced-motion:reduce){*{transition:none !important}}
 </style>
@@ -182,26 +192,27 @@ footer{color:var(--muted);font-size:13px}
   <header class="top">
     <div class="brand">
       <h1>Nthl<span>keys</span></h1>
-      <p>Support numérique pour les cours, du premier cours au niveau intermédiaire</p>
+      <p>Ton support pour réviser entre deux cours de piano</p>
     </div>
     <nav class="tabs" role="tablist" aria-label="Sections">
       <button role="tab" id="tab-cours" aria-controls="cours" data-tab="cours">Cours</button>
       <button role="tab" id="tab-clavier" aria-controls="clavier" data-tab="clavier">Clavier</button>
-      <button role="tab" id="tab-gammes" aria-controls="gammes" data-tab="gammes">Gammes et accords</button>
     </nav>
   </header>
+  <p class="sound-tip"><b>Pas de son ?</b> Le son démarre quand tu touches une première touche. Sur téléphone, désactive le mode silencieux et monte le volume.</p>
 
   <!-- COURS -->
   <section class="panel" id="cours" role="tabpanel" aria-labelledby="tab-cours">
     <div class="panel-head">
       <div>
         <h2>Premier cours</h2>
-        <p>Trois étapes : se repérer sur le clavier, placer ses doigts, puis construire ses premiers accords, majeurs et mineurs.</p>
+        <p>Trois étapes : te repérer sur le clavier, placer tes doigts, puis construire tes premiers accords, majeurs et mineurs. À la fin, tu trouveras ce qu'il faut retenir et travailler.</p>
       </div>
       <div class="steps" aria-label="Aller à une étape">
         <button type="button" data-goto="c1">1 · Les notes</button>
         <button type="button" data-goto="c2">2 · Les doigts</button>
         <button type="button" data-goto="c3">3 · Les accords</button>
+        <button type="button" data-goto="c4">À retenir</button>
       </div>
     </div>
 
@@ -217,6 +228,7 @@ footer{color:var(--muted);font-size:13px}
             <li>Vers la gauche, le son devient plus grave. Vers la droite, il devient plus aigu.</li>
             <li>Le <b>Do central</b> est le Do le plus proche du milieu du piano, en général face à la marque.</li>
           </ul>
+          <p class="callout"><b>Et les touches noires ?</b> Elles prennent le nom d'une touche blanche voisine, avec un signe. <b>♯ (dièse)</b> veut dire « juste à droite » et <b>♭ (bémol)</b> veut dire « juste à gauche ». La touche noire entre Do et Ré s'appelle donc <b>Do♯</b> ou <b>Ré♭</b> : c'est la même touche.</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:10px">
           <span class="label">Montrer sur le clavier</span>
@@ -228,14 +240,14 @@ footer{color:var(--muted);font-size:13px}
             <button type="button" class="btn small" data-show="all">Le nom de chaque touche</button>
             <button type="button" class="btn small" data-show="none">Effacer</button>
           </div>
-          <p class="note-muted" id="c1-caption">Cliquez sur une touche pour l'entendre.</p>
+          <p class="note-muted" id="c1-caption">Clique sur une touche pour l'entendre.</p>
         </div>
       </div>
       <div id="kb-c1" class="kb-mid"></div>
       <div class="exercise">
-        <span class="ex-title">À vous de jouer</span>
+        <span class="ex-title">À toi de jouer</span>
         <div class="row">
-          <span>Trouvez toutes les touches</span>
+          <span>Trouve toutes les touches</span>
           <div class="seg" id="c1-target">
             <button type="button" data-v="0" aria-pressed="false">Do</button>
             <button type="button" data-v="4" aria-pressed="false">Mi</button>
@@ -245,7 +257,7 @@ footer{color:var(--muted);font-size:13px}
             <button type="button" data-v="11" aria-pressed="false">Si</button>
           </div>
         </div>
-        <div class="ex-msg" id="c1-msg" aria-live="polite">Choisissez une note, puis cliquez sur toutes les touches qui portent ce nom.</div>
+        <div class="ex-msg" id="c1-msg" aria-live="polite">Choisis une note, puis clique sur toutes les touches qui portent ce nom.</div>
       </div>
     </article>
 
@@ -261,13 +273,13 @@ footer{color:var(--muted);font-size:13px}
         </div>
         <div style="display:flex;flex-direction:column;gap:6px">
           <svg class="hands" id="hands" viewBox="0 0 520 250" role="group" aria-label="Les deux mains, doigts numérotés"></svg>
-          <p class="note-muted" style="text-align:center">Mains posées sur le clavier, vues de dessus. Cliquez sur un doigt.</p>
+          <p class="note-muted" style="text-align:center">Mains posées sur le clavier, vues de dessus. Clique sur un doigt.</p>
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px">
         <h4 style="margin:0;font-family:var(--f-display);font-size:20px">La position de Do</h4>
         <p><b>Main droite</b> : le pouce (1) se pose sur le Do central, puis un doigt par touche blanche : 1 Do, 2 Ré, 3 Mi, 4 Fa, 5 Sol.<br>
-        <b>Main gauche</b> : l'auriculaire (5) se pose sur le Do plus grave, puis 4 Ré, 3 Mi, 2 Fa, et le pouce (1) sur Sol.</p>
+        <b>Main gauche</b> : l'auriculaire (5) se pose sur le Do juste à gauche du Do central, puis 4 Ré, 3 Mi, 2 Fa, et le pouce (1) sur Sol.</p>
         <div class="row">
           <div class="seg" id="c2-hand">
             <button type="button" data-v="rh" aria-pressed="true">Main droite</button>
@@ -282,7 +294,8 @@ footer{color:var(--muted);font-size:13px}
 
     <article class="card lesson" id="c3">
       <div class="lesson-head"><span class="step-tag">Étape 3</span><h3>Construire un accord majeur et un accord mineur</h3></div>
-      <p>Un accord, ce sont <b>trois notes jouées ensemble</b>. On part de la <b>fondamentale</b>, puis on compte les notes une par une vers la droite, en comptant <b>toutes les touches, blanches et noires</b>.</p>
+      <p>Un accord, ce sont <b>trois notes jouées ensemble</b>. On part de la <b>fondamentale</b> : c'est la note de départ, celle qui donne son nom à l'accord. Dans « Do majeur », la fondamentale est Do. Ensuite, on avance vers la droite en comptant <b>toutes les touches, blanches et noires</b>.</p>
+      <p class="callout"><b>Attention : on ne compte pas la touche de départ.</b> « + 4 notes », c'est avancer de 4 touches. Depuis Do : Do♯ (1), Ré (2), Ré♯ (3), <b>Mi (4)</b>. Puis depuis Mi : Fa (1), Fa♯ (2), <b>Sol (3)</b>. Do, Mi, Sol : voilà l'accord de Do majeur.</p>
       <div class="recipes">
         <div class="recipe">
           <h4>Accord majeur</h4>
@@ -295,8 +308,36 @@ footer{color:var(--muted);font-size:13px}
           <p class="note-muted">Son plus sombre, mélancolique. Exemple : Do, Mi♭, Sol.</p>
         </div>
       </div>
+      <p class="callout">Entre un accord majeur et un accord mineur, <b>seule la note du milieu change</b> : elle descend d'une note. Doigté : main droite <b>1 – 3 – 5</b>, main gauche <b>5 – 3 – 1</b>.</p>
+      <div class="row" style="justify-content:space-between">
+        <div class="row">
+          <span class="label">Clique sur une touche pour choisir la fondamentale</span>
+        </div>
+        <div class="row">
+          <div class="seg" id="c3-type">
+            <button type="button" data-v="M" aria-pressed="true">Majeur</button>
+            <button type="button" data-v="m" aria-pressed="false">Mineur</button>
+          </div>
+          <button type="button" class="btn" id="c3-play">Écouter</button>
+          <button type="button" class="btn primary" id="c3-compare">Comparer majeur et mineur</button>
+        </div>
+      </div>
+      <div id="kb-c3" class="kb-mid"></div>
+      <div class="strip" id="c3-strip" aria-live="polite"></div>
       <div class="exercise">
-        <span class="ex-title">Pour aller plus loin : les tons et les demi-tons</span>
+        <span class="ex-title">À toi de jouer</span>
+        <p id="c3-ex-q" style="font-size:18px"></p>
+        <div id="kb-c3ex" class="kb-small"></div>
+        <div class="row">
+          <button type="button" class="btn primary" id="c3-check">Vérifier</button>
+          <button type="button" class="btn" id="c3-sol">Voir la solution</button>
+          <button type="button" class="btn" id="c3-next">Accord suivant</button>
+          <button type="button" class="btn" id="c3-names" aria-pressed="false">Afficher le nom des touches</button>
+        </div>
+        <div class="ex-msg" id="c3-msg" aria-live="polite">Clique sur trois touches pour former l'accord, puis appuie sur Vérifier.</div>
+      </div>
+      <details class="exercise more">
+        <summary>Pour aller plus loin : les tons et les demi-tons</summary>
         <p>Compter « 4 notes » ou « 3 notes » est la façon la plus simple de construire un accord. En théorie musicale, on dit la même chose avec les <b>tons</b> et les <b>demi-tons</b>.</p>
         <ul>
           <li><b>1 demi-ton</b> : on passe d'une touche à la touche juste à côté, blanche ou noire. Compter 1 note, c'est avancer d'un demi-ton.</li>
@@ -313,33 +354,34 @@ footer{color:var(--muted);font-size:13px}
             <p>+ 3 notes = 3 demi-tons = <b>1 ton et demi</b><br>+ 4 notes = 4 demi-tons = <b>2 tons</b></p>
           </div>
         </div>
-      </div>
-      <p class="callout">Entre un accord majeur et un accord mineur, <b>seule la note du milieu change</b> : elle descend d'une note. Doigté : main droite <b>1 – 3 – 5</b>, main gauche <b>5 – 3 – 1</b>.</p>
-      <div class="row" style="justify-content:space-between">
-        <div class="row">
-          <span class="label">Cliquez sur une touche pour choisir la fondamentale</span>
+      </details>
+    </article>
+
+    <article class="card lesson" id="c4">
+      <div class="lesson-head"><span class="step-tag">Pour finir</span><h3>À retenir et à travailler</h3></div>
+      <div class="recipes">
+        <div class="recipe">
+          <h4>À retenir</h4>
+          <ul>
+            <li><b>Do</b> est juste à gauche des 2 touches noires. <b>Fa</b> est juste à gauche des 3 touches noires.</li>
+            <li><b>♯ dièse</b> : la touche juste à droite. <b>♭ bémol</b> : la touche juste à gauche.</li>
+            <li>Les doigts : pouce 1, index 2, majeur 3, annulaire 4, auriculaire 5.</li>
+            <li><b>Accord majeur</b> = fondamentale + 4 notes + 3 notes.</li>
+            <li><b>Accord mineur</b> = fondamentale + 3 notes + 4 notes.</li>
+            <li>On ne compte jamais la touche de départ.</li>
+          </ul>
         </div>
-        <div class="row">
-          <div class="seg" id="c3-type">
-            <button type="button" data-v="M" aria-pressed="true">Majeur</button>
-            <button type="button" data-v="m" aria-pressed="false">Mineur</button>
-          </div>
-          <button type="button" class="btn" id="c3-play">Écouter</button>
-          <button type="button" class="btn primary" id="c3-compare">Comparer majeur et mineur</button>
+        <div class="recipe">
+          <h4>À travailler avant le prochain cours</h4>
+          <ul class="todo">
+            <li><label><input type="checkbox" id="todo1"><span>Trouver tous les Do de ton piano, puis tous les Fa.</span></label></li>
+            <li><label><input type="checkbox" id="todo2"><span>Main droite en position de Do : jouer Do Ré Mi Fa Sol en montant puis en descendant, 5 fois.</span></label></li>
+            <li><label><input type="checkbox" id="todo3"><span>Pareil avec la main gauche.</span></label></li>
+            <li><label><input type="checkbox" id="todo4"><span>Jouer Do majeur puis Do mineur, et écouter la différence.</span></label></li>
+            <li><label><input type="checkbox" id="todo5"><span>Construire et jouer Fa majeur, Sol majeur, La mineur et Ré mineur.</span></label></li>
+          </ul>
+          <p class="note-muted">Coche ce que tu as fait : ta liste reste enregistrée sur cet appareil.</p>
         </div>
-      </div>
-      <div id="kb-c3" class="kb-mid"></div>
-      <div class="strip" id="c3-strip" aria-live="polite"></div>
-      <div class="exercise">
-        <span class="ex-title">À vous de jouer</span>
-        <p id="c3-ex-q" style="font-size:18px"></p>
-        <div id="kb-c3ex" class="kb-small"></div>
-        <div class="row">
-          <button type="button" class="btn primary" id="c3-check">Vérifier</button>
-          <button type="button" class="btn" id="c3-sol">Voir la solution</button>
-          <button type="button" class="btn" id="c3-next">Accord suivant</button>
-        </div>
-        <div class="ex-msg" id="c3-msg" aria-live="polite">Cliquez sur trois touches pour former l'accord, puis vérifiez.</div>
       </div>
     </article>
   </section>
@@ -349,13 +391,12 @@ footer{color:var(--muted);font-size:13px}
     <div class="panel-head">
       <div>
         <h2>Clavier</h2>
-        <p>Jouez à la souris, au doigt ou avec le clavier de l'ordinateur. Chaque note s'affiche sur la portée pour relier la touche à la partition.</p>
+        <p>Joue librement à la souris, au doigt ou avec le clavier de l'ordinateur. Le nom de chaque note jouée s'affiche en grand.</p>
       </div>
       <div class="row">
         <div class="field"><span class="label">Noms des notes</span>
           <div class="seg" id="kb-names">
             <button type="button" data-v="fr" aria-pressed="true">Do Ré Mi</button>
-            <button type="button" data-v="en" aria-pressed="false">C D E</button>
             <button type="button" data-v="none" aria-pressed="false">Masqués</button>
           </div>
         </div>
@@ -368,19 +409,12 @@ footer{color:var(--muted);font-size:13px}
       </div>
     </div>
     <div class="card"><div id="kb-main" class="kb-big"></div></div>
-    <div class="grid2">
-      <div class="card now">
-        <span class="label">Dernière note jouée</span>
-        <span class="big" id="now-name">Do3</span>
-        <span class="sub" id="now-sub">C4 · 261,6 Hz · Do central</span>
-        <p class="tip" style="margin-top:10px">Convention française : le Do central s'appelle <b>Do3</b> (C4 en notation anglo-saxonne).</p>
-      </div>
-      <div class="card">
-        <span class="label">Sur la portée</span>
-        <svg class="staff" id="now-staff" viewBox="0 0 240 150" role="img" aria-label="Portée"></svg>
-      </div>
+    <div class="card now">
+      <span class="label">Dernière note jouée</span>
+      <span class="big" id="now-name">Do</span>
+      <span class="sub" id="now-sub">Le Do central</span>
     </div>
-    <p class="tip">Raccourcis (clavier AZERTY) : <kbd>Q</kbd><kbd>S</kbd><kbd>D</kbd><kbd>F</kbd><kbd>G</kbd><kbd>H</kbd><kbd>J</kbd><kbd>K</kbd> pour les touches blanches à partir du Do du milieu, <kbd>Z</kbd><kbd>E</kbd><kbd>T</kbd><kbd>Y</kbd><kbd>U</kbd> pour les touches noires.</p>
+    <p class="tip">Raccourcis (clavier AZERTY) : <kbd>Q</kbd><kbd>S</kbd><kbd>D</kbd><kbd>F</kbd><kbd>G</kbd><kbd>H</kbd><kbd>J</kbd><kbd>K</kbd> pour les touches blanches à partir du Do central, <kbd>Z</kbd><kbd>E</kbd><kbd>T</kbd><kbd>Y</kbd><kbd>U</kbd> pour les touches noires.</p>
   </section>
 
   <!-- GAMMES -->
@@ -429,7 +463,7 @@ footer{color:var(--muted);font-size:13px}
     </div>
   </section>
 
-  <footer>Le son est produit dans le navigateur : touchez une première touche pour l'activer. Les doigtés indiqués sont les doigtés usuels ; adaptez-les à chaque élève.</footer>
+  <footer>Nthlkeys · support des cours de piano</footer>
 </div>
 
 <script>
@@ -533,7 +567,6 @@ function Keyboard(el, {from, to, onPress, labels='fr', hints={}}){
       if(mk && mk.label!=null) lbl=mk.label;
       else if(labels==='fr') lbl = isBlack(m)?'':frName(m);
       else if(labels==='en') lbl = isBlack(m)?'':enName(m);
-      if(labels!=='none' && !isBlack(m) && pcOf(m)===0 && !(mk && mk.label!=null)) lbl += (labels==='fr'? sciOct(m)-1 : sciOct(m));
       k.querySelector('.lbl').textContent=lbl;
       k.querySelector('.fing').textContent = mk && mk.finger ? mk.finger : '';
       k.querySelector('.hint').textContent = hints[m]||'';
@@ -582,7 +615,7 @@ const store = {
 };
 
 /* ================= Onglets ================= */
-const TABS=['cours','clavier','gammes'];
+const TABS=['cours','clavier'];  // l'onglet « gammes » est masqué pour le niveau débutant
 let current='clavier';
 function showTab(id){
   if(!TABS.includes(id)) id='cours';
@@ -646,12 +679,12 @@ document.querySelectorAll('#c1-show button').forEach(b=>b.addEventListener('clic
   kbC1.setMarks(marks);
   cap.textContent = {g2:'Les touches noires vont par deux…',g3:'…puis par trois. Le motif se répète sur tout le clavier.',
     do:'Chaque Do est juste à gauche d’un groupe de 2 noires.',fa:'Chaque Fa est juste à gauche d’un groupe de 3 noires.',
-    all:'Do, Ré, Mi, Fa, Sol, La, Si : les noms se répètent à chaque octave.',none:'Cliquez sur une touche pour l’entendre.'}[v];
+    all:'Do, Ré, Mi, Fa, Sol, La, Si, puis ça recommence. D’un Do au Do suivant, on appelle ça une octave.',none:'Clique sur une touche pour l’entendre.'}[v];
 }));
 bindSeg('c1-target', v=>{
   c1Target=Number(v); c1Found=new Set(); kbC1.setLabels('none'); kbC1.setMarks({});
   const msg=document.getElementById('c1-msg'); msg.className='ex-msg';
-  msg.textContent=`Cliquez sur tous les ${LETTERS[PC_LETTER[c1Target]]} du clavier.`;
+  msg.textContent=`Clique sur tous les ${LETTERS[PC_LETTER[c1Target]]} du clavier.`;
   document.getElementById('c1-caption').textContent='Exercice en cours.';
 });
 
@@ -714,16 +747,18 @@ let c3Root=60, c3Type='M';
 const kbC3 = Keyboard(document.getElementById('kb-c3'), {from:48, to:83, labels:'none', onPress:m=>{
   c3Root = m>76 ? m-12 : m; renderC3(); playC3();
 }});
+function countLine(from,n,arrive){ const a=[]; for(let k=1;k<=n;k++) a.push(k===n?`<b>${arrive} (${k})</b>`:`${frName(from+k)} (${k})`); return a.join(', '); }
 function renderC3(){
   const t=triad(c3Root,c3Type), marks={};
   for(let k=1;k<t.third;k++) marks[c3Root+k]={cls:'mark-step', label:String(k)};
   for(let k=1;k<7-t.third;k++) marks[c3Root+t.third+k]={cls:'mark-step', label:String(k)};
-  t.midis.forEach((m,i)=>marks[m]={cls:'mark', label:t.names[i], finger:[1,3,5][i]});
+  t.midis.forEach((m,i)=>marks[m]={cls:'mark', label: i===0 ? t.names[0] : (i===1?t.third:7-t.third)+'\n'+t.names[i], finger:[1,3,5][i]});
   kbC3.setMarks(marks); kbC3.scrollTo(c3Root);
   const label = c3Type==='M'?'majeur':'mineur';
   document.getElementById('c3-strip').innerHTML =
     `<span class="label" style="width:100%">Accord de ${t.names[0]} ${label}</span>`+
-    `<span class="n">${t.names[0]}</span><span class="gap">+ ${t.third} notes</span><span class="n">${t.names[1]}</span><span class="gap">+ ${7-t.third} notes</span><span class="n">${t.names[2]}</span>`;
+    `<span class="n">${t.names[0]}</span><span class="gap">+ ${t.third} notes</span><span class="n">${t.names[1]}</span><span class="gap">+ ${7-t.third} notes</span><span class="n">${t.names[2]}</span>`+
+    `<span class="count">On compte : ${countLine(c3Root,t.third,t.names[1])}, puis ${countLine(c3Root+t.third,7-t.third,t.names[2])}.</span>`;
 }
 function arpThenBlock(ms, kb, at0=0){ const st=0.28; return [...ms.map((m,k)=>({notes:[m],at:at0+k*st})), {notes:ms, at:at0+ms.length*st+0.1}]; }
 function playC3(){ playSeq(arpThenBlock(triad(c3Root,c3Type).midis), kbC3); }
@@ -756,20 +791,20 @@ function renderEx(state){
 function newEx(){
   exSel=new Set(); exDone=false;
   const t=exTarget();
-  document.getElementById('c3-ex-q').innerHTML=`Construisez l'accord de <b>${t.names[0]} ${t.type==='M'?'majeur':'mineur'}</b>.`;
-  const msg=document.getElementById('c3-msg'); msg.className='ex-msg'; msg.textContent='Cliquez sur trois touches pour former l’accord, puis vérifiez.';
+  document.getElementById('c3-ex-q').innerHTML=`Construis l'accord de <b>${t.names[0]} ${t.type==='M'?'majeur':'mineur'}</b>.`;
+  const msg=document.getElementById('c3-msg'); msg.className='ex-msg'; msg.textContent='Clique sur trois touches pour former l’accord, puis appuie sur Vérifier.';
   renderEx();
 }
 document.getElementById('c3-check').addEventListener('click',()=>{
   const t=exTarget(), msg=document.getElementById('c3-msg');
   const want=new Set(t.midis.map(pcOf)), got=new Set([...exSel].map(pcOf));
   const ok = exSel.size===3 && [...want].every(p=>got.has(p));
-  if(exSel.size<3){ msg.className='ex-msg no'; msg.textContent=`Il faut trois touches. Vous en avez choisi ${exSel.size}.`; return; }
+  if(exSel.size<3){ msg.className='ex-msg no'; msg.textContent=`Il faut trois touches. Tu en as choisi ${exSel.size}.`; return; }
   if(ok){ exDone=true; msg.className='ex-msg ok'; msg.textContent=`Bravo ! ${t.names.join(' – ')}.`; renderEx('ok'); playSeq(arpThenBlock([...exSel].sort((a,b)=>a-b)), kbEx); }
   else {
     msg.className='ex-msg no';
-    msg.textContent = !got.has(pcOf(t.midis[0])) ? `Pas encore. Commencez par trouver la fondamentale, ${t.names[0]}, puis comptez les notes.`
-      : `Pas encore. Depuis ${t.names[0]}, comptez ${t.third} notes, puis ${7-t.third} notes.`;
+    msg.textContent = !got.has(pcOf(t.midis[0])) ? `Pas encore. Commence par trouver la fondamentale, ${t.names[0]}, puis compte les notes.`
+      : `Pas encore. Depuis ${t.names[0]}, compte ${t.third} notes, puis ${7-t.third} notes, sans compter la touche de départ.`;
     renderEx('no'); playSeq([{notes:[...exSel],at:0}], kbEx);
   }
 });
@@ -779,6 +814,16 @@ document.getElementById('c3-sol').addEventListener('click',()=>{
   renderEx('sol'); playSeq(arpThenBlock(t.midis), kbEx);
 });
 document.getElementById('c3-next').addEventListener('click',()=>{ exI=(exI+1)%EX.length; newEx(); });
+document.getElementById('c3-names').addEventListener('click',e=>{
+  const on = e.currentTarget.getAttribute('aria-pressed')!=='true';
+  e.currentTarget.setAttribute('aria-pressed', on);
+  e.currentTarget.textContent = on ? 'Masquer le nom des touches' : 'Afficher le nom des touches';
+  kbEx.setLabels(on?'fr':'none');
+});
+document.querySelectorAll('.todo input').forEach(cb=>{
+  cb.checked = !!store.get('todo:'+cb.id, false);
+  cb.addEventListener('change',()=>store.set('todo:'+cb.id, cb.checked));
+});
 newEx();
 
 /* ================= 1. Clavier libre ================= */
@@ -790,12 +835,8 @@ function buildMain(){
   kbMain = Keyboard(document.getElementById('kb-main'), {from:kbBase, to:kbBase+24, labels:kbLabels, hints, onPress:m=>{ playNote(m); showNow(m); }});
 }
 function showNow(m){
-  const fo = sciOct(m)-1;
-  document.getElementById('now-name').textContent = frName(m)+fo;
-  const central = m===60 ? ' · Do central' : '';
-  document.getElementById('now-sub').textContent = `${enName(m)}${sciOct(m)} · ${freq(m).toFixed(1).replace('.',',')} Hz${central}`;
-  const st = midiToStaff(m);
-  drawStaff(document.getElementById('now-staff'), st);
+  document.getElementById('now-name').textContent = frName(m);
+  document.getElementById('now-sub').textContent = m===60 ? 'Le Do central' : (m<60 ? 'Plus grave que le Do central' : 'Plus aigu que le Do central');
 }
 buildMain(); showNow(60);
 bindSeg('kb-names', v=>{ kbLabels=v; kbMain.setLabels(v); });
