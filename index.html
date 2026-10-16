@@ -830,7 +830,7 @@ body.in-player{--tabbar-h:0px}
       <span class="big" id="now-name">Do</span>
       <span class="sub" id="now-sub">Le Do central</span>
     </div>
-    <p class="tip kbd-tip">Raccourcis (clavier AZERTY) : <kbd>Q</kbd><kbd>S</kbd><kbd>D</kbd><kbd>F</kbd><kbd>G</kbd><kbd>H</kbd><kbd>J</kbd><kbd>K</kbd> pour les touches blanches à partir du Do central, <kbd>Z</kbd><kbd>E</kbd><kbd>T</kbd><kbd>Y</kbd><kbd>U</kbd> pour les touches noires.</p>
+    <p class="tip kbd-tip">Raccourcis (clavier AZERTY) : <kbd>Q</kbd><kbd>S</kbd><kbd>D</kbd><kbd>F</kbd><kbd>G</kbd><kbd>H</kbd><kbd>J</kbd><kbd>K</kbd><kbd>L</kbd><kbd>M</kbd> pour les touches blanches à partir du Do central, <kbd>Z</kbd><kbd>E</kbd><kbd>T</kbd><kbd>Y</kbd><kbd>U</kbd><kbd>O</kbd><kbd>P</kbd> pour les touches noires.</p>
   </section>
 
   <!-- LEXIQUE -->
@@ -1681,7 +1681,9 @@ let kbBase = 48, kbLabels = 'fr', kbMain;
 function buildMain(){
   const base = kbBase + 12, hints={};
   KEYMAP.forEach(([,l],i)=>hints[base+i]=l);
-  kbMain = Keyboard(document.getElementById('kb-main'), {from:kbBase, to:kbBase+24, labels:kbLabels, hints, onPress:m=>{ playNote(m); showNow(m); }});
+  // Sur ordinateur, le piano est centré sur les touches à lettres (Q = Do central … M = Mi aigu),
+  // avec trois touches blanches de chaque côté : de Sol à La. Sur téléphone (pas de lettres), deux octaves à partir de Do.
+  kbMain = Keyboard(document.getElementById('kb-main'), {from:kbBase+(PHONE?0:7), to:kbBase+(PHONE?24:33), labels:kbLabels, hints, onPress:m=>{ playNote(m); showNow(m); }});
 }
 function showNow(m){
   document.getElementById('now-name').textContent = frName(m);
