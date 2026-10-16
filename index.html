@@ -690,7 +690,7 @@ footer{color:var(--muted);font-size:13px}
         <p>Les mots appris pendant les cours, pour retrouver un mot oublié sans relire tout un cours. La liste s'agrandit à chaque nouveau cours.</p>
       </div>
     </div>
-    <div class="card lex-group">
+    <div class="card lex-group" data-cours="1">
       <h3>Cours 1 · Le clavier et les accords</h3>
       <dl class="lex">
         <div><dt>Do central</dt><dd>Le Do le plus proche du milieu du piano, en général face à la marque.</dd></div>
@@ -707,7 +707,7 @@ footer{color:var(--muted);font-size:13px}
         <div><dt>Demi-ton et ton</dt><dd>Un demi-ton, c’est l’écart entre deux touches voisines, blanches ou noires. Un ton = 2 demi-tons.</dd></div>
       </dl>
     </div>
-    <div class="card lex-group">
+    <div class="card lex-group" data-cours="2">
       <h3>Cours 2 · Le rythme</h3>
       <dl class="lex">
         <div><dt>Pulsation</dt><dd>Le battement régulier de la musique, celui qu’on tape du pied. Il ne ralentit jamais.</dd></div>
@@ -1157,8 +1157,24 @@ document.querySelectorAll('.todo input').forEach(cb=>{
 });
 newEx();
 
+/* ================= Accès aux cours ================= */
+// Chaque élève a un lien personnel : …/nthlkeys/?e=<code>. Le code donne le dernier cours débloqué.
+// Aucun prénom ici : le dépôt est public. Un code inconnu ou absent donne accès au cours 1.
+const ACCES = {
+  dxxat: 2,
+};
+const NB_COURS = document.querySelectorAll('.cours-set').length;
+let code = (new URLSearchParams(location.search).get('e') || '').toLowerCase().replace(/[^a-z0-9]/g,'');
+if(code) store.set('code', code); else code = store.get('code', '');
+const MAX_COURS = Math.max(1, Math.min(NB_COURS, ACCES[code] || 1));
+document.querySelectorAll('[data-cours]').forEach(el=>{
+  if(Number(el.dataset.cours) > MAX_COURS) el.hidden = true;
+});
+document.getElementById('cours-pick').hidden = MAX_COURS===1;
+
 /* ================= Choix du cours ================= */
 function showCours(n){
+  n = String(Math.min(MAX_COURS, Math.max(1, Number(n)||1)));
   stopPulse(); stopSeq();
   document.querySelectorAll('.cours-set').forEach(s=>s.hidden = s.dataset.cours!==n);
   document.querySelectorAll('#cours-pick button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.cours===n));
@@ -1395,7 +1411,9 @@ function startR4(mode){
 Object.keys(r4Btns).forEach(mode=>r4Btns[mode].addEventListener('click',()=> running('r4-'+mode) ? stopPulse() : startR4(mode)));
 bindSeg('r4-tempo', ()=>{ ['listen','along'].forEach(m=>{ if(running('r4-'+m)) startR4(m); }); });
 
-showCours(String(store.get('cours','1')));
+// Un cours vient d'être débloqué : on l'ouvre directement, sinon on reprend le dernier cours ouvert
+if(MAX_COURS > store.get('max-vu',1)){ store.set('max-vu', MAX_COURS); showCours(MAX_COURS); }
+else showCours(store.get('cours','1'));
 
 /* Bandeau « Pas de son ? » : on peut le fermer, il reste fermé sur cet appareil */
 const soundBar=document.getElementById('sound-bar');
