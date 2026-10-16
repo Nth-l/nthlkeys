@@ -1,0 +1,1101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nthlkeys</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@500&family=Noto+Music&display=swap">
+<style>
+[hidden]{display:none!important}
+/* Layout : une barre d'onglets, puis un atelier par onglet ; le clavier est toujours l'objet central, pleine largeur. */
+:root{
+  --bg:#f3f5fa; --surface:#ffffff; --ink:#161a2b; --muted:#5a6079; --line:#dde1ec;
+  --accent:#2f4fd8; --accent-ink:#ffffff; --accent-soft:#e2e7fd;
+  --good:#1d8248; --good-soft:#dcf3e5; --bad:#c2352d; --bad-soft:#fbe3e1;
+  --ivory:#fcfcf8; --ivory-edge:#cfd2dc; --ebony:#1a1c25; --ebony-top:#3a3d4b;
+  --staff:#161a2b;
+  --f-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Atkinson Hyperlegible", "Helvetica Neue", Arial, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+  --f-music:"Noto Music", "Bravura Text", "Apple Symbols", serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1120; --surface:#161a2c; --ink:#e7e9f4; --muted:#9ba1b9; --line:#2a2f48;
+  --accent:#8ea1ff; --accent-ink:#0e1120; --accent-soft:#252c57;
+  --good:#53c985; --good-soft:#163526; --bad:#ff7d72; --bad-soft:#3d1c1d;
+  --ivory:#f1f1ec; --ivory-edge:#9095a6; --ebony:#0a0b10; --ebony-top:#2d3040;
+  --staff:#e7e9f4; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1120; --surface:#161a2c; --ink:#e7e9f4; --muted:#9ba1b9; --line:#2a2f48;
+  --accent:#8ea1ff; --accent-ink:#0e1120; --accent-soft:#252c57;
+  --good:#53c985; --good-soft:#163526; --bad:#ff7d72; --bad-soft:#3d1c1d;
+  --ivory:#f1f1ec; --ivory-edge:#9095a6; --ebony:#0a0b10; --ebony-top:#2d3040;
+  --staff:#e7e9f4; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px;padding-block:20px 48px;display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.1}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+header.top{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 24px}
+.brand h1{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-.02em}
+.brand p{margin:2px 0 0;color:var(--muted)}
+.brand h1 span{color:var(--accent)}
+
+nav.tabs{display:flex;flex-wrap:wrap;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px}
+nav.tabs button{border:0;background:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:700;color:var(--muted)}
+nav.tabs button:hover{color:var(--ink)}
+nav.tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
+
+.panel{display:flex;flex-direction:column;gap:18px}
+.panel-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px}
+.panel-head h2{font-size:26px;font-weight:700}
+.panel-head p{margin:4px 0 0;color:var(--muted);max-width:62ch}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:18px}
+@media (max-width:760px){.grid2{grid-template-columns:minmax(0,1fr)}}
+.label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+select{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0;max-width:100%}
+
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{border:0;background:var(--surface);padding:7px 12px;cursor:pointer;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);font-weight:700}
+
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:9px 16px;cursor:pointer;font-weight:700}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.small{padding:6px 10px;font-size:14px}
+
+/* ---------- Clavier ---------- */
+.kb{overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+.kb-inner{position:relative;display:flex;min-width:calc(var(--n) * 30px);height:var(--kh,200px);user-select:none;-webkit-user-select:none;touch-action:pan-x}
+.key{position:relative;border:0;padding:0;cursor:pointer;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:2px;font-family:var(--f-body)}
+.key.white{flex:1 1 0;background:var(--ivory);border:1px solid var(--ivory-edge);border-top:0;border-radius:0 0 7px 7px;margin-right:-1px;padding-bottom:10px;color:#4a4f63;z-index:1;
+  box-shadow:inset 0 -6px 0 rgba(0,0,0,.06)}
+.key.black{position:absolute;top:0;width:calc(62% / var(--n));height:62%;background:linear-gradient(var(--ebony-top),var(--ebony) 18%);border-radius:0 0 5px 5px;z-index:2;padding-bottom:8px;color:#d6d9e6;
+  box-shadow:0 3px 0 rgba(0,0,0,.35)}
+.key .lbl{font-size:12px;font-weight:700;line-height:1}
+.key.black .lbl{font-size:10px}
+.key .hint{font-family:var(--f-mono);font-size:10px;opacity:.55;line-height:1}
+.key .fing{font-family:var(--f-mono);font-size:13px;font-weight:500;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;margin-bottom:2px}
+.key .fing:empty{display:none}
+.key.white.mark{background:#c9d3fb}
+.key.black.mark{background:linear-gradient(#5b74ea,#2f4fd8 30%)}
+.key.white.mark-soft{background:#e6eafc}
+.key.black.mark-soft{background:linear-gradient(#4b5272,#2c3149 30%)}
+.key.white.mark-good{background:#bfe8cf}
+.key.black.mark-good{background:linear-gradient(#3aa76a,#1d8248 30%)}
+.key.white.down{background:#9fb0f7 !important;box-shadow:inset 0 -2px 0 rgba(0,0,0,.08)}
+.key.black.down{background:linear-gradient(#7d92f5,#4560e0) !important;box-shadow:0 1px 0 rgba(0,0,0,.35)}
+.kb-big .kb-inner{--kh:clamp(170px,26vw,250px)}
+.kb-mid .kb-inner{--kh:170px}
+.kb-small .kb-inner{--kh:130px}
+
+/* ---------- Portée ---------- */
+svg.staff{width:100%;max-width:420px;height:auto;display:block}
+svg.staff .st-line{stroke:var(--staff);stroke-width:1.3}
+svg.staff .ledger{stroke:var(--staff);stroke-width:1.6}
+svg.staff .clef,svg.staff .acc{font-family:var(--f-music);fill:var(--staff)}
+svg.staff .head{fill:var(--staff)}
+svg.staff .stem{stroke:var(--staff);stroke-width:1.6}
+
+/* Onglet clavier */
+.now{display:flex;flex-direction:column;gap:4px}
+.now .big{font-family:var(--f-display);font-size:56px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.now .sub{font-family:var(--f-mono);color:var(--muted);font-size:14px}
+.tip{color:var(--muted);font-size:14px;margin:0}
+kbd{font-family:var(--f-mono);font-size:12px;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 5px;background:var(--bg)}
+
+/* Gammes */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:flex;flex-direction:column;align-items:center;gap:1px;min-width:74px;padding:8px 10px;border-radius:10px;background:var(--bg);border:1px solid var(--line)}
+.chip b{font-family:var(--f-display);font-size:20px}
+.chip small{color:var(--muted);font-size:12px;text-align:center;line-height:1.2}
+.chip .f{font-family:var(--f-mono);font-size:12px;color:var(--accent)}
+.degrees{display:flex;flex-wrap:wrap;gap:8px}
+.degrees button{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;min-width:68px}
+.degrees button b{font-family:var(--f-display);font-size:18px}
+.degrees button small{color:var(--muted);font-size:12px}
+.degrees button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.note-muted{color:var(--muted);font-size:14px;margin:0}
+
+/* Métronome */
+.metro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+@media (max-width:760px){.metro{grid-template-columns:minmax(0,1fr)}}
+.bpm{display:flex;align-items:baseline;gap:10px}
+.bpm b{font-family:var(--f-mono);font-size:84px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums}
+.bpm span{color:var(--muted)}
+.tempo-name{font-family:var(--f-display);font-size:28px;font-style:italic;font-weight:500;color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.beats{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:24px 0}
+.beat{width:44px;height:44px;border-radius:50%;border:2px solid var(--line);background:var(--bg);transition:transform .06s, background .06s}
+.beat.strong{border-color:var(--accent)}
+.beat.on{background:var(--accent);border-color:var(--accent);transform:scale(1.15)}
+.beat.on.weak{background:var(--muted);border-color:var(--muted)}
+.tempo-table{width:100%;border-collapse:collapse;font-size:14px}
+.tempo-table td{padding:5px 0;border-bottom:1px solid var(--line)}
+.tempo-table td:last-child{text-align:right;font-family:var(--f-mono);color:var(--muted)}
+.tempo-table tr{cursor:pointer}
+.tempo-table tr:hover td:first-child{color:var(--accent)}
+.tempo-table tr.cur td:first-child{color:var(--accent);font-weight:700}
+
+/* Cours */
+.steps{display:flex;flex-wrap:wrap;gap:6px}
+.steps button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;cursor:pointer;font-size:14px}
+.steps button:hover{border-color:var(--accent);color:var(--accent)}
+.lesson{display:flex;flex-direction:column;gap:16px;scroll-margin-top:16px}
+.lesson-head{display:flex;flex-direction:column;gap:4px}
+.step-tag{font-size:12px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;color:var(--accent)}
+.lesson-head h3{font-size:26px;font-weight:700;letter-spacing:-.01em}
+.lesson p,.lesson li{max-width:68ch}
+.lesson p{margin:0}
+.lesson ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.lesson-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:800px){.lesson-grid{grid-template-columns:minmax(0,1fr)}}
+.exercise{display:flex;flex-direction:column;gap:10px;background:var(--bg);border-radius:12px;padding:14px 16px}
+.exercise .ex-title{font-family:var(--f-display);font-weight:700;font-size:18px}
+.ex-msg{font-weight:700;min-height:1.5em}
+.ex-msg.ok{color:var(--good)} .ex-msg.no{color:var(--bad)}
+.recipes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:560px){.recipes{grid-template-columns:minmax(0,1fr)}}
+.recipe{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.recipe h4{margin:0;font-family:var(--f-display);font-size:20px}
+.formula{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-weight:700}
+.formula .n{background:var(--accent-soft);color:var(--accent);border-radius:8px;padding:3px 10px}
+.formula .gap{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.strip{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:18px}
+.strip .n{font-family:var(--f-display);font-weight:700;font-size:24px}
+.strip .gap{font-family:var(--f-mono);font-size:13px;color:var(--muted);border:1px dashed var(--line);border-radius:999px;padding:2px 10px}
+.callout{border-left:3px solid var(--accent);padding:4px 0 4px 14px}
+svg.hands{width:100%;max-width:520px;height:auto;display:block;margin:0 auto}
+svg.hands .skin{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5}
+svg.hands .finger{cursor:pointer}
+svg.hands .finger:hover .skin,svg.hands .finger.on .skin{fill:var(--accent)}
+svg.hands .num-bg{fill:var(--surface);stroke:var(--accent);stroke-width:1.5}
+svg.hands .num{font-family:var(--f-mono);font-size:15px;fill:var(--ink);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+svg.hands .cap{font-family:var(--f-display);font-size:16px;font-weight:700;fill:var(--ink);text-anchor:middle}
+svg.hands .finger:focus-visible .skin{stroke-width:3}
+.finger-names{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;text-align:center;font-size:13px;color:var(--muted)}
+.finger-names b{display:block;font-family:var(--f-mono);font-size:18px;color:var(--ink)}
+.key.white.mark-bad{background:#f3c2bd}
+.key.black.mark-bad{background:linear-gradient(#e0665d,#c2352d 30%)}
+.key.white.mark-step{background:#f2e7bd}
+.key.black.mark-step{background:linear-gradient(#7d6a35,#5a4b22 30%)}
+.key.white.mark-sel{background:#c9d3fb}
+.key.black.mark-sel{background:linear-gradient(#5b74ea,#2f4fd8 30%)}
+
+footer{color:var(--muted);font-size:13px}
+@media (prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>Nthl<span>keys</span></h1>
+      <p>Support numérique pour les cours, du premier cours au niveau intermédiaire</p>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button role="tab" id="tab-cours" aria-controls="cours" data-tab="cours">Cours</button>
+      <button role="tab" id="tab-clavier" aria-controls="clavier" data-tab="clavier">Clavier</button>
+      <button role="tab" id="tab-gammes" aria-controls="gammes" data-tab="gammes">Gammes et accords</button>
+      <button role="tab" id="tab-metronome" aria-controls="metronome" data-tab="metronome">Métronome</button>
+    </nav>
+  </header>
+
+  <!-- COURS -->
+  <section class="panel" id="cours" role="tabpanel" aria-labelledby="tab-cours">
+    <div class="panel-head">
+      <div>
+        <h2>Premier cours</h2>
+        <p>Trois étapes : se repérer sur le clavier, placer ses doigts, puis construire ses premiers accords, majeurs et mineurs.</p>
+      </div>
+      <div class="steps" aria-label="Aller à une étape">
+        <button type="button" data-goto="c1">1 · Les notes</button>
+        <button type="button" data-goto="c2">2 · Les doigts</button>
+        <button type="button" data-goto="c3">3 · Les accords</button>
+      </div>
+    </div>
+
+    <article class="card lesson" id="c1">
+      <div class="lesson-head"><span class="step-tag">Étape 1</span><h3>Où sont les notes sur le clavier ?</h3></div>
+      <div class="lesson-grid">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <p>Le clavier répète toujours le même motif : <b>7 touches blanches et 5 touches noires</b>. Les touches noires sont rangées par groupes de <b>2</b> et de <b>3</b>. Ce sont elles qui servent de repères.</p>
+          <ul>
+            <li><b>Do</b> est la touche blanche juste à gauche du groupe de 2 touches noires.</li>
+            <li><b>Fa</b> est la touche blanche juste à gauche du groupe de 3 touches noires.</li>
+            <li>Les touches blanches se suivent dans l'ordre : Do, Ré, Mi, Fa, Sol, La, Si, puis on recommence à Do.</li>
+            <li>Vers la gauche, le son devient plus grave. Vers la droite, il devient plus aigu.</li>
+            <li>Le <b>Do central</b> est le Do le plus proche du milieu du piano, en général face à la marque.</li>
+          </ul>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span class="label">Montrer sur le clavier</span>
+          <div class="row" id="c1-show">
+            <button type="button" class="btn small" data-show="g2">Groupes de 2 noires</button>
+            <button type="button" class="btn small" data-show="g3">Groupes de 3 noires</button>
+            <button type="button" class="btn small" data-show="do">Tous les Do</button>
+            <button type="button" class="btn small" data-show="fa">Tous les Fa</button>
+            <button type="button" class="btn small" data-show="all">Le nom de chaque touche</button>
+            <button type="button" class="btn small" data-show="none">Effacer</button>
+          </div>
+          <p class="note-muted" id="c1-caption">Cliquez sur une touche pour l'entendre.</p>
+        </div>
+      </div>
+      <div id="kb-c1" class="kb-mid"></div>
+      <div class="exercise">
+        <span class="ex-title">À vous de jouer</span>
+        <div class="row">
+          <span>Trouvez toutes les touches</span>
+          <div class="seg" id="c1-target">
+            <button type="button" data-v="0" aria-pressed="false">Do</button>
+            <button type="button" data-v="4" aria-pressed="false">Mi</button>
+            <button type="button" data-v="5" aria-pressed="false">Fa</button>
+            <button type="button" data-v="7" aria-pressed="false">Sol</button>
+            <button type="button" data-v="9" aria-pressed="false">La</button>
+            <button type="button" data-v="11" aria-pressed="false">Si</button>
+          </div>
+        </div>
+        <div class="ex-msg" id="c1-msg" aria-live="polite">Choisissez une note, puis cliquez sur toutes les touches qui portent ce nom.</div>
+      </div>
+    </article>
+
+    <article class="card lesson" id="c2">
+      <div class="lesson-head"><span class="step-tag">Étape 2</span><h3>Le placement des doigts</h3></div>
+      <div class="lesson-grid">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <p>Au piano, chaque doigt porte un <b>numéro</b>, le même pour les deux mains. Le pouce est toujours le 1.</p>
+          <div class="finger-names">
+            <div><b>1</b>pouce</div><div><b>2</b>index</div><div><b>3</b>majeur</div><div><b>4</b>annulaire</div><div><b>5</b>auriculaire</div>
+          </div>
+          <p class="callout">Bonne posture : assis au milieu du clavier, avant-bras à hauteur des touches, poignets souples, <b>doigts arrondis</b> comme si la main tenait une balle. On joue avec le bout du doigt.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <svg class="hands" id="hands" viewBox="0 0 520 250" role="group" aria-label="Les deux mains, doigts numérotés"></svg>
+          <p class="note-muted" style="text-align:center">Mains posées sur le clavier, vues de dessus. Cliquez sur un doigt.</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <h4 style="margin:0;font-family:var(--f-display);font-size:20px">La position de Do</h4>
+        <p><b>Main droite</b> : le pouce (1) se pose sur le Do central, puis un doigt par touche blanche : 1 Do, 2 Ré, 3 Mi, 4 Fa, 5 Sol.<br>
+        <b>Main gauche</b> : l'auriculaire (5) se pose sur le Do plus grave, puis 4 Ré, 3 Mi, 2 Fa, et le pouce (1) sur Sol.</p>
+        <div class="row">
+          <div class="seg" id="c2-hand">
+            <button type="button" data-v="rh" aria-pressed="true">Main droite</button>
+            <button type="button" data-v="lh" aria-pressed="false">Main gauche</button>
+            <button type="button" data-v="both" aria-pressed="false">Les deux</button>
+          </div>
+          <button type="button" class="btn primary" id="c2-play">Écouter Do Ré Mi Fa Sol</button>
+        </div>
+      </div>
+      <div id="kb-c2" class="kb-mid"></div>
+    </article>
+
+    <article class="card lesson" id="c3">
+      <div class="lesson-head"><span class="step-tag">Étape 3</span><h3>Construire un accord majeur et un accord mineur</h3></div>
+      <p>Un accord, ce sont <b>trois notes jouées ensemble</b>. On part de la <b>fondamentale</b>, puis on compte les notes une par une vers la droite, en comptant <b>toutes les touches, blanches et noires</b>.</p>
+      <div class="recipes">
+        <div class="recipe">
+          <h4>Accord majeur</h4>
+          <div class="formula"><span class="n">fondamentale</span><span class="gap">+ 4 notes</span><span class="gap">+ 3 notes</span></div>
+          <p class="note-muted">Son lumineux, joyeux. Exemple : Do, Mi, Sol.</p>
+        </div>
+        <div class="recipe">
+          <h4>Accord mineur</h4>
+          <div class="formula"><span class="n">fondamentale</span><span class="gap">+ 3 notes</span><span class="gap">+ 4 notes</span></div>
+          <p class="note-muted">Son plus sombre, mélancolique. Exemple : Do, Mi♭, Sol.</p>
+        </div>
+      </div>
+      <div class="exercise">
+        <span class="ex-title">Pour aller plus loin : les tons et les demi-tons</span>
+        <p>Compter « 4 notes » ou « 3 notes » est la façon la plus simple de construire un accord. En théorie musicale, on dit la même chose avec les <b>tons</b> et les <b>demi-tons</b>.</p>
+        <ul>
+          <li><b>1 demi-ton</b> : on passe d'une touche à la touche juste à côté, blanche ou noire. Compter 1 note, c'est avancer d'un demi-ton.</li>
+          <li><b>1 ton</b> = 2 demi-tons. Par exemple, de Do à Ré, il y a 1 ton, car on passe par la touche noire entre les deux.</li>
+          <li>Entre <b>Mi et Fa</b> et entre <b>Si et Do</b>, il n'y a pas de touche noire : ces touches blanches ne sont séparées que d'un demi-ton.</li>
+        </ul>
+        <div class="recipes">
+          <div class="recipe">
+            <h4>Accord majeur</h4>
+            <p>+ 4 notes = 4 demi-tons = <b>2 tons</b><br>+ 3 notes = 3 demi-tons = <b>1 ton et demi</b></p>
+          </div>
+          <div class="recipe">
+            <h4>Accord mineur</h4>
+            <p>+ 3 notes = 3 demi-tons = <b>1 ton et demi</b><br>+ 4 notes = 4 demi-tons = <b>2 tons</b></p>
+          </div>
+        </div>
+      </div>
+      <p class="callout">Entre un accord majeur et un accord mineur, <b>seule la note du milieu change</b> : elle descend d'une note. Doigté : main droite <b>1 – 3 – 5</b>, main gauche <b>5 – 3 – 1</b>.</p>
+      <div class="row" style="justify-content:space-between">
+        <div class="row">
+          <span class="label">Cliquez sur une touche pour choisir la fondamentale</span>
+        </div>
+        <div class="row">
+          <div class="seg" id="c3-type">
+            <button type="button" data-v="M" aria-pressed="true">Majeur</button>
+            <button type="button" data-v="m" aria-pressed="false">Mineur</button>
+          </div>
+          <button type="button" class="btn" id="c3-play">Écouter</button>
+          <button type="button" class="btn primary" id="c3-compare">Comparer majeur et mineur</button>
+        </div>
+      </div>
+      <div id="kb-c3" class="kb-mid"></div>
+      <div class="strip" id="c3-strip" aria-live="polite"></div>
+      <div class="exercise">
+        <span class="ex-title">À vous de jouer</span>
+        <p id="c3-ex-q" style="font-size:18px"></p>
+        <div id="kb-c3ex" class="kb-small"></div>
+        <div class="row">
+          <button type="button" class="btn primary" id="c3-check">Vérifier</button>
+          <button type="button" class="btn" id="c3-sol">Voir la solution</button>
+          <button type="button" class="btn" id="c3-next">Accord suivant</button>
+        </div>
+        <div class="ex-msg" id="c3-msg" aria-live="polite">Cliquez sur trois touches pour former l'accord, puis vérifiez.</div>
+      </div>
+    </article>
+  </section>
+
+  <!-- CLAVIER -->
+  <section class="panel" id="clavier" role="tabpanel" aria-labelledby="tab-clavier" hidden>
+    <div class="panel-head">
+      <div>
+        <h2>Clavier</h2>
+        <p>Jouez à la souris, au doigt ou avec le clavier de l'ordinateur. Chaque note s'affiche sur la portée pour relier la touche à la partition.</p>
+      </div>
+      <div class="row">
+        <div class="field"><span class="label">Noms des notes</span>
+          <div class="seg" id="kb-names">
+            <button type="button" data-v="fr" aria-pressed="true">Do Ré Mi</button>
+            <button type="button" data-v="en" aria-pressed="false">C D E</button>
+            <button type="button" data-v="none" aria-pressed="false">Masqués</button>
+          </div>
+        </div>
+        <div class="field"><span class="label">Octaves</span>
+          <div class="seg" id="kb-oct">
+            <button type="button" data-d="-1" aria-label="Octave plus grave">← Grave</button>
+            <button type="button" data-d="1" aria-label="Octave plus aiguë">Aigu →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card"><div id="kb-main" class="kb-big"></div></div>
+    <div class="grid2">
+      <div class="card now">
+        <span class="label">Dernière note jouée</span>
+        <span class="big" id="now-name">Do3</span>
+        <span class="sub" id="now-sub">C4 · 261,6 Hz · Do central</span>
+        <p class="tip" style="margin-top:10px">Convention française : le Do central s'appelle <b>Do3</b> (C4 en notation anglo-saxonne).</p>
+      </div>
+      <div class="card">
+        <span class="label">Sur la portée</span>
+        <svg class="staff" id="now-staff" viewBox="0 0 240 150" role="img" aria-label="Portée"></svg>
+      </div>
+    </div>
+    <p class="tip">Raccourcis (clavier AZERTY) : <kbd>Q</kbd><kbd>S</kbd><kbd>D</kbd><kbd>F</kbd><kbd>G</kbd><kbd>H</kbd><kbd>J</kbd><kbd>K</kbd> pour les touches blanches à partir du Do du milieu, <kbd>Z</kbd><kbd>E</kbd><kbd>T</kbd><kbd>Y</kbd><kbd>U</kbd> pour les touches noires.</p>
+  </section>
+
+  <!-- GAMMES -->
+  <section class="panel" id="gammes" role="tabpanel" aria-labelledby="tab-gammes" hidden>
+    <div class="panel-head">
+      <div>
+        <h2>Gammes et accords</h2>
+        <p>Choisissez une tonique : la gamme ou l'accord s'éclaire sur le clavier, avec l'orthographe exacte des notes et le doigté quand il est indiqué.</p>
+      </div>
+      <div class="row">
+        <div class="field"><label class="label" for="g-tonic">Tonique</label><select id="g-tonic"></select></div>
+        <div class="field"><span class="label">Afficher</span>
+          <div class="seg" id="g-kind">
+            <button type="button" data-v="scale" aria-pressed="true">Gamme</button>
+            <button type="button" data-v="chord" aria-pressed="false">Accord</button>
+          </div>
+        </div>
+        <div class="field" id="g-scale-f"><label class="label" for="g-scale">Gamme</label><select id="g-scale"></select></div>
+        <div class="field" id="g-chord-f" hidden><label class="label" for="g-chord">Accord</label><select id="g-chord"></select></div>
+        <div class="field" id="g-inv-f" hidden><label class="label" for="g-inv">Renversement</label><select id="g-inv"></select></div>
+      </div>
+    </div>
+    <div class="card"><div id="kb-scale" class="kb-mid"></div></div>
+    <div class="card" style="display:flex;flex-direction:column;gap:14px">
+      <div class="row" style="justify-content:space-between">
+        <h3 id="g-title" style="font-size:22px">Do majeur</h3>
+        <div class="row">
+          <div class="seg" id="g-hand">
+            <button type="button" data-v="rh" aria-pressed="true">Main droite</button>
+            <button type="button" data-v="lh" aria-pressed="false">Main gauche</button>
+          </div>
+          <div class="field"><select id="g-speed" aria-label="Vitesse d'écoute">
+            <option value="0.6">Lent</option><option value="0.4" selected>Modéré</option><option value="0.25">Rapide</option>
+          </select></div>
+          <button type="button" class="btn" id="g-play1">Écouter</button>
+          <button type="button" class="btn primary" id="g-play2">Montée et descente</button>
+        </div>
+      </div>
+      <div class="chips" id="g-chips"></div>
+      <p class="note-muted" id="g-note"></p>
+    </div>
+    <div class="card" id="g-degrees-card" style="display:flex;flex-direction:column;gap:10px">
+      <div><h3 style="font-size:18px">Accords de la gamme</h3>
+      <p class="note-muted">Les accords de trois sons construits sur chaque degré. Cliquez pour les entendre et les voir.</p></div>
+      <div class="degrees" id="g-degrees"></div>
+    </div>
+  </section>
+
+  <!-- METRONOME -->
+  <section class="panel" id="metronome" role="tabpanel" aria-labelledby="tab-metronome" hidden>
+    <div class="panel-head">
+      <div>
+        <h2>Métronome</h2>
+        <p>Du Largo au Presto, de 40 à 208 battements par minute, comme un métronome de Maelzel. La barre d'espace démarre et arrête.</p>
+      </div>
+    </div>
+    <div class="metro">
+      <div class="card" style="display:flex;flex-direction:column;gap:14px">
+        <div class="bpm"><b id="m-bpm">80</b><span>battements / min</span></div>
+        <div class="tempo-name" id="m-name">Andante</div>
+        <input type="range" id="m-range" min="40" max="208" value="80" aria-label="Tempo">
+        <div class="row">
+          <button type="button" class="btn small" data-step="-5">−5</button>
+          <button type="button" class="btn small" data-step="-1">−1</button>
+          <button type="button" class="btn small" data-step="1">+1</button>
+          <button type="button" class="btn small" data-step="5">+5</button>
+          <button type="button" class="btn small" id="m-tap">Taper le tempo</button>
+        </div>
+        <div class="field"><span class="label">Mesure</span>
+          <div class="seg" id="m-sig">
+            <button type="button" data-v="2" aria-pressed="false">2/4</button>
+            <button type="button" data-v="3" aria-pressed="false">3/4</button>
+            <button type="button" data-v="4" aria-pressed="true">4/4</button>
+            <button type="button" data-v="6" aria-pressed="false">6/8</button>
+          </div>
+        </div>
+        <div class="beats" id="m-beats"></div>
+        <button type="button" class="btn primary" id="m-toggle" style="font-size:18px;padding:14px">Démarrer</button>
+      </div>
+      <div class="card">
+        <span class="label">Indications de tempo</span>
+        <table class="tempo-table" id="m-table"><tbody></tbody></table>
+        <p class="tip" style="margin-top:10px">Cliquez sur une indication pour régler le métronome au milieu de sa plage.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>Le son est produit dans le navigateur : touchez une première touche pour l'activer. Les doigtés indiqués sont les doigtés usuels ; adaptez-les à chaque élève.</footer>
+</div>
+
+<script>
+(() => {
+/* ================= Théorie ================= */
+const LETTERS = ['Do','Ré','Mi','Fa','Sol','La','Si'];
+const LETTERS_EN = ['C','D','E','F','G','A','B'];
+const LETTER_PC = [0,2,4,5,7,9,11];
+const PC_LETTER = [0,0,1,1,2,3,3,4,4,5,5,6];
+const isBlack = pc => [1,3,6,8,10].includes(((pc%12)+12)%12);
+const ACC = {'-2':'♭♭','-1':'♭','0':'','1':'♯','2':'♯♯'};
+const pcOf = m => ((m%12)+12)%12;
+const frName = m => { const pc=pcOf(m); return LETTERS[PC_LETTER[pc]] + (isBlack(pc)?'♯':''); };
+const enName = m => { const pc=pcOf(m); return LETTERS_EN[PC_LETTER[pc]] + (isBlack(pc)?'♯':''); };
+const sciOct = m => Math.floor(m/12)-1;
+const freq = m => 440*Math.pow(2,(m-69)/12);
+function spell(letterIdx, pc){
+  let d = ((pc - LETTER_PC[letterIdx%7]) % 12 + 12) % 12; if (d>6) d-=12;
+  return LETTERS[letterIdx%7] + (ACC[d] ?? '');
+}
+const idxToMidi = i => (Math.floor(i/7)+1)*12 + LETTER_PC[i%7];
+
+/* ================= Son ================= */
+let ctx=null, master=null;
+function ac(){
+  if(!ctx){
+    ctx = new (window.AudioContext||window.webkitAudioContext)();
+    master = ctx.createGain(); master.gain.value = 0.55;
+    const comp = ctx.createDynamicsCompressor();
+    master.connect(comp); comp.connect(ctx.destination);
+  }
+  if(ctx.state==='suspended') ctx.resume();
+  return ctx;
+}
+function playNote(m, when=0, dest=null){
+  const c = ac(), t = c.currentTime + when, f = freq(m);
+  const dur = Math.max(0.9, 2.6 - (m-48)*0.03);
+  const g = c.createGain();
+  g.gain.setValueAtTime(0.0001,t);
+  g.gain.exponentialRampToValueAtTime(0.5,t+0.006);
+  g.gain.exponentialRampToValueAtTime(0.18,t+0.3);
+  g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  const lp = c.createBiquadFilter(); lp.type='lowpass';
+  lp.frequency.setValueAtTime(Math.min(f*9,14000),t);
+  lp.frequency.exponentialRampToValueAtTime(Math.max(f*2.2,500),t+dur*0.7);
+  [[1,1],[2,.42],[3,.2],[4,.11],[5,.05],[6,.03]].forEach(([h,a])=>{
+    const o=c.createOscillator(); o.type='sine'; o.frequency.value=f*h; o.detune.value=(h-1)*1.8;
+    const og=c.createGain(); og.gain.value=a; o.connect(og); og.connect(lp);
+    o.start(t); o.stop(t+dur+0.05);
+  });
+  lp.connect(g); g.connect(dest||master);
+}
+let seq = null;
+function stopSeq(){
+  if(!seq) return;
+  seq.timers.forEach(clearTimeout);
+  try{ seq.gain.gain.setTargetAtTime(0, ctx.currentTime, 0.02); }catch(e){}
+  seq=null;
+}
+// steps: [{notes:[midi], at:sec}]
+function playSeq(steps, kb){
+  stopSeq(); const c=ac();
+  const gain=c.createGain(); gain.connect(master);
+  const s = {gain, timers:[]}; seq=s;
+  steps.forEach(st=>{
+    st.notes.forEach(m=>playNote(m, st.at, gain));
+    s.timers.push(setTimeout(()=>st.notes.forEach(m=>kb && kb.flash(m, 260)), st.at*1000));
+  });
+}
+
+/* ================= Clavier ================= */
+function Keyboard(el, {from, to, onPress, labels='fr', hints={}}){
+  el.classList.add('kb'); el.innerHTML='';
+  let n=0; for(let m=from;m<=to;m++) if(!isBlack(m)) n++;
+  const inner=document.createElement('div'); inner.className='kb-inner'; inner.style.setProperty('--n', n);
+  el.appendChild(inner);
+  const keys=new Map(); let wi=0, mouseDown=false;
+  for(let m=from;m<=to;m++){
+    const black=isBlack(m);
+    const k=document.createElement('button'); k.type='button';
+    k.className='key '+(black?'black':'white'); k.dataset.midi=m;
+    k.setAttribute('aria-label', frName(m)+(sciOct(m)-1));
+    k.innerHTML='<span class="fing"></span><span class="lbl"></span><span class="hint"></span>';
+    if(black){ k.style.left = ((wi-0.31)/n*100)+'%'; }
+    else wi++;
+    k.addEventListener('pointerdown', e=>{ e.preventDefault(); mouseDown=true; trigger(m); });
+    k.addEventListener('pointerenter', e=>{ if(mouseDown && e.pointerType==='mouse') trigger(m); });
+    k.addEventListener('click', e=>{ if(e.detail===0) trigger(m); });
+    inner.appendChild(k); keys.set(m,k);
+  }
+  window.addEventListener('pointerup', ()=>{ mouseDown=false; });
+  function trigger(m){ flash(m); onPress && onPress(m); }
+  function flash(m, ms=200){ const k=keys.get(m); if(!k) return; k.classList.add('down'); clearTimeout(k._t); k._t=setTimeout(()=>k.classList.remove('down'), ms); }
+  let marks={};
+  function render(){
+    keys.forEach((k,m)=>{
+      const mk=marks[m];
+      k.classList.remove('mark','mark-soft','mark-good');
+      if(mk && mk.cls) k.classList.add(mk.cls);
+      let lbl='';
+      if(mk && mk.label!=null) lbl=mk.label;
+      else if(labels==='fr') lbl = isBlack(m)?'':frName(m);
+      else if(labels==='en') lbl = isBlack(m)?'':enName(m);
+      if(labels!=='none' && !isBlack(m) && pcOf(m)===0 && !(mk && mk.label!=null)) lbl += (labels==='fr'? sciOct(m)-1 : sciOct(m));
+      k.querySelector('.lbl').textContent=lbl;
+      k.querySelector('.fing').textContent = mk && mk.finger ? mk.finger : '';
+      k.querySelector('.hint').textContent = hints[m]||'';
+    });
+  }
+  render();
+  return {
+    flash,
+    setMarks(mk){ marks=mk||{}; render(); },
+    setLabels(l){ labels=l; render(); },
+    setHints(h){ hints=h||{}; render(); },
+    scrollTo(m){ const k=keys.get(m); if(k && el.scrollWidth>el.clientWidth) el.scrollLeft = k.offsetLeft - el.clientWidth/2 + k.offsetWidth/2; }
+  };
+}
+
+/* ================= Portée ================= */
+function drawStaff(svg, {clef, idx=null, sharp=false, state=''}){
+  const base = clef==='sol' ? 30 : 18;           // Mi3 / Sol1 sur la ligne du bas
+  const W=240, top=50, gap=12, bottom=top+4*gap;
+  const y = i => bottom-(i-base)*gap/2;
+  let s='';
+  for(let k=0;k<5;k++) s+=`<line class="st-line" x1="8" x2="${W-8}" y1="${top+k*gap}" y2="${top+k*gap}"/>`;
+  if(clef==='sol') s+=`<text class="clef" x="14" y="${bottom-gap}" font-size="${gap*5.6}">𝄞</text>`;
+  else s+=`<text class="clef" x="14" y="${top+gap*3}" font-size="${gap*5.6}">𝄢</text>`;
+  if(idx!=null){
+    const cx=150, cy=y(idx);
+    if(idx<base) for(let l=base-2;l>=idx;l-=2) s+=`<line class="ledger" x1="${cx-13}" x2="${cx+13}" y1="${y(l)}" y2="${y(l)}"/>`;
+    if(idx>base+8) for(let l=base+10;l<=idx;l+=2) s+=`<line class="ledger" x1="${cx-13}" x2="${cx+13}" y1="${y(l)}" y2="${y(l)}"/>`;
+    if(sharp) s+=`<text class="acc" x="${cx-28}" y="${cy+6}" font-size="${gap*2.1}">♯</text>`;
+    const up = idx < base+4;
+    s+= up ? `<line class="stem" x1="${cx+6.6}" x2="${cx+6.6}" y1="${cy-1}" y2="${cy-36}"/>`
+           : `<line class="stem" x1="${cx-6.6}" x2="${cx-6.6}" y1="${cy+1}" y2="${cy+36}"/>`;
+    s+=`<ellipse class="head" cx="${cx}" cy="${cy}" rx="7.4" ry="5.3" transform="rotate(-20 ${cx} ${cy})"/>`;
+  }
+  svg.innerHTML=s;
+  svg.setAttribute('class','staff'+(state?' '+state:''));
+}
+function midiToStaff(m){
+  const pc=pcOf(m), letter=PC_LETTER[pc];
+  return {idx: letter + 7*sciOct(m), sharp:isBlack(pc), clef: m>=60?'sol':'fa'};
+}
+
+const store = {
+  get(k,d){ try{ const v=localStorage.getItem('atelier-piano:'+k); return v==null?d:JSON.parse(v);}catch(e){return d;} },
+  set(k,v){ try{ localStorage.setItem('atelier-piano:'+k, JSON.stringify(v)); }catch(e){} }
+};
+
+/* ================= Onglets ================= */
+const TABS=['cours','clavier','gammes','metronome'];
+let current='clavier';
+function showTab(id){
+  if(!TABS.includes(id)) id='cours';
+  current=id;
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.setAttribute('aria-selected', b.dataset.tab===id));
+  TABS.forEach(t=>document.getElementById(t).hidden = t!==id);
+  store.set('onglet', id);
+  if(id==='gammes') renderScale();
+}
+document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{ showTab(b.dataset.tab); try{history.replaceState(null,'','#'+b.dataset.tab);}catch(e){} }));
+function bindSeg(id, fn){
+  const el=document.getElementById(id);
+  el.querySelectorAll('button[data-v]').forEach(b=>b.addEventListener('click',()=>{
+    el.querySelectorAll('button[data-v]').forEach(x=>x.setAttribute('aria-pressed', x===b));
+    fn(b.dataset.v);
+  }));
+}
+
+/* ================= 0. Cours ================= */
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>{
+  const el=document.getElementById(b.dataset.goto);
+  const smooth=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  el.scrollIntoView({behavior:smooth?'smooth':'auto', block:'start'});
+}));
+
+// Étape 1 : se repérer
+let c1Target=null, c1Found=new Set();
+const kbC1 = Keyboard(document.getElementById('kb-c1'), {from:48, to:83, labels:'none', onPress:m=>{
+  playNote(m);
+  if(c1Target==null) { document.getElementById('c1-caption').textContent = `C'est un ${frName(m)}.`; return; }
+  const msg=document.getElementById('c1-msg');
+  const total=[...Array(36)].filter((_,i)=>pcOf(48+i)===c1Target).length;
+  if(pcOf(m)===c1Target){
+    c1Found.add(m);
+    msg.className='ex-msg ok';
+    msg.textContent = c1Found.size===total ? `Bravo ! Les ${total} ${LETTERS[PC_LETTER[c1Target]]} sont trouvés.` : `Oui, c'est un ${frName(m)}. ${c1Found.size} sur ${total}.`;
+  } else {
+    msg.className='ex-msg no';
+    msg.textContent = `Non, cette touche est un ${frName(m)}. ${c1Hint(c1Target)}`;
+  }
+  const marks={}; c1Found.forEach(x=>marks[x]={cls:'mark-good', label:frName(x)});
+  if(pcOf(m)!==c1Target){ marks[m]={cls:'mark-bad', label:frName(m)}; setTimeout(()=>{ if(c1Target!=null){ delete marks[m]; kbC1.setMarks(marks);} },900); }
+  kbC1.setMarks(marks);
+}});
+function c1Hint(pc){
+  return {0:'Le Do est juste à gauche des 2 touches noires.',4:'Le Mi est juste à droite des 2 touches noires.',5:'Le Fa est juste à gauche des 3 touches noires.',
+          7:'Le Sol est entre la 1ʳᵉ et la 2ᵉ touche noire du groupe de 3.',9:'Le La est entre la 2ᵉ et la 3ᵉ touche noire du groupe de 3.',11:'Le Si est juste à droite des 3 touches noires.'}[pc];
+}
+document.querySelectorAll('#c1-show button').forEach(b=>b.addEventListener('click',()=>{
+  c1Target=null; document.querySelectorAll('#c1-target button').forEach(x=>x.setAttribute('aria-pressed','false'));
+  const v=b.dataset.show, marks={}, cap=document.getElementById('c1-caption');
+  kbC1.setLabels(v==='all'?'fr':'none');
+  for(let m=48;m<=83;m++){
+    const pc=pcOf(m);
+    if(v==='g2' && (pc===1||pc===3)) marks[m]={cls:'mark'};
+    if(v==='g3' && (pc===6||pc===8||pc===10)) marks[m]={cls:'mark'};
+    if(v==='do' && pc===0) marks[m]={cls:'mark', label:'Do'};
+    if(v==='fa' && pc===5) marks[m]={cls:'mark', label:'Fa'};
+    if((v==='do'||v==='fa') && (v==='do'?(pc===1||pc===3):(pc===6||pc===8||pc===10))) marks[m]={cls:'mark-soft'};
+  }
+  kbC1.setMarks(marks);
+  cap.textContent = {g2:'Les touches noires vont par deux…',g3:'…puis par trois. Le motif se répète sur tout le clavier.',
+    do:'Chaque Do est juste à gauche d’un groupe de 2 noires.',fa:'Chaque Fa est juste à gauche d’un groupe de 3 noires.',
+    all:'Do, Ré, Mi, Fa, Sol, La, Si : les noms se répètent à chaque octave.',none:'Cliquez sur une touche pour l’entendre.'}[v];
+}));
+bindSeg('c1-target', v=>{
+  c1Target=Number(v); c1Found=new Set(); kbC1.setLabels('none'); kbC1.setMarks({});
+  const msg=document.getElementById('c1-msg'); msg.className='ex-msg';
+  msg.textContent=`Cliquez sur tous les ${LETTERS[PC_LETTER[c1Target]]} du clavier.`;
+  document.getElementById('c1-caption').textContent='Exercice en cours.';
+});
+
+// Étape 2 : les doigts
+const FINGER_KEYS={rh:{1:60,2:62,3:64,4:65,5:67}, lh:{5:48,4:50,3:52,2:53,1:55}};
+let c2Hand='rh';
+const kbC2 = Keyboard(document.getElementById('kb-c2'), {from:48, to:71, labels:'fr', onPress:m=>playNote(m)});
+function c2Marks(){
+  const marks={};
+  ['rh','lh'].forEach(h=>{ if(c2Hand===h||c2Hand==='both') Object.entries(FINGER_KEYS[h]).forEach(([f,m])=>marks[m]={cls:'mark', finger:f}); });
+  kbC2.setMarks(marks);
+}
+function drawHands(){
+  const svg=document.getElementById('hands');
+  // doigts de la main droite, du pouce à l'auriculaire : x, sommet, longueur
+  const F=[{f:1,x:48,top:112,h:92,rot:-42},{f:2,x:70,top:40,h:110},{f:3,x:106,top:22,h:126},{f:4,x:142,top:36,h:112},{f:5,x:178,top:66,h:84}];
+  const W=230, w=32;
+  let s='';
+  [['lh',10,true,'Main gauche'],['rh',280,false,'Main droite']].forEach(([hand,ox,mir,cap])=>{
+    const X = x => mir ? ox + (W - x - w) : ox + x;
+    s+=`<rect class="skin" x="${ox+(mir?W-58-150:58)}" y="120" width="150" height="100" rx="34"/>`;
+    F.forEach(d=>{
+      const x=X(d.x), rot=mir?-(d.rot||0):(d.rot||0);
+      const cx=x+w/2, base=d.top+d.h;
+      s+=`<g class="finger" tabindex="0" role="button" aria-label="${cap}, doigt ${d.f}" data-hand="${hand}" data-f="${d.f}" transform="rotate(${rot} ${cx} ${base})">`
+        +`<rect class="skin" x="${x}" y="${d.top}" width="${w}" height="${d.h}" rx="16"/>`
+        +`<circle class="num-bg" cx="${cx}" cy="${d.top+18}" r="12"/>`
+        +`<text class="num" x="${cx}" y="${d.top+18}" transform="rotate(${-rot} ${cx} ${d.top+18})">${d.f}</text></g>`;
+    });
+    s+=`<text class="cap" x="${ox+W/2}" y="244">${cap}</text>`;
+  });
+  svg.innerHTML=s;
+  svg.querySelectorAll('.finger').forEach(g=>{
+    const act=()=>{
+      const h=g.dataset.hand, f=g.dataset.f, m=FINGER_KEYS[h][f];
+      svg.querySelectorAll('.finger').forEach(x=>x.classList.toggle('on', x===g));
+      if(c2Hand!=='both' && c2Hand!==h){ c2Hand=h; document.querySelectorAll('#c2-hand button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.v===h)); c2Marks(); }
+      kbC2.flash(m,500); playNote(m);
+    };
+    g.addEventListener('click',act);
+    g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); act(); } });
+  });
+}
+drawHands(); c2Marks();
+bindSeg('c2-hand', v=>{ c2Hand=v; c2Marks(); });
+document.getElementById('c2-play').addEventListener('click',()=>{
+  const rh=[60,62,64,65,67], lh=[48,50,52,53,55], st=0.45;
+  const steps = rh.map((m,i)=>({notes: c2Hand==='rh'?[m]: c2Hand==='lh'?[lh[i]]:[m,lh[i]], at:i*st}));
+  playSeq(steps.concat(steps.slice(0,-1).reverse().map((s,i)=>({notes:s.notes, at:(5+i)*st}))), kbC2);
+});
+
+// Étape 3 : les accords
+const ROOT_NAME={M:{1:[1,-1],3:[2,-1],6:[3,1],8:[5,-1],10:[6,-1]}, m:{1:[0,1],3:[2,-1],6:[3,1],8:[4,1],10:[6,-1]}};
+function rootSpell(pc,type){ const r=ROOT_NAME[type][pc]; return r ? {l:r[0], name:spell(r[0],pc)} : {l:PC_LETTER[pc], name:LETTERS[PC_LETTER[pc]]}; }
+function triad(root,type){
+  const pc=pcOf(root), r=rootSpell(pc,type), third=type==='M'?4:3;
+  return {midis:[root,root+third,root+7], names:[r.name, spell(r.l+2,pc+third), spell(r.l+4,pc+7)], third};
+}
+let c3Root=60, c3Type='M';
+const kbC3 = Keyboard(document.getElementById('kb-c3'), {from:48, to:83, labels:'none', onPress:m=>{
+  c3Root = m>76 ? m-12 : m; renderC3(); playC3();
+}});
+function renderC3(){
+  const t=triad(c3Root,c3Type), marks={};
+  for(let k=1;k<t.third;k++) marks[c3Root+k]={cls:'mark-step', label:String(k)};
+  for(let k=1;k<7-t.third;k++) marks[c3Root+t.third+k]={cls:'mark-step', label:String(k)};
+  t.midis.forEach((m,i)=>marks[m]={cls:'mark', label:t.names[i], finger:[1,3,5][i]});
+  kbC3.setMarks(marks); kbC3.scrollTo(c3Root);
+  const label = c3Type==='M'?'majeur':'mineur';
+  document.getElementById('c3-strip').innerHTML =
+    `<span class="label" style="width:100%">Accord de ${t.names[0]} ${label}</span>`+
+    `<span class="n">${t.names[0]}</span><span class="gap">+ ${t.third} notes</span><span class="n">${t.names[1]}</span><span class="gap">+ ${7-t.third} notes</span><span class="n">${t.names[2]}</span>`;
+}
+function arpThenBlock(ms, kb, at0=0){ const st=0.28; return [...ms.map((m,k)=>({notes:[m],at:at0+k*st})), {notes:ms, at:at0+ms.length*st+0.1}]; }
+function playC3(){ playSeq(arpThenBlock(triad(c3Root,c3Type).midis), kbC3); }
+bindSeg('c3-type', v=>{ c3Type=v; renderC3(); playC3(); });
+document.getElementById('c3-play').addEventListener('click', playC3);
+document.getElementById('c3-compare').addEventListener('click',()=>{
+  const M=triad(c3Root,'M').midis, m=triad(c3Root,'m').midis;
+  const setT=(v)=>{ c3Type=v; document.querySelectorAll('#c3-type button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.v===v)); renderC3(); };
+  setT('M');
+  playSeq([...arpThenBlock(M), ...arpThenBlock(m,null,2.6)], kbC3);
+  if(seq) seq.timers.push(setTimeout(()=>setT('m'), 2600));
+});
+renderC3();
+
+// Exercice : construire un accord
+const EX=[[60,'M'],[65,'M'],[67,'M'],[69,'m'],[62,'m'],[64,'m'],[62,'M'],[69,'M'],[64,'M'],[60,'m'],[67,'m'],[65,'m']];
+let exI=0, exSel=new Set(), exDone=false;
+const kbEx = Keyboard(document.getElementById('kb-c3ex'), {from:60, to:83, labels:'none', onPress:m=>{
+  if(exDone) return;
+  playNote(m);
+  if(exSel.has(m)) exSel.delete(m); else { if(exSel.size>=3) exSel.delete([...exSel][0]); exSel.add(m); }
+  renderEx();
+}});
+function exTarget(){ const [r,t]=EX[exI]; return {...triad(r,t), type:t}; }
+function renderEx(state){
+  const marks={}; exSel.forEach(m=>marks[m]={cls: state==='ok'?'mark-good': state==='no'?'mark-bad':'mark-sel', label:frName(m)});
+  if(state==='sol') exTarget().midis.forEach((m,i)=>marks[m]={cls:'mark-good', label:exTarget().names[i], finger:[1,3,5][i]});
+  kbEx.setMarks(marks);
+}
+function newEx(){
+  exSel=new Set(); exDone=false;
+  const t=exTarget();
+  document.getElementById('c3-ex-q').innerHTML=`Construisez l'accord de <b>${t.names[0]} ${t.type==='M'?'majeur':'mineur'}</b>.`;
+  const msg=document.getElementById('c3-msg'); msg.className='ex-msg'; msg.textContent='Cliquez sur trois touches pour former l’accord, puis vérifiez.';
+  renderEx();
+}
+document.getElementById('c3-check').addEventListener('click',()=>{
+  const t=exTarget(), msg=document.getElementById('c3-msg');
+  const want=new Set(t.midis.map(pcOf)), got=new Set([...exSel].map(pcOf));
+  const ok = exSel.size===3 && [...want].every(p=>got.has(p));
+  if(exSel.size<3){ msg.className='ex-msg no'; msg.textContent=`Il faut trois touches. Vous en avez choisi ${exSel.size}.`; return; }
+  if(ok){ exDone=true; msg.className='ex-msg ok'; msg.textContent=`Bravo ! ${t.names.join(' – ')}.`; renderEx('ok'); playSeq(arpThenBlock([...exSel].sort((a,b)=>a-b)), kbEx); }
+  else {
+    msg.className='ex-msg no';
+    msg.textContent = !got.has(pcOf(t.midis[0])) ? `Pas encore. Commencez par trouver la fondamentale, ${t.names[0]}, puis comptez les notes.`
+      : `Pas encore. Depuis ${t.names[0]}, comptez ${t.third} notes, puis ${7-t.third} notes.`;
+    renderEx('no'); playSeq([{notes:[...exSel],at:0}], kbEx);
+  }
+});
+document.getElementById('c3-sol').addEventListener('click',()=>{
+  const t=exTarget(); exDone=true; exSel=new Set();
+  const msg=document.getElementById('c3-msg'); msg.className='ex-msg'; msg.textContent=`Solution : ${t.names.join(' – ')}.`;
+  renderEx('sol'); playSeq(arpThenBlock(t.midis), kbEx);
+});
+document.getElementById('c3-next').addEventListener('click',()=>{ exI=(exI+1)%EX.length; newEx(); });
+newEx();
+
+/* ================= 1. Clavier libre ================= */
+const KEYMAP = [['KeyA','Q'],['KeyW','Z'],['KeyS','S'],['KeyE','E'],['KeyD','D'],['KeyF','F'],['KeyT','T'],['KeyG','G'],['KeyY','Y'],['KeyH','H'],['KeyU','U'],['KeyJ','J'],['KeyK','K'],['KeyO','O'],['KeyL','L'],['KeyP','P'],['Semicolon','M']];
+let kbBase = 48, kbLabels = 'fr', kbMain;
+function buildMain(){
+  const base = kbBase + 12, hints={};
+  KEYMAP.forEach(([,l],i)=>hints[base+i]=l);
+  kbMain = Keyboard(document.getElementById('kb-main'), {from:kbBase, to:kbBase+24, labels:kbLabels, hints, onPress:m=>{ playNote(m); showNow(m); }});
+}
+function showNow(m){
+  const fo = sciOct(m)-1;
+  document.getElementById('now-name').textContent = frName(m)+fo;
+  const central = m===60 ? ' · Do central' : '';
+  document.getElementById('now-sub').textContent = `${enName(m)}${sciOct(m)} · ${freq(m).toFixed(1).replace('.',',')} Hz${central}`;
+  const st = midiToStaff(m);
+  drawStaff(document.getElementById('now-staff'), st);
+}
+buildMain(); showNow(60);
+bindSeg('kb-names', v=>{ kbLabels=v; kbMain.setLabels(v); });
+document.querySelectorAll('#kb-oct button').forEach(b=>b.addEventListener('click',()=>{
+  kbBase = Math.min(60, Math.max(36, kbBase + 12*Number(b.dataset.d))); buildMain();
+}));
+const held=new Set();
+window.addEventListener('keydown', e=>{
+  const tag=(e.target.tagName||'').toLowerCase();
+  if(tag==='input'||tag==='select'||tag==='textarea') return;
+  if(current==='metronome' && e.code==='Space'){ e.preventDefault(); toggleMetro(); return; }
+  if(current!=='clavier' || e.metaKey || e.ctrlKey || e.altKey) return;
+  const i = KEYMAP.findIndex(([c])=>c===e.code); if(i<0 || held.has(e.code)) return;
+  held.add(e.code); const m=kbBase+12+i; kbMain.flash(m,300); playNote(m); showNow(m);
+});
+window.addEventListener('keyup', e=>held.delete(e.code));
+
+/* ================= 2. Gammes et accords ================= */
+const TONICS=[['Do',0,0],['Do♯',0,1],['Ré♭',1,-1],['Ré',1,0],['Mi♭',2,-1],['Mi',2,0],['Fa',3,0],['Fa♯',3,1],['Sol♭',4,-1],['Sol',4,0],['La♭',5,-1],['La',5,0],['Si♭',6,-1],['Si',6,0]]
+  .map(([n,l,a])=>({n,l,pc:(LETTER_PC[l]+a+12)%12}));
+const SCALES={
+  maj:  {label:'Majeure', short:'majeur', iv:[0,2,4,5,7,9,11]},
+  nat:  {label:'Mineure naturelle', short:'mineur naturel', iv:[0,2,3,5,7,8,10]},
+  harm: {label:'Mineure harmonique', short:'mineur harmonique', iv:[0,2,3,5,7,8,11]},
+  mel:  {label:'Mineure mélodique (montante)', short:'mineur mélodique', iv:[0,2,3,5,7,9,11]},
+  pM:   {label:'Pentatonique majeure', short:'pentatonique majeure', iv:[0,2,4,7,9], lt:[0,1,2,4,5]},
+  pm:   {label:'Pentatonique mineure', short:'pentatonique mineure', iv:[0,3,5,7,10], lt:[0,2,3,4,6]},
+};
+const CHORDS={
+  M:    {label:'Majeur', iv:[0,4,7], lt:[0,2,4]},
+  m:    {label:'Mineur', iv:[0,3,7], lt:[0,2,4]},
+  dim:  {label:'Diminué', iv:[0,3,6], lt:[0,2,4]},
+  aug:  {label:'Augmenté', iv:[0,4,8], lt:[0,2,4]},
+  sus4: {label:'Quarte suspendue (sus4)', iv:[0,5,7], lt:[0,3,4]},
+  d7:   {label:'Septième de dominante', iv:[0,4,7,10], lt:[0,2,4,6]},
+  M7:   {label:'Septième majeure', iv:[0,4,7,11], lt:[0,2,4,6]},
+  m7:   {label:'Mineur septième', iv:[0,3,7,10], lt:[0,2,4,6]},
+  m7b5: {label:'Demi-diminué', iv:[0,3,6,10], lt:[0,2,4,6]},
+};
+const STD_RH=[1,2,3,1,2,3,4,5], STD_LH=[5,4,3,2,1,3,2,1];
+const FING={
+  'maj|Do':[STD_RH,STD_LH],'maj|Sol':[STD_RH,STD_LH],'maj|Ré':[STD_RH,STD_LH],'maj|La':[STD_RH,STD_LH],'maj|Mi':[STD_RH,STD_LH],
+  'maj|Fa':[[1,2,3,4,1,2,3,4],STD_LH],'maj|Si':[STD_RH,[4,3,2,1,4,3,2,1]],
+};
+['nat','harm','mel'].forEach(t=>['La','Mi','Ré','Sol','Do'].forEach(n=>FING[t+'|'+n]=[STD_RH,STD_LH]));
+const DEG_NAMES=['Tonique','Sus-tonique','Médiante','Sous-dominante','Dominante','Sus-dominante'];
+const ROMAN=['I','II','III','IV','V','VI','VII'];
+const CHORD_ROLE=['Fondamentale','Tierce','Quinte','Septième'];
+
+const gTonic=document.getElementById('g-tonic'), gScale=document.getElementById('g-scale'), gChord=document.getElementById('g-chord'), gInv=document.getElementById('g-inv');
+TONICS.forEach((t,i)=>gTonic.add(new Option(t.n,i)));
+Object.entries(SCALES).forEach(([k,s])=>gScale.add(new Option(s.label,k)));
+Object.entries(CHORDS).forEach(([k,s])=>gChord.add(new Option(s.label,k)));
+let gKind='scale', gHand='rh', gCurrent=null, gDegree=null;
+const kbScale = Keyboard(document.getElementById('kb-scale'), {from:48, to:84, labels:'none', onPress:m=>playNote(m)});
+
+function fitRange(midis){ let shift=0; while(Math.max(...midis)+shift>84) shift-=12; return midis.map(m=>m+shift); }
+function fillInv(){
+  const n = CHORDS[gChord.value].iv.length, prev=gInv.value;
+  gInv.innerHTML=''; ['État fondamental','1er renversement','2e renversement','3e renversement'].slice(0,n).forEach((l,i)=>gInv.add(new Option(l,i)));
+  gInv.value = Number(prev)<n ? prev : 0;
+}
+function renderScale(){
+  const t=TONICS[gTonic.value]; const root=60+t.pc;
+  document.getElementById('g-scale-f').hidden = gKind!=='scale';
+  document.getElementById('g-chord-f').hidden = gKind!=='chord';
+  document.getElementById('g-inv-f').hidden = gKind!=='chord';
+  document.getElementById('g-hand').hidden = gKind!=='scale';
+  const chips=document.getElementById('g-chips'); chips.innerHTML='';
+  const note=document.getElementById('g-note');
+  gDegree=null;
+  if(gKind==='scale'){
+    const s=SCALES[gScale.value]; const lt=s.lt||s.iv.map((_,i)=>i);
+    const iv=[...s.iv,12], lts=[...lt,7];
+    let midis = fitRange(iv.map(x=>root+x));
+    const names = iv.map((x,i)=>spell(t.l+lts[i], t.pc+x));
+    const fing = FING[gScale.value+'|'+t.n];
+    const fingers = fing ? (gHand==='rh'?fing[0]:fing[1]) : null;
+    const marks={};
+    midis.forEach((m,i)=>marks[m]={cls:'mark', label:names[i], finger: fingers && s.iv.length===7 ? fingers[i] : ''});
+    kbScale.setMarks(marks); kbScale.scrollTo(midis[0]);
+    names.forEach((nm,i)=>{
+      const seven = s.iv.length===7;
+      let role = seven ? (i===7?'Tonique':(i===6 ? (s.iv[6]===11?'Sensible':'Sous-tonique') : DEG_NAMES[i])) : (i===iv.length-1?'Tonique':'Degré '+(i+1));
+      const c=document.createElement('div'); c.className='chip';
+      c.innerHTML=`<b>${nm}</b><small>${seven?ROMAN[i%7]+' · ':''}${role}</small>${fingers&&seven?`<span class="f">doigt ${fingers[i]}</span>`:''}`;
+      chips.appendChild(c);
+    });
+    document.getElementById('g-title').textContent = `Gamme de ${t.n} ${s.short}`;
+    const armure = keySignature(names.slice(0,-1));
+    note.textContent = (s.iv.length===7 ? (armure) : 'Gamme de cinq sons, sans demi-ton : idéale pour improviser sur les touches.')
+      + (s.iv.length===7 ? (fingers ? '' : ' Doigté non renseigné pour cette gamme.') : '');
+    gCurrent={midis, type:'scale'};
+    renderDegrees(t, s, root);
+  } else {
+    fillInv();
+    const ch=CHORDS[gChord.value], inv=Number(gInv.value);
+    let ms = ch.iv.map(x=>root+x);
+    const names = ch.iv.map((x,i)=>spell(t.l+ch.lt[i], t.pc+x));
+    let order = ch.iv.map((_,i)=>i);
+    for(let k=0;k<inv;k++){ ms.push(ms.shift()+12); order.push(order.shift()); }
+    ms = fitRange(ms);
+    const marks={}; ms.forEach((m,i)=>marks[m]={cls:'mark', label:names[order[i]]});
+    kbScale.setMarks(marks); kbScale.scrollTo(ms[0]);
+    order.forEach(o=>{
+      const role = gChord.value==='sus4' && o===1 ? 'Quarte' : CHORD_ROLE[o];
+      const c=document.createElement('div'); c.className='chip';
+      c.innerHTML=`<b>${names[o]}</b><small>${role}</small>`; chips.appendChild(c);
+    });
+    const sym = {M:'',m:'m',dim:'dim',aug:'aug',sus4:'sus4',d7:'7',M7:'maj7',m7:'m7',m7b5:'m7♭5'}[gChord.value];
+    document.getElementById('g-title').textContent = `Accord de ${t.n} ${ch.label.toLowerCase()}`;
+    note.textContent = `Notation anglo-saxonne : ${enSpell(names[0])}${sym}` + (inv ? ` / ${enSpell(names[order[0]])}` : '') + '. ' + (inv ? `Basse : ${names[order[0]]}.` : 'La fondamentale est à la basse.');
+    gCurrent={midis:ms, type:'chord'};
+    document.getElementById('g-degrees-card').hidden=true;
+  }
+}
+function enSpell(fr){ const i=LETTERS.findIndex(l=>fr.startsWith(l)); return LETTERS_EN[i]+fr.slice(LETTERS[i].length).replace(/♯/g,'#').replace(/♭/g,'b'); }
+function keySignature(names){
+  const sh=names.filter(n=>n.includes('♯')).length, fl=names.filter(n=>n.includes('♭')).length;
+  if(gScale.value!=='maj' && gScale.value!=='nat') return 'Les altérations de cette gamme ne correspondent pas toutes à l’armure : elles s’écrivent en accidents.';
+  if(!sh && !fl) return 'Armure : aucune altération.';
+  const list = names.filter(n=>/[♯♭]/.test(n)).join(', ');
+  return `Armure : ${sh||fl} ${sh?'dièse':'bémol'}${(sh||fl)>1?'s':''} (${list}).`;
+}
+function renderDegrees(t, s, root){
+  const card=document.getElementById('g-degrees-card'), box=document.getElementById('g-degrees');
+  box.innerHTML='';
+  if(s.iv.length!==7){ card.hidden=true; return; }
+  card.hidden=false;
+  for(let i=0;i<7;i++){
+    const ids=[i,i+2,i+4];
+    const semis=ids.map(j=>s.iv[j%7]+(j>=7?12:0));
+    const a=semis[1]-semis[0], b=semis[2]-semis[0];
+    let q, r=ROMAN[i];
+    if(a===4&&b===7){ q='majeur'; }
+    else if(a===3&&b===7){ q='mineur'; r=r.toLowerCase(); }
+    else if(a===3&&b===6){ q='diminué'; r=r.toLowerCase()+'°'; }
+    else { q='augmenté'; r=r+'+'; }
+    const names=ids.map(j=>spell(t.l+j, t.pc+s.iv[j%7]));
+    const btn=document.createElement('button'); btn.type='button'; btn.setAttribute('aria-pressed','false');
+    btn.innerHTML=`<b>${r}</b><small>${names[0]} ${q}</small>`;
+    btn.title=names.join(' – ');
+    btn.addEventListener('click',()=>{
+      box.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed', x===btn));
+      const ms=fitRange(semis.map(x=>root+x));
+      const marks={}; gCurrent.midis.forEach(m=>marks[m]={cls:'mark-soft', label:''});
+      ms.forEach((m,k)=>marks[m]={cls:'mark', label:names[k]});
+      kbScale.setMarks(marks);
+      const st=0.22; playSeq([...ms.map((m,k)=>({notes:[m],at:k*st})), {notes:ms, at:ms.length*st+0.1}], kbScale);
+    });
+    box.appendChild(btn);
+  }
+}
+function playCurrent(both){
+  if(!gCurrent) return;
+  const step=Number(document.getElementById('g-speed').value);
+  if(gCurrent.type==='chord'){
+    const ms=gCurrent.midis; playSeq([...ms.map((m,k)=>({notes:[m],at:k*step})), {notes:ms, at:ms.length*step+0.15}], kbScale); return;
+  }
+  let ms=[...gCurrent.midis];
+  if(both){
+    let down=[...ms].reverse().slice(1);
+    if(gScale.value==='mel'){ // la mineure mélodique redescend en mineure naturelle
+      const base=ms[0];
+      down=[...SCALES.nat.iv].reverse().map(x=>base+x);
+    }
+    ms=ms.concat(down);
+  }
+  playSeq(ms.map((m,k)=>({notes:[m],at:k*step})), kbScale);
+}
+gTonic.addEventListener('change',renderScale);
+gScale.addEventListener('change',renderScale);
+gChord.addEventListener('change',()=>{ gInv.value=0; renderScale(); });
+gInv.addEventListener('change',renderScale);
+bindSeg('g-kind', v=>{ gKind=v; stopSeq(); renderScale(); });
+bindSeg('g-hand', v=>{ gHand=v; renderScale(); });
+document.getElementById('g-play1').addEventListener('click',()=>playCurrent(false));
+document.getElementById('g-play2').addEventListener('click',()=>playCurrent(true));
+
+/* ================= 3. Métronome ================= */
+const TEMPI=[['Largo',40,59],['Larghetto',60,65],['Adagio',66,75],['Andante',76,107],['Moderato',108,119],['Allegro',120,167],['Presto',168,199],['Prestissimo',200,208]];
+const metro={on:false,bpm:store.get('bpm',80),beats:4,next:0,beat:0,timer:0};
+const tbody=document.querySelector('#m-table tbody');
+TEMPI.forEach(([n,a,b])=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td><i>${n}</i></td><td>${a}–${b}</td>`; tr.addEventListener('click',()=>setBpm(Math.round((a+b)/2))); tbody.appendChild(tr); });
+function setBpm(v){
+  metro.bpm=Math.max(40,Math.min(208,Math.round(v)));
+  document.getElementById('m-bpm').textContent=metro.bpm;
+  document.getElementById('m-range').value=metro.bpm;
+  const i=TEMPI.findIndex(([,a,b])=>metro.bpm>=a&&metro.bpm<=b);
+  document.getElementById('m-name').textContent=TEMPI[i][0];
+  tbody.querySelectorAll('tr').forEach((tr,k)=>tr.classList.toggle('cur',k===i));
+  store.set('bpm',metro.bpm);
+}
+function renderBeats(){
+  const box=document.getElementById('m-beats'); box.innerHTML='';
+  for(let i=0;i<metro.beats;i++){ const d=document.createElement('div'); d.className='beat'+(accentOf(i)?' strong':''); box.appendChild(d); }
+}
+const accentOf = i => i===0 ? 2 : (metro.beats===6 && i===3 ? 1 : 0);
+function click(t, acc){
+  const c=ac(); const o=c.createOscillator(), g=c.createGain();
+  o.type='triangle'; o.frequency.value = acc===2?1760:acc===1?1320:990;
+  g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(acc?0.9:0.55,t+0.002); g.gain.exponentialRampToValueAtTime(0.0001,t+0.06);
+  o.connect(g); g.connect(master); o.start(t); o.stop(t+0.08);
+}
+function showBeat(b){
+  document.querySelectorAll('#m-beats .beat').forEach((d,i)=>{ d.classList.toggle('on', i===b); d.classList.toggle('weak', i===b && !accentOf(i)); });
+}
+function scheduler(){
+  const c=ac();
+  while(metro.next < c.currentTime + 0.12){
+    const b=metro.beat; click(metro.next, accentOf(b));
+    setTimeout(()=>{ if(metro.on) showBeat(b); }, Math.max(0,(metro.next-c.currentTime)*1000));
+    metro.beat=(metro.beat+1)%metro.beats; metro.next += 60/metro.bpm;
+  }
+}
+function toggleMetro(){
+  const btn=document.getElementById('m-toggle');
+  if(metro.on){ metro.on=false; clearInterval(metro.timer); showBeat(-1); btn.textContent='Démarrer'; return; }
+  const c=ac(); metro.on=true; metro.beat=0; metro.next=c.currentTime+0.06;
+  scheduler(); metro.timer=setInterval(scheduler,25); btn.textContent='Arrêter';
+}
+document.getElementById('m-toggle').addEventListener('click',toggleMetro);
+document.getElementById('m-range').addEventListener('input',e=>setBpm(Number(e.target.value)));
+document.querySelectorAll('[data-step]').forEach(b=>b.addEventListener('click',()=>setBpm(metro.bpm+Number(b.dataset.step))));
+bindSeg('m-sig', v=>{ metro.beats=Number(v); metro.beat=0; renderBeats(); });
+let taps=[];
+document.getElementById('m-tap').addEventListener('click',()=>{
+  const now=performance.now(); if(taps.length && now-taps[taps.length-1]>2000) taps=[];
+  taps.push(now); if(taps.length>5) taps.shift();
+  if(taps.length>=2){ const avg=(taps[taps.length-1]-taps[0])/(taps.length-1); setBpm(60000/avg); }
+});
+document.addEventListener('visibilitychange',()=>{ if(document.hidden && metro.on) toggleMetro(); });
+setBpm(metro.bpm); renderBeats();
+
+/* ================= Démarrage ================= */
+const hash=(location.hash||'').slice(1);
+showTab(TABS.includes(hash)?hash:store.get('onglet','cours'));
+renderScale();
+})();
+</script>
+
+</body>
+</html>
