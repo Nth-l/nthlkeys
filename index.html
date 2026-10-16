@@ -1162,6 +1162,7 @@ newEx();
 // Aucun prénom ici : le dépôt est public. Un code inconnu ou absent donne accès au cours 1.
 const ACCES = {
   dxxat: 1,
+  profuz2xx: 99,  // le prof : tous les cours
 };
 const NB_COURS = document.querySelectorAll('.cours-set').length;
 let code = (new URLSearchParams(location.search).get('e') || '').toLowerCase().replace(/[^a-z0-9]/g,'');
