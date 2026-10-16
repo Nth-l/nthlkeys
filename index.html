@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Nthlkeys">
-<meta name="theme-color" content="#0e1120">
+<meta name="theme-color" content="#110e20">
 <title>Nthlkeys</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script>
 // Applique le thème choisi avant l'affichage, pour éviter un flash de couleur
 try{ var t=JSON.parse(localStorage.getItem('atelier-piano:theme')); if(t==='light'||t==='dark') document.documentElement.dataset.theme=t; }catch(e){}
@@ -18,28 +20,28 @@ try{ var t=JSON.parse(localStorage.getItem('atelier-piano:theme')); if(t==='ligh
 [hidden]{display:none!important}
 /* Layout : une barre d'onglets, puis un atelier par onglet ; le clavier est toujours l'objet central, pleine largeur. */
 :root{
-  --bg:#f3f5fa; --surface:#ffffff; --ink:#161a2b; --muted:#5a6079; --line:#dde1ec;
-  --accent:#2f4fd8; --accent-ink:#ffffff; --accent-soft:#e2e7fd;
+  --bg:#f5f3fa; --surface:#ffffff; --ink:#1b162b; --muted:#625a79; --line:#e1dcec;
+  --accent:#6c47d9; --accent-ink:#ffffff; --accent-soft:#ece6fd;
   --good:#1d8248; --good-soft:#dcf3e5; --bad:#c2352d; --bad-soft:#fbe3e1;
   --ivory:#fcfcf8; --ivory-edge:#cfd2dc; --ebony:#1a1c25; --ebony-top:#3a3d4b;
-  --staff:#161a2b;
+  --staff:#1b162b; --key-edge:#000000;
   --f-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --f-body:"Atkinson Hyperlegible", "Helvetica Neue", Arial, sans-serif;
   --f-mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
   --f-music:"Noto Music", "Bravura Text", "Apple Symbols", serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0e1120; --surface:#161a2c; --ink:#e7e9f4; --muted:#9ba1b9; --line:#2a2f48;
-  --accent:#8ea1ff; --accent-ink:#0e1120; --accent-soft:#252c57;
+  --bg:#110e20; --surface:#1a162c; --ink:#ebe7f4; --muted:#a39bb9; --line:#2f2a48;
+  --accent:#a98fff; --accent-ink:#110e20; --accent-soft:#2e2557;
   --good:#53c985; --good-soft:#163526; --bad:#ff7d72; --bad-soft:#3d1c1d;
   --ivory:#f1f1ec; --ivory-edge:#9095a6; --ebony:#0a0b10; --ebony-top:#2d3040;
-  --staff:#e7e9f4; color-scheme:dark}}
+  --staff:#ebe7f4; --key-edge:#a98fff; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0e1120; --surface:#161a2c; --ink:#e7e9f4; --muted:#9ba1b9; --line:#2a2f48;
-  --accent:#8ea1ff; --accent-ink:#0e1120; --accent-soft:#252c57;
+  --bg:#110e20; --surface:#1a162c; --ink:#ebe7f4; --muted:#a39bb9; --line:#2f2a48;
+  --accent:#a98fff; --accent-ink:#110e20; --accent-soft:#2e2557;
   --good:#53c985; --good-soft:#163526; --bad:#ff7d72; --bad-soft:#3d1c1d;
   --ivory:#f1f1ec; --ivory-edge:#9095a6; --ebony:#0a0b10; --ebony-top:#2d3040;
-  --staff:#e7e9f4; color-scheme:dark}
+  --staff:#ebe7f4; --key-edge:#a98fff; color-scheme:dark}
 
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;margin:0}
@@ -52,6 +54,14 @@ header.top{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-bet
 .brand h1{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-.02em}
 .brand p{margin:2px 0 0;color:var(--muted)}
 .brand h1 span{color:var(--accent)}
+/* Logo : le N dessiné comme trois touches (deux montants et une touche noire en diagonale), puis « thlkeys » */
+.wordmark{line-height:0}
+.wordmark svg{display:block;height:clamp(36px,5vw,48px);width:auto;overflow:visible}
+.wordmark text{font-family:var(--f-display);font-weight:800;font-size:40px;letter-spacing:-.4px;stroke-width:1.6;stroke-linejoin:round}
+.wm-ink{fill:var(--ink);stroke:var(--ink)}
+.wm-keys{fill:var(--accent);stroke:var(--accent)}
+.wm-gap{fill:none;stroke:var(--bg);stroke-width:4;stroke-linejoin:round}
+.wm-black{fill:#000;stroke:var(--key-edge);stroke-width:1.6;stroke-linejoin:round}
 
 nav.tabs{display:flex;flex-wrap:wrap;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px}
 nav.tabs button{border:0;background:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:700;color:var(--muted)}
@@ -102,14 +112,14 @@ select{background:var(--surface);border:1px solid var(--line);border-radius:8px;
 .key .hint{font-family:var(--f-mono);font-size:10px;opacity:.55;line-height:1}
 .key .fing{font-family:var(--f-mono);font-size:13px;font-weight:500;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;margin-bottom:2px}
 .key .fing:empty{display:none}
-.key.white.mark{background:#c9d3fb}
-.key.black.mark{background:linear-gradient(#5b74ea,#2f4fd8 30%)}
-.key.white.mark-soft{background:#e6eafc}
-.key.black.mark-soft{background:linear-gradient(#4b5272,#2c3149 30%)}
+.key.white.mark{background:#d8cdfb}
+.key.black.mark{background:linear-gradient(#8a6cf0,#6c47d9 30%)}
+.key.white.mark-soft{background:#eee8fd}
+.key.black.mark-soft{background:linear-gradient(#574b72,#322c49 30%)}
 .key.white.mark-good{background:#bfe8cf}
 .key.black.mark-good{background:linear-gradient(#3aa76a,#1d8248 30%)}
-.key.white.down{background:#9fb0f7 !important;box-shadow:inset 0 -2px 0 rgba(0,0,0,.08)}
-.key.black.down{background:linear-gradient(#7d92f5,#4560e0) !important;box-shadow:0 1px 0 rgba(0,0,0,.35)}
+.key.white.down{background:#bba8f8 !important;box-shadow:inset 0 -2px 0 rgba(0,0,0,.08)}
+.key.black.down{background:linear-gradient(#9b82f5,#5a3cc9) !important;box-shadow:0 1px 0 rgba(0,0,0,.35)}
 .kb-big .kb-inner{--kh:clamp(170px,26vw,250px)}
 .kb-mid .kb-inner{--kh:170px}
 .kb-small .kb-inner{--kh:130px}
@@ -184,8 +194,8 @@ svg.hands .finger:focus-visible .skin{stroke-width:3}
 .key.black.mark-bad{background:linear-gradient(#e0665d,#c2352d 30%)}
 .key.white.mark-step{background:#f2e7bd}
 .key.black.mark-step{background:linear-gradient(#7d6a35,#5a4b22 30%)}
-.key.white.mark-sel{background:#c9d3fb}
-.key.black.mark-sel{background:linear-gradient(#5b74ea,#2f4fd8 30%)}
+.key.white.mark-sel{background:#d8cdfb}
+.key.black.mark-sel{background:linear-gradient(#8a6cf0,#6c47d9 30%)}
 
 .sound-tip{margin:0;padding:10px 14px;border-radius:10px;background:var(--accent-soft);color:var(--ink);font-size:15px}
 .sound-bar{display:flex;gap:10px;align-items:flex-start}
@@ -284,7 +294,7 @@ footer{color:var(--muted);font-size:13px}
   <header class="top">
     <button type="button" class="theme-btn" id="theme-btn"></button>
     <div class="brand">
-      <h1>Nthl<span>keys</span></h1>
+      <h1 class="wordmark" aria-label="Nthlkeys"><svg viewBox="0 0 176 48" aria-hidden="true"><rect class="wm-ink" x="2" y="9.5" width="8" height="28.5" rx="2.2"/><rect class="wm-ink" x="22" y="9.5" width="8" height="28.5" rx="2.2"/><polygon class="wm-gap" points="3,9.5 9.5,9.5 29,38 22.5,38"/><polygon class="wm-black" points="3,9.5 9.5,9.5 29,38 22.5,38"/><text class="wm-ink" x="34" y="38">thl<tspan class="wm-keys">keys</tspan></text></svg></h1>
       <p>Ton support pour réviser entre deux cours de piano</p>
     </div>
     <div class="top-actions">
@@ -1629,7 +1639,7 @@ renderScale();
     btn.textContent=MODES[cur][0];
     btn.title=`Apparence : ${MODES[cur][1]}. Cliquer pour changer.`;
     btn.setAttribute('aria-label', btn.title);
-    if(meta) meta.content = dark() ? '#0e1120' : '#f3f5fa';
+    if(meta) meta.content = dark() ? '#110e20' : '#f5f3fa';
     try{ localStorage.setItem(KEY, JSON.stringify(cur)); }catch(e){}
   }
   try{ cur=JSON.parse(localStorage.getItem(KEY))||'auto'; }catch(e){}
