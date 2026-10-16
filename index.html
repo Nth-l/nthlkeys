@@ -295,7 +295,7 @@ footer{color:var(--muted);font-size:13px}
     <div class="cours-set" id="cours-1" data-cours="1" hidden>
     <div class="panel-head">
       <div>
-        <h2>Premier cours</h2>
+        <h2>Premier cours : le clavier et les accords</h2>
         <p>Trois étapes : te repérer sur le clavier, placer tes doigts, puis construire tes premiers accords, majeurs et mineurs. À la fin, tu trouveras ce qu'il faut retenir et travailler.</p>
       </div>
       <div class="steps" aria-label="Aller à une étape">
@@ -369,7 +369,7 @@ footer{color:var(--muted);font-size:13px}
       <div style="display:flex;flex-direction:column;gap:10px">
         <h4 style="margin:0;font-family:var(--f-display);font-size:20px">La position de Do</h4>
         <p><b>Main droite</b> : le pouce (1) se pose sur le Do central, puis un doigt par touche blanche : 1 Do, 2 Ré, 3 Mi, 4 Fa, 5 Sol.<br>
-        <b>Main gauche</b> : l'auriculaire (5) se pose sur le Do juste à gauche du Do central, puis 4 Ré, 3 Mi, 2 Fa, et le pouce (1) sur Sol.</p>
+        <b>Main gauche</b> : l'auriculaire (5) se pose sur le premier Do que tu trouves en partant du Do central vers la gauche, puis 4 Ré, 3 Mi, 2 Fa, et le pouce (1) sur Sol.</p>
         <div class="row">
           <div class="seg" id="c2-hand">
             <button type="button" data-v="rh" aria-pressed="true">Main droite</button>
@@ -398,7 +398,7 @@ footer{color:var(--muted);font-size:13px}
           <p class="note-muted">Son plus sombre, mélancolique. Exemple : Do, Mi♭, Sol.</p>
         </div>
       </div>
-      <p class="callout">Entre un accord majeur et un accord mineur, <b>seule la note du milieu change</b> : elle descend d'une note. Doigté : main droite <b>1 – 3 – 5</b>, main gauche <b>5 – 3 – 1</b>.</p>
+      <p class="callout">Entre un accord majeur et un accord mineur, <b>seule la note du milieu change</b> : elle descend d'une touche, vers la gauche. Doigté : main droite <b>1 – 3 – 5</b>, main gauche <b>5 – 3 – 1</b>.</p>
       <div class="row" style="justify-content:space-between">
         <div class="row">
           <span class="label">Clique sur une touche pour choisir la fondamentale</span>
@@ -485,7 +485,7 @@ footer{color:var(--muted);font-size:13px}
     <div class="panel-head">
       <div>
         <h2>Deuxième cours : le rythme</h2>
-        <p>Trois étapes : sentir la pulsation, connaître la durée des notes, puis jouer tes accords en rythme. Pour finir, ton premier morceau. Aujourd'hui, le plus important n'est pas de jouer les bonnes notes : c'est de les jouer <b>au bon moment</b>.</p>
+        <p>Quatre étapes : sentir la pulsation, connaître la durée des notes, jouer tes accords en rythme, puis ton premier morceau. Aujourd'hui, le plus important n'est pas de jouer les bonnes notes : c'est de les jouer <b>au bon moment</b>.</p>
         <p class="sound-tip" style="margin-top:8px"><b>Installe-toi à ton piano.</b> Pose ton téléphone ou ton ordinateur sur le pupitre : le site donne la pulsation et t'allume ce qu'il faut jouer, et toi, tu joues sur ton vrai piano.</p>
       </div>
       <div class="steps" aria-label="Aller à une étape">
@@ -543,7 +543,7 @@ footer{color:var(--muted);font-size:13px}
       <div class="lesson-head"><span class="step-tag">Étape 2</span><h3>Combien de temps dure une note ?</h3></div>
       <p>Une note ne dure pas toujours un seul battement. Sa <b>forme</b> dit combien de <b>temps</b> il faut la tenir. Pendant que tu tiens la note, tu continues à compter dans ta tête.</p>
       <div class="durations" id="r2-cards"></div>
-      <p class="callout"><b>Le truc :</b> une ronde = 2 blanches = 4 noires. Dans une mesure, il y a toujours <b>4 temps en tout</b>.</p>
+      <p class="callout"><b>Le truc :</b> une ronde = 2 blanches = 4 noires. Dans ce cours, une mesure a toujours <b>4 temps en tout</b>.</p>
       <div class="exercise">
         <span class="ex-title">À toi de jouer : remplis la mesure</span>
         <p>Ajoute des notes jusqu'à avoir exactement 4 temps et écoute ta mesure. Puis appuie sur <b>Jouer sur mon piano</b> : tu n'entends que la pulsation, les notes s'allument, et tu joues ta mesure sur un Do de ton piano.</p>
@@ -590,7 +590,7 @@ footer{color:var(--muted);font-size:13px}
 
     <article class="card lesson" id="r4">
       <div class="lesson-head"><span class="step-tag">Étape 4</span><h3>Ton premier morceau : l'Ode à la joie</h3></div>
-      <p>Une mélodie de Beethoven que tu peux jouer entièrement à la <b>main droite en position de Do</b>, sans bouger la main : pouce sur Do, puis un doigt par touche. Presque toutes les notes sont des noires (1 temps). Seule la dernière note de chaque ligne est une blanche (2 temps).</p>
+      <p>Une mélodie de Beethoven que tu peux jouer entièrement à la <b>main droite en position de Do</b>, sans bouger la main : pouce sur Do, puis un doigt par touche. Presque toutes les notes sont des noires (1 temps). Seule la dernière note de chaque phrase (toutes les 4 mesures) est une blanche (2 temps).</p>
       <div class="row">
         <div class="seg" id="r4-tempo" aria-label="Tempo">
           <button type="button" data-v="50" aria-pressed="false">50</button>
@@ -603,7 +603,7 @@ footer{color:var(--muted);font-size:13px}
       <div class="ode" id="r4-ode"></div>
       <div id="kb-r4" class="kb-mid"></div>
       <p class="note-muted" id="r4-cap" aria-live="polite">« Jouer sur mon piano » : tu n'entends que la pulsation, et la note à jouer s'allume. À toi de la jouer sur ton piano.</p>
-      <p class="note-muted">Version simplifiée pour débuter : la fin de chaque ligne a un rythme un peu différent dans l'original, on le verra plus tard.</p>
+      <p class="note-muted">Version simplifiée pour débuter : la fin de chaque phrase a un rythme un peu différent dans l'original, on le verra plus tard.</p>
     </article>
 
     <article class="card lesson" id="r5">
@@ -613,7 +613,7 @@ footer{color:var(--muted);font-size:13px}
           <h4>À retenir</h4>
           <ul>
             <li>La <b>pulsation</b> est régulière : elle ne ralentit jamais, même quand c'est difficile.</li>
-            <li>Une <b>mesure</b> = 4 temps. On compte 1, 2, 3, 4.</li>
+            <li>Dans ce cours, une <b>mesure</b> = 4 temps. On compte 1, 2, 3, 4.</li>
             <li><b>Ronde</b> = 4 temps, <b>blanche</b> = 2 temps, <b>noire</b> = 1 temps.</li>
             <li>Tempo 60 = un battement par seconde.</li>
             <li>On compte <b>à voix haute</b>. Toujours.</li>
@@ -1002,18 +1002,19 @@ let c3Root=60, c3Type='M';
 const kbC3 = Keyboard(document.getElementById('kb-c3'), {from:PHONE?60:48, to:83, labels:'none', onPress:m=>{
   c3Root = m>76 ? m-12 : m; renderC3(); playC3();
 }});
-function countLine(from,n,arrive){ const a=[]; for(let k=1;k<=n;k++) a.push(k===n?`<b>${arrive} (${k})</b>`:`${frName(from+k)} (${k})`); return a.join(', '); }
+const flatName = m => { const pc=pcOf(m); return isBlack(pc) ? LETTERS[PC_LETTER[(pc+1)%12]]+'♭' : frName(m); };
+function countLine(from,n,arrive,flats){ const a=[]; for(let k=1;k<=n;k++) a.push(k===n?`<b>${arrive} (${k})</b>`:`${(flats?flatName:frName)(from+k)} (${k})`); return a.join(', '); }
 function renderC3(){
   const t=triad(c3Root,c3Type), marks={};
   for(let k=1;k<t.third;k++) marks[c3Root+k]={cls:'mark-step', label:String(k)};
   for(let k=1;k<7-t.third;k++) marks[c3Root+t.third+k]={cls:'mark-step', label:String(k)};
   t.midis.forEach((m,i)=>marks[m]={cls:'mark', label: i===0 ? t.names[0] : (i===1?t.third:7-t.third)+'\n'+t.names[i], finger:[1,3,5][i]});
   kbC3.setMarks(marks); kbC3.scrollTo(c3Root);
-  const label = c3Type==='M'?'majeur':'mineur';
+  const label = c3Type==='M'?'majeur':'mineur', flats = t.names.some(n=>n.includes('♭'));
   document.getElementById('c3-strip').innerHTML =
     `<span class="label" style="width:100%">Accord de ${t.names[0]} ${label}</span>`+
     `<span class="n">${t.names[0]}</span><span class="gap">+ ${t.third} notes</span><span class="n">${t.names[1]}</span><span class="gap">+ ${7-t.third} notes</span><span class="n">${t.names[2]}</span>`+
-    `<span class="count">On compte : ${countLine(c3Root,t.third,t.names[1])}, puis ${countLine(c3Root+t.third,7-t.third,t.names[2])}.</span>`;
+    `<span class="count">On compte : ${countLine(c3Root,t.third,t.names[1],flats)}, puis ${countLine(c3Root+t.third,7-t.third,t.names[2],flats)}.</span>`;
 }
 function arpThenBlock(ms, kb, at0=0){ const st=0.28; return [...ms.map((m,k)=>({notes:[m],at:at0+k*st})), {notes:ms, at:at0+ms.length*st+0.1}]; }
 function playC3(){ playSeq(arpThenBlock(triad(c3Root,c3Type).midis), kbC3); }
