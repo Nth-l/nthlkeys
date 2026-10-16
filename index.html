@@ -58,11 +58,13 @@ nav.tabs button{border:0;background:none;padding:8px 14px;border-radius:8px;curs
 nav.tabs button:hover{color:var(--ink)}
 nav.tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
 
-/* Choix de l'apparence */
-.theme-pick{display:inline-flex;border:1px solid var(--line);border-radius:12px;padding:4px;gap:2px;background:var(--surface)}
-.theme-pick button{border:0;background:none;color:var(--muted);font:inherit;font-size:14px;font-weight:700;padding:6px 10px;border-radius:8px;cursor:pointer;white-space:nowrap}
-.theme-pick button[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent)}
-.top-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+/* Choix de l'apparence : une petite icône en haut à droite, chaque clic passe au mode suivant */
+header.top{position:relative}
+.brand{padding-right:44px}
+.theme-btn{position:absolute;top:0;right:0;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-size:16px;line-height:1;display:grid;place-items:center;cursor:pointer;padding:0}
+.theme-btn:hover{color:var(--accent);border-color:var(--accent)}
+.top-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:40px}
+@media (max-width:600px){.top-actions{margin-top:0}}
 
 .panel{display:flex;flex-direction:column;gap:18px}
 .panel-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px}
@@ -269,6 +271,7 @@ footer{color:var(--muted);font-size:13px}
 
 <div class="wrap">
   <header class="top">
+    <button type="button" class="theme-btn" id="theme-btn"></button>
     <div class="brand">
       <h1>Nthl<span>keys</span></h1>
       <p>Ton support pour réviser entre deux cours de piano</p>
@@ -278,12 +281,7 @@ footer{color:var(--muted);font-size:13px}
         <button role="tab" id="tab-cours" aria-controls="cours" data-tab="cours">Cours</button>
         <button role="tab" id="tab-clavier" aria-controls="clavier" data-tab="clavier">Clavier</button>
       </nav>
-      <div class="theme-pick" id="theme-pick" role="group" aria-label="Apparence">
-        <button type="button" data-theme-v="light" aria-pressed="false">☀︎ Clair</button>
-        <button type="button" data-theme-v="auto" aria-pressed="false">Auto</button>
-        <button type="button" data-theme-v="dark" aria-pressed="false">☾ Sombre</button>
       </div>
-    </div>
   </header>
   <p class="sound-tip"><b>Pas de son ?</b> Le son démarre quand tu touches une première touche. Sur téléphone, désactive le mode silencieux et monte le volume.<span class="rotate-tip">Astuce : tourne ton téléphone à l'horizontale pour avoir un plus grand clavier.</span></p>
 
@@ -1531,18 +1529,24 @@ showTab(TABS.includes(hash)?hash:store.get('onglet','cours'));
 renderScale();
 })();
 
-/* Apparence : Auto suit l'appareil, Clair et Sombre sont forcés et mémorisés */
+/* Apparence : Auto suit l'appareil, Clair et Sombre sont forcés ; un clic passe au mode suivant */
 (() => {
   const KEY='atelier-piano:theme', root=document.documentElement, meta=document.querySelector('meta[name="theme-color"]');
+  const btn=document.getElementById('theme-btn');
+  const MODES={auto:['◐','automatique'], light:['☀︎','clair'], dark:['☾','sombre']}, NEXT={auto:'light', light:'dark', dark:'auto'};
   const dark = () => root.dataset.theme ? root.dataset.theme==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  let cur='auto';
   function apply(v){
-    if(v==='light'||v==='dark') root.dataset.theme=v; else delete root.dataset.theme;
-    document.querySelectorAll('#theme-pick button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.themeV===v));
+    cur = MODES[v] ? v : 'auto';
+    if(cur==='auto') delete root.dataset.theme; else root.dataset.theme=cur;
+    btn.textContent=MODES[cur][0];
+    btn.title=`Apparence : ${MODES[cur][1]}. Cliquer pour changer.`;
+    btn.setAttribute('aria-label', btn.title);
     if(meta) meta.content = dark() ? '#0e1120' : '#f3f5fa';
-    try{ localStorage.setItem(KEY, JSON.stringify(v)); }catch(e){}
+    try{ localStorage.setItem(KEY, JSON.stringify(cur)); }catch(e){}
   }
-  let cur='auto'; try{ cur=JSON.parse(localStorage.getItem(KEY))||'auto'; }catch(e){}
-  document.querySelectorAll('#theme-pick button').forEach(b=>b.addEventListener('click',()=>apply(b.dataset.themeV)));
+  try{ cur=JSON.parse(localStorage.getItem(KEY))||'auto'; }catch(e){}
+  btn.addEventListener('click',()=>apply(NEXT[cur]));
   apply(cur);
 })();
 </script>
