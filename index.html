@@ -1161,7 +1161,7 @@ newEx();
 // Chaque élève a un lien personnel : …/nthlkeys/?e=<code>. Le code donne le dernier cours débloqué.
 // Aucun prénom ici : le dépôt est public. Un code inconnu ou absent donne accès au cours 1.
 const ACCES = {
-  dxxat: 2,
+  dxxat: 1,
 };
 const NB_COURS = document.querySelectorAll('.cours-set').length;
 let code = (new URLSearchParams(location.search).get('e') || '').toLowerCase().replace(/[^a-z0-9]/g,'');
