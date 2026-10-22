@@ -1,5 +1,10 @@
-# Programme du prof : reste uniquement sur cet ordinateur
-programme.html
-
-# Vidéos, audios et partitions des cours : restent uniquement sur cet ordinateur
+# Dossiers privés : restent uniquement sur cet ordinateur
+# programme du prof
+prof/
+# vidéos, images, QR code des cours
 medias/
+# anciennes versions gardées au cas où
+archives/
+
+# Fichier créé automatiquement par le Mac
+.DS_Store
