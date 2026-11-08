@@ -278,6 +278,9 @@ svg.nsym .fill{fill:currentColor} svg.nsym .hollow{fill:none;stroke:currentColor
 .scale-notes{gap:4px}
 .scale-notes .ode-n{flex:0 0 auto;min-width:2.2em;padding-inline:4px}
 .bar-box small{font-size:13px;color:var(--muted);text-align:center}
+.scale-pick{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;width:100%}
+.scale-pick button{border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:var(--r-sm);min-height:44px;padding:6px 4px;font-weight:700;cursor:pointer}
+.scale-pick button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .tt{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 .tt.half{color:var(--accent);font-weight:700}
 @media (max-width:600px){
@@ -740,16 +743,24 @@ body.in-player{--tabbar-h:0px}
       <p>Une <b>gamme</b>, ce sont les notes rangées dans l'ordre, d'une note jusqu'à la même note une octave plus haut. Toutes les gammes majeures suivent la même formule :</p>
       <div class="formula"><span class="n">ton</span><span class="n">ton</span><span class="n">½</span><span class="n">ton</span><span class="n">ton</span><span class="n">ton</span><span class="n">½</span></div>
       <p class="note-muted">En comptant les notes comme pour les accords : +2 +2 +1 +2 +2 +2 +1.</p>
-      <p class="callout">La gamme de Do majeur, ce sont toutes les touches blanches de Do à Do : les deux demi-tons tombent pile sur Mi – Fa et Si – Do. Sur une autre note, la formule fait apparaître des touches noires.</p>
+      <p class="callout">La gamme de Do majeur, ce sont toutes les touches blanches de Do à Do : les deux demi-tons tombent pile sur Mi – Fa et Si – Do. Sur une autre note, la formule fait apparaître des touches noires. Écoute les 12 gammes majeures : elles ont toutes la même couleur, seule la hauteur change.</p>
       <div class="row">
-        <span class="label">Gamme de</span>
-        <div class="seg" id="a3-start" role="group" aria-label="Note de départ de la gamme">
-          <button type="button" data-v="60" aria-pressed="true">Do</button>
-          <button type="button" data-v="67" aria-pressed="false">Sol</button>
-          <button type="button" data-v="65" aria-pressed="false">Fa</button>
-          <button type="button" data-v="62" aria-pressed="false">Ré</button>
+        <span class="label">Choisis une gamme majeure et écoute-la</span>
+        <div class="scale-pick" id="a3-start" role="group" aria-label="Note de départ de la gamme">
+          <button type="button" data-v="60" data-l="0" aria-pressed="true">Do</button>
+          <button type="button" data-v="61" data-l="1" aria-pressed="false">Ré♭</button>
+          <button type="button" data-v="62" data-l="1" aria-pressed="false">Ré</button>
+          <button type="button" data-v="63" data-l="2" aria-pressed="false">Mi♭</button>
+          <button type="button" data-v="64" data-l="2" aria-pressed="false">Mi</button>
+          <button type="button" data-v="65" data-l="3" aria-pressed="false">Fa</button>
+          <button type="button" data-v="66" data-l="3" aria-pressed="false">Fa♯</button>
+          <button type="button" data-v="67" data-l="4" aria-pressed="false">Sol</button>
+          <button type="button" data-v="68" data-l="5" aria-pressed="false">La♭</button>
+          <button type="button" data-v="69" data-l="5" aria-pressed="false">La</button>
+          <button type="button" data-v="70" data-l="6" aria-pressed="false">Si♭</button>
+          <button type="button" data-v="71" data-l="6" aria-pressed="false">Si</button>
         </div>
-        <button type="button" class="btn" id="a3-play">Écouter la gamme</button>
+        <button type="button" class="btn primary" id="a3-play">Écouter la gamme</button>
       </div>
       <div class="strip scale-notes" id="a3-scale"></div>
       <div id="kb-a3" class="kb-mid"></div>
@@ -1866,18 +1877,18 @@ makeArpEx('a2', 0);
 
 // Étape 3 : la formule de la gamme majeure
 const SCALE_STEPS=[2,2,1,2,2,2,1];
-const kbA3 = Keyboard(document.getElementById('kb-a3'), {from:60, to:79, labels:'none', onPress:m=>playNote(m)});
+const kbA3 = Keyboard(document.getElementById('kb-a3'), {from:60, to:83, labels:'none', onPress:m=>playNote(m)});
 const a3Scale=document.getElementById('a3-scale');
 let a3Notes=[];
 function a3Render(){
-  const root=segVal('a3-start'), l=PC_LETTER[pcOf(root)];
+  const root=segVal('a3-start'), l=Number(document.querySelector('#a3-start [aria-pressed="true"]').dataset.l);
   a3Notes=[root]; SCALE_STEPS.forEach(s=>a3Notes.push(a3Notes[a3Notes.length-1]+s));
   const names=a3Notes.map((m,k)=>spell(l+k, pcOf(m)));
   a3Scale.innerHTML = names.map((n,k)=>`<span class="ode-n"><b>${n}</b></span>`+(k<7?`<span class="tt${SCALE_STEPS[k]===1?' half':''}">${SCALE_STEPS[k]===1?'½':'ton'}</span>`:'')).join('');
   const marks={}; a3Notes.forEach((m,k)=>marks[m]={cls:'mark', label:names[k]});
   kbA3.setMarks(marks);
 }
-bindSeg('a3-start', ()=>{ stopSeq(); a3Render(); });
+bindSeg('a3-start', ()=>{ a3Render(); document.getElementById('a3-play').click(); });
 document.getElementById('a3-play').addEventListener('click',()=>{
   a3Render();
   const seqN=[...a3Notes, ...a3Notes.slice(0,-1).reverse()];
