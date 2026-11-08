@@ -673,13 +673,23 @@ body.in-player{--tabbar-h:0px}
       <div class="lesson-head"><span class="step-tag">Étape 1</span><h3>L'arpège : un accord note par note</h3></div>
       <p>Au premier cours, tu jouais les trois notes d'un accord <b>ensemble</b>. Dans un <b>arpège</b>, on joue les mêmes notes <b>l'une après l'autre</b>. C'est toujours le même accord, mais le son devient plus doux et plus fluide.</p>
       <ul>
-        <li><b>On monte</b> : la fondamentale, les deux autres notes de l'accord, puis la fondamentale une octave plus haut. Pour Do : <b>Do – Mi – Sol – Do</b>.</li>
-        <li><b>On redescend</b> : <b>Sol – Mi</b>, puis on recommence sur Do.</li>
-        <li><b>Doigts de la main droite</b> : 1 – 2 – 3 – 5 en montant (pouce, index, majeur, auriculaire), puis 3 – 2 en redescendant.</li>
+        <li><b>La forme simple</b>, celle de ton exercice : on monte <b>Do – Mi – Sol</b>, puis on redescend <b>Mi – Do</b>. Doigts 1 – 3 – 5 – 3 – 1 (pouce, majeur, auriculaire). La main ne bouge pas : elle reste posée comme pour l'accord.</li>
+        <li><b>La forme avec l'octave</b> : on monte jusqu'à la fondamentale une octave plus haut, <b>Do – Mi – Sol – Do</b>, puis on redescend <b>Sol – Mi – Do</b>. Doigts 1 – 2 – 3 – 5, puis 3 – 2 – 1 : la main s'ouvre un peu plus.</li>
       </ul>
-      <p class="callout">Pour atteindre le Do du haut, la main s'ouvre un peu plus que pour l'accord. Garde les doigts arrondis et le poignet souple.</p>
+      <p class="callout">Ça marche sur <b>tous les accords</b>, majeurs et mineurs. Clique sur une touche pour choisir la fondamentale, puis écoute l'arpège.</p>
       <div class="row">
-        <button type="button" class="btn primary" id="a1-play">Écouter l'arpège de Do</button>
+        <div class="seg" id="a1-type" role="group" aria-label="Majeur ou mineur">
+          <button type="button" data-v="M" aria-pressed="true">Majeur</button>
+          <button type="button" data-v="m" aria-pressed="false">Mineur</button>
+        </div>
+        <div class="seg" id="a1-form" role="group" aria-label="Forme de l'arpège">
+          <button type="button" data-v="simple" aria-pressed="true">Forme simple</button>
+          <button type="button" data-v="octave" aria-pressed="false">Avec l'octave</button>
+        </div>
+      </div>
+      <div class="row">
+        <button type="button" class="btn primary" id="a1-play">Écouter l'arpège</button>
+        <span class="note-muted" id="a1-title" aria-live="polite"></span>
       </div>
       <div class="strip arp-notes" id="a1-notes"></div>
       <div id="kb-a1" class="kb-mid"></div>
@@ -693,10 +703,10 @@ body.in-player{--tabbar-h:0px}
         <li><b>Main droite</b> : l'arpège en montant puis en descendant, deux fois.</li>
       </ul>
       <ul class="arp-list">
-        <li><b>Do</b><span>Do – Mi – Sol – Do – Sol – Mi</span></li>
-        <li><b>Sol</b><span>Sol – Si – Ré – Sol – Ré – Si</span></li>
-        <li><b>La m</b><span>La – Do – Mi – La – Mi – Do</span></li>
-        <li><b>Fa</b><span>Fa – La – Do – Fa – Do – La</span></li>
+        <li><b>Do</b><span>Do – Mi – Sol – Mi – Do</span></li>
+        <li><b>Sol</b><span>Sol – Si – Ré – Si – Sol</span></li>
+        <li><b>La m</b><span>La – Do – Mi – Do – La</span></li>
+        <li><b>Fa</b><span>Fa – La – Do – La – Fa</span></li>
       </ul>
       <p class="callout">Commence lentement, à 50. Accélère seulement quand tu enchaînes les 4 accords sans t'arrêter. Pendant les deux dernières notes d'un accord, pense déjà au suivant.</p>
       <p><b>Jouer sur mon piano</b> : tu n'entends que la pulsation, la note à jouer s'allume, et c'est toi qui joues. <b>Écouter</b> : le site joue l'exercice pour que tu entendes le résultat.</p>
@@ -765,7 +775,7 @@ body.in-player{--tabbar-h:0px}
           <h4>À retenir</h4>
           <ul>
             <li>Un <b>arpège</b>, ce sont les notes d'un accord jouées l'une après l'autre.</li>
-            <li>Arpège de Do : <b>Do – Mi – Sol – Do</b> en montant, <b>Sol – Mi</b> en redescendant. Doigts 1 – 2 – 3 – 5, puis 3 – 2.</li>
+            <li>Arpège de Do : <b>Do – Mi – Sol</b> en montant, <b>Mi – Do</b> en redescendant. Doigts 1 – 3 – 5 – 3 – 1.</li>
             <li>La main gauche joue la <b>basse</b> : la fondamentale de l'accord.</li>
             <li><b>Demi-ton</b> = touche voisine. <b>Ton</b> = 2 demi-tons.</li>
             <li>Gamme majeure : ton, ton, demi-ton, ton, ton, ton, demi-ton (+2 +2 +1 +2 +2 +2 +1).</li>
@@ -864,7 +874,7 @@ body.in-player{--tabbar-h:0px}
     <div class="card lex-group" data-cours="2">
       <h3>Cours 2 · Les arpèges et les gammes</h3>
       <dl class="lex">
-        <div><dt>Arpège</dt><dd>Les notes d’un accord jouées l’une après l’autre, au lieu d’ensemble. Arpège de Do : Do – Mi – Sol – Do.</dd></div>
+        <div><dt>Arpège</dt><dd>Les notes d’un accord jouées l’une après l’autre, au lieu d’ensemble. Arpège de Do : Do – Mi – Sol – Mi – Do.</dd></div>
         <div><dt>Basse</dt><dd>La note la plus grave, jouée à la main gauche. Dans l’exercice du cours 2, c’est la fondamentale de l’accord.</dd></div>
         <div><dt>La m</dt><dd>« La mineur ». Le « m » après le nom d’un accord veut dire mineur.</dd></div>
         <div><dt>Gamme</dt><dd>Les notes rangées dans l’ordre, d’une note jusqu’à la même note une octave plus haut.</dd></div>
@@ -1500,36 +1510,52 @@ const segVal = id => Number(document.querySelector(`#${id} [aria-pressed="true"]
 const lit = (els, i) => els.forEach((e,k)=>e.classList.toggle('on', k===i));
 const running = o => pulse && pulse.owner===o;
 
-// Un arpège : on monte (fondamentale, tierce, quinte, octave) puis on redescend (quinte, tierce)
-const arpOf = (root, minor) => { const t=root+(minor?3:4), q=root+7; return [root, t, q, root+12, q, t]; };
-const ARP_FING=[1,2,3,5,3,2];
+// Un arpège : on monte (fondamentale, tierce, quinte) puis on redescend (tierce, fondamentale)
+const arpOf = (root, minor) => { const t=root+(minor?3:4), q=root+7; return [root, t, q, t, root]; };
+const ARP_FING=[1,3,5,3,1];
+const ARP_N=5;
 const arpChips = notes => notes.map((m,k)=>`<span class="ode-n"><b>${frName(m)}</b><small>${ARP_FING[k]}</small></span>`).join('');
 
-// Étape 1 : l'arpège de Do
-const A1=arpOf(60,false);
-const a1El=document.getElementById('a1-notes'); a1El.innerHTML=arpChips(A1);
-const a1Chips=[...a1El.children];
-const kbA1 = Keyboard(document.getElementById('kb-a1'), {from:60, to:72, labels:'fr', onPress:m=>playNote(m)});
+// Étape 1 : l'arpège de n'importe quel accord, sous deux formes
+const A1_FORMS={simple:{idx:[0,1,2,1,0], fing:[1,3,5,3,1]}, octave:{idx:[0,1,2,3,2,1,0], fing:[1,2,3,5,3,2,1]}};
+const segStr = id => document.querySelector(`#${id} [aria-pressed="true"]`).dataset.v;
+let a1Root=60, a1Cur={notes:[], names:[], fing:[]};
+const a1El=document.getElementById('a1-notes'), a1Title=document.getElementById('a1-title');
+const kbA1 = Keyboard(document.getElementById('kb-a1'), {from:60, to:84, labels:'none', onPress:m=>{
+  a1Root = m>72 ? m-12 : m; stopPulse(); a1Render(); playNote(m);
+}});
+function a1Render(cur=-1){
+  const type=segStr('a1-type'), f=A1_FORMS[segStr('a1-form')], t=triad(a1Root,type);
+  const n4=[...t.midis, a1Root+12], nm4=[...t.names, t.names[0]];
+  a1Cur={notes:f.idx.map(i=>n4[i]), names:f.idx.map(i=>nm4[i]), fing:f.fing};
+  a1Title.textContent=`Arpège de ${t.names[0]} ${type==='M'?'majeur':'mineur'}`;
+  a1El.innerHTML=a1Cur.notes.map((m,k)=>`<span class="ode-n"><b>${a1Cur.names[k]}</b><small>${a1Cur.fing[k]}</small></span>`).join('');
+  a1Marks(-1);
+}
 function a1Marks(cur){
-  const marks={}; [60,64,67,72].forEach((m,k)=>marks[m]={cls: m===cur?'mark':'mark-soft', label:frName(m), finger:[1,2,3,5][k]});
+  const marks={};
+  a1Cur.notes.forEach((m,k)=>{ if(!marks[m]) marks[m]={cls: m===cur?'mark':'mark-soft', label:a1Cur.names[k], finger:a1Cur.fing[k]}; });
   kbA1.setMarks(marks);
 }
-a1Marks(-1);
 const a1Btn=document.getElementById('a1-play');
 a1Btn.addEventListener('click',()=>{
   if(running('a1')) return stopPulse();
-  startPulse({owner:'a1', bpm:80, beats:12, clicks:false,
-    at:i=>({m:[A1[i%6]], d:1}),
-    onBeat:i=>{ lit(a1Chips,i%6); a1Marks(A1[i%6]); },
-    onStop:()=>{ a1Btn.textContent='Écouter l’arpège de Do'; lit(a1Chips,-1); a1Marks(-1); }});
+  const n=a1Cur.notes.length, chips=[...a1El.children];
+  startPulse({owner:'a1', bpm:80, beats:2*n, clicks:false,
+    at:i=>({m:[a1Cur.notes[i%n]], d:1}),
+    onBeat:i=>{ lit(chips,i%n); a1Marks(a1Cur.notes[i%n]); },
+    onStop:()=>{ a1Btn.textContent='Écouter l’arpège'; lit(chips,-1); a1Marks(-1); }});
   a1Btn.textContent='Arrêter';
 });
+bindSeg('a1-type', ()=>{ stopPulse(); a1Render(); });
+bindSeg('a1-form', ()=>{ stopPulse(); a1Render(); });
+a1Render();
 
 // Étape 2 : Do – Sol – La m – Fa, deux arpèges par accord, la basse à la main gauche
 const GRILLE2=[['Do',60,false],['Sol',55,false],['La m',57,true],['Fa',53,false]];
 const ARPS2=GRILLE2.map(([,r,mi])=>arpOf(r,mi));
-const A2_LEN=GRILLE2.length*12;   // 4 accords × 2 fois × 6 notes
-const kbA2 = Keyboard(document.getElementById('kb-a2'), {from:41, to:72, labels:'none', onPress:m=>playNote(m)});
+const A2_PER=2*ARP_N, A2_LEN=GRILLE2.length*A2_PER;   // 4 accords × 2 fois × 5 notes
+const kbA2 = Keyboard(document.getElementById('kb-a2'), {from:41, to:67, labels:'none', onPress:m=>playNote(m)});
 const a2Grille=document.getElementById('a2-grille'), a2NotesEl=document.getElementById('a2-notes');
 const a2Count=document.getElementById('a2-count'), a2Cap=document.getElementById('a2-cap'), A2_CAP=a2Cap.textContent;
 a2Grille.innerHTML = GRILLE2.map(([n])=>`<div class="bar-box"><b>${n}</b><div class="dots"><i class="play"></i><i class="play"></i></div></div>`).join('');
@@ -1547,11 +1573,11 @@ function startA2(owner='a2-play'){
   const btn=document.getElementById(owner), both=segVal('a2-hands')===2;
   a2Cap.setAttribute('aria-live','off');  // sinon le lecteur d'écran parle à chaque battement
   startPulse({owner, bpm:segVal('a2-tempo'),
-    accent:i=> i<4 ? i===0 : (i-4)%6===0,
+    accent:i=> i<4 ? i===0 : (i-4)%ARP_N===0,
     at:i=>{
       if(i<4 || owner==='a2-play') return null;
-      const j=(i-4)%A2_LEN, c=Math.floor(j/12), k=j%6;
-      return {m:[ARPS2[c][k]], d:1, extra: both && k===0 ? [{m:GRILLE2[c][1]-12, d:6}] : []};
+      const j=(i-4)%A2_LEN, c=Math.floor(j/A2_PER), k=j%ARP_N;
+      return {m:[ARPS2[c][k]], d:1, extra: both && k===0 ? [{m:GRILLE2[c][1]-12, d:ARP_N}] : []};
     },
     onBeat:i=>{
       if(i<4){
@@ -1559,11 +1585,11 @@ function startA2(owner='a2-play'){
         if(i===0){ a2Show(0,-1); lit(a2Boxes,0); }
         return;
       }
-      const j=(i-4)%A2_LEN, c=Math.floor(j/12), rep=Math.floor(j/6)%2, k=j%6;
+      const j=(i-4)%A2_LEN, c=Math.floor(j/A2_PER), rep=Math.floor(j/ARP_N)%2, k=j%ARP_N;
       a2Count.textContent=k+1;
       lit(a2Boxes,c); a2Boxes.forEach((bx,n)=>lit([...bx.querySelectorAll('.dots i')], n===c ? rep : -1));
       a2Show(c, ARPS2[c][k]); lit([...a2NotesEl.children], k);
-      a2Cap.textContent = rep===1 && k>=4 ? `Prépare ${GRILLE2[(c+1)%4][0]}…` : `${GRILLE2[c][0]} · ${rep===0?'1re':'2e'} fois`;
+      a2Cap.textContent = rep===1 && k>=3 ? `Prépare ${GRILLE2[(c+1)%4][0]}…` : `${GRILLE2[c][0]} · ${rep===0?'1re':'2e'} fois`;
     },
     onStop:()=>{
       btn.textContent=A2_BTN[owner]; a2Count.textContent=''; a2Cap.textContent=A2_CAP; a2Cap.setAttribute('aria-live','polite');
