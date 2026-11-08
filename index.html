@@ -673,18 +673,15 @@ body.in-player{--tabbar-h:0px}
       <div class="lesson-head"><span class="step-tag">Étape 1</span><h3>L'arpège : un accord note par note</h3></div>
       <p>Au premier cours, tu jouais les trois notes d'un accord <b>ensemble</b>. Dans un <b>arpège</b>, on joue les mêmes notes <b>l'une après l'autre</b>. C'est toujours le même accord, mais le son devient plus doux et plus fluide.</p>
       <ul>
-        <li><b>La forme simple</b>, celle de ton exercice : on monte <b>Do – Mi – Sol</b>, puis on redescend <b>Mi – Do</b>. Doigts 1 – 3 – 5 – 3 – 1 (pouce, majeur, auriculaire). La main ne bouge pas : elle reste posée comme pour l'accord.</li>
-        <li><b>La forme avec l'octave</b> : on monte jusqu'à la fondamentale une octave plus haut, <b>Do – Mi – Sol – Do</b>, puis on redescend <b>Sol – Mi – Do</b>. Doigts 1 – 2 – 3 – 5, puis 3 – 2 – 1 : la main s'ouvre un peu plus.</li>
+        <li><b>On monte</b> : <b>Do – Mi – Sol</b>.</li>
+        <li><b>On redescend</b> : <b>Mi – Do</b>.</li>
+        <li><b>Doigts de la main droite</b> : 1 – 3 – 5 – 3 – 1 (pouce, majeur, auriculaire). La main ne bouge pas : elle reste posée comme pour l'accord.</li>
       </ul>
       <p class="callout">Ça marche sur <b>tous les accords</b>, majeurs et mineurs. Clique sur une touche pour choisir la fondamentale, puis écoute l'arpège.</p>
       <div class="row">
         <div class="seg" id="a1-type" role="group" aria-label="Majeur ou mineur">
           <button type="button" data-v="M" aria-pressed="true">Majeur</button>
           <button type="button" data-v="m" aria-pressed="false">Mineur</button>
-        </div>
-        <div class="seg" id="a1-form" role="group" aria-label="Forme de l'arpège">
-          <button type="button" data-v="simple" aria-pressed="true">Forme simple</button>
-          <button type="button" data-v="octave" aria-pressed="false">Avec l'octave</button>
         </div>
       </div>
       <div class="row">
@@ -1516,18 +1513,17 @@ const ARP_FING=[1,3,5,3,1];
 const ARP_N=5;
 const arpChips = notes => notes.map((m,k)=>`<span class="ode-n"><b>${frName(m)}</b><small>${ARP_FING[k]}</small></span>`).join('');
 
-// Étape 1 : l'arpège de n'importe quel accord, sous deux formes
-const A1_FORMS={simple:{idx:[0,1,2,1,0], fing:[1,3,5,3,1]}, octave:{idx:[0,1,2,3,2,1,0], fing:[1,2,3,5,3,2,1]}};
+// Étape 1 : l'arpège de n'importe quel accord (monter, puis redescendre)
+const A1_FORM={idx:[0,1,2,1,0], fing:[1,3,5,3,1]};
 const segStr = id => document.querySelector(`#${id} [aria-pressed="true"]`).dataset.v;
 let a1Root=60, a1Cur={notes:[], names:[], fing:[]};
 const a1El=document.getElementById('a1-notes'), a1Title=document.getElementById('a1-title');
-const kbA1 = Keyboard(document.getElementById('kb-a1'), {from:60, to:84, labels:'none', onPress:m=>{
-  a1Root = m>72 ? m-12 : m; stopPulse(); a1Render(); playNote(m);
+const kbA1 = Keyboard(document.getElementById('kb-a1'), {from:60, to:83, labels:'none', onPress:m=>{
+  a1Root = m>76 ? m-12 : m; stopPulse(); a1Render(); playNote(m);
 }});
 function a1Render(cur=-1){
-  const type=segStr('a1-type'), f=A1_FORMS[segStr('a1-form')], t=triad(a1Root,type);
-  const n4=[...t.midis, a1Root+12], nm4=[...t.names, t.names[0]];
-  a1Cur={notes:f.idx.map(i=>n4[i]), names:f.idx.map(i=>nm4[i]), fing:f.fing};
+  const type=segStr('a1-type'), f=A1_FORM, t=triad(a1Root,type);
+  a1Cur={notes:f.idx.map(i=>t.midis[i]), names:f.idx.map(i=>t.names[i]), fing:f.fing};
   a1Title.textContent=`Arpège de ${t.names[0]} ${type==='M'?'majeur':'mineur'}`;
   a1El.innerHTML=a1Cur.notes.map((m,k)=>`<span class="ode-n"><b>${a1Cur.names[k]}</b><small>${a1Cur.fing[k]}</small></span>`).join('');
   a1Marks(-1);
@@ -1548,7 +1544,6 @@ a1Btn.addEventListener('click',()=>{
   a1Btn.textContent='Arrêter';
 });
 bindSeg('a1-type', ()=>{ stopPulse(); a1Render(); });
-bindSeg('a1-form', ()=>{ stopPulse(); a1Render(); });
 a1Render();
 
 // Étape 2 : Do – Sol – La m – Fa, deux arpèges par accord, la basse à la main gauche
