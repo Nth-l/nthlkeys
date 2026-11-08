@@ -773,7 +773,7 @@ body.in-player{--tabbar-h:0px}
           <button type="button" class="btn" id="a3-demi">Un demi-ton</button>
           <button type="button" class="btn" id="a3-next">Question suivante</button>
         </div>
-        <div class="ex-msg" id="a3-msg" aria-live="polite">Regarde les deux touches sur le clavier : y a-t-il une touche entre elles ?</div>
+        <div class="ex-msg" id="a3-msg" aria-live="polite">Regarde les deux touches sur le clavier : y a-t-il une touche entre elles ? Quand ta réponse est juste, la question suivante arrive toute seule.</div>
       </div>
     </article>
 
@@ -1919,6 +1919,8 @@ function a3Answer(isTon){
   const why = ton ? `Il y a une touche entre les deux (${frName(x+1)}) : c’est un ton.` : 'Les deux touches sont voisines, sans touche entre elles : c’est un demi-ton.';
   a3Msg.textContent = (ok ? (a3Streak>=3 ? `Bravo, ${a3Streak} bonnes réponses d’affilée ! ` : 'Bravo ! ') : 'Pas tout à fait. ') + why;
   playSeq([{notes:[x],at:0},{notes:[y],at:0.45}], kbA3q);
+  // Bonne réponse : on passe tout seul à la question suivante
+  if(ok){ const q=a3I; setTimeout(()=>{ if(a3I===q && a3Done) a3Next(); }, 1800); }
 }
 document.getElementById('a3-ton').addEventListener('click',()=>a3Answer(true));
 document.getElementById('a3-demi').addEventListener('click',()=>a3Answer(false));
