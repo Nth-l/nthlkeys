@@ -270,6 +270,21 @@ svg.nsym .fill{fill:currentColor} svg.nsym .hollow{fill:none;stroke:currentColor
 .dots i.play{background:var(--muted)}
 .dots i.on{border-color:var(--accent);background:var(--accent);transform:scale(1.3)}
 .bigcount{font-family:var(--f-display);font-size:40px;font-weight:800;line-height:1;color:var(--accent);min-width:1em;text-align:center}
+.arp-notes{flex-wrap:nowrap;gap:6px}
+.arp-notes .ode-n{flex:1 1 0}
+.arp-list{list-style:none;padding:0 !important;margin:0;display:flex;flex-direction:column;gap:6px}
+.arp-list li{display:flex;gap:12px;align-items:baseline;background:var(--bg);border-radius:var(--r-sm);padding:8px 12px}
+.arp-list b{font-family:var(--f-display);min-width:3.2em}
+.scale-notes{gap:4px}
+.scale-notes .ode-n{flex:0 0 auto;min-width:2.2em;padding-inline:4px}
+.tt{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.tt.half{color:var(--accent);font-weight:700}
+@media (max-width:600px){
+  .kb-fit .kb-inner{min-width:calc(var(--n) * 16px)}
+  .kb-fit .key .lbl{font-size:9px}
+  .arp-notes .ode-n b{font-size:13px}
+  .scale-notes .ode-n{min-width:2.3em}
+}
 .ode{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 6px}
 .ode-bar{display:flex;gap:3px;border-left:2px solid var(--line);padding-left:5px}
 .ode-n{flex:var(--d) 1 0;display:flex;flex-direction:column;align-items:center;padding:6px 2px;border-radius:var(--r-sm);background:var(--bg);min-width:0}
@@ -644,146 +659,126 @@ body.in-player{--tabbar-h:0px}
     </article>
     </div>
 
-    <!-- COURS 2 : LE RYTHME -->
-    <div class="cours-set" id="cours-2" data-cours="2" data-titre="Le rythme" hidden>
+    <!-- COURS 2 : LES ARPÈGES ET LES GAMMES -->
+    <div class="cours-set" id="cours-2" data-cours="2" data-titre="Les arpèges et les gammes" hidden>
     <div class="panel-head intro">
       <div>
-        <h2>Deuxième cours&nbsp;: le rythme</h2>
-        <p>Quatre étapes : sentir la pulsation, connaître la durée des notes, jouer tes accords en rythme, puis ton premier morceau. Aujourd'hui, le plus important n'est pas de jouer les bonnes notes : c'est de les jouer <b>au bon moment</b>.</p>
+        <h2>Deuxième cours&nbsp;: les arpèges et les gammes</h2>
+        <p>Trois étapes : jouer un accord en arpège, enchaîner Do – Sol – La m – Fa avec les deux mains, puis retrouver les tons et les demi-tons dans une gamme. À la fin, tu trouveras ce qu'il faut retenir et travailler.</p>
         <p class="sound-tip sound-tip-top"><b>Installe-toi à ton piano.</b> Pose ton téléphone ou ton ordinateur sur le pupitre : le site donne la pulsation et t'allume ce qu'il faut jouer, et toi, tu joues sur ton vrai piano.</p>
       </div>
     </div>
 
-    <article class="card lesson" id="r1">
-      <div class="lesson-head"><span class="step-tag">Étape 1</span><h3>La pulsation, le cœur de la musique</h3></div>
-      <div class="lesson-grid">
-        <div class="stack">
-          <p>La <b>pulsation</b>, c'est le battement régulier de la musique : celui que tu tapes du pied sans y penser quand tu écoutes une chanson. Elle ne ralentit jamais et n'accélère jamais.</p>
-          <ul>
-            <li>On regroupe les battements par 4 et on compte à voix haute : <b>1, 2, 3, 4</b>, puis on recommence.</li>
-            <li>Chaque groupe de 4 temps s'appelle une <b>mesure</b>. Le <b>1</b> est un peu plus fort : il marque le début de la mesure.</li>
-            <li>Le <b>tempo</b>, c'est la vitesse de la pulsation. À <b>60</b>, il y a 60 battements par minute : un par seconde, comme la trotteuse d'une horloge.</li>
-          </ul>
-          <p class="callout"><b>Le métronome</b> est l'outil qui donne la pulsation. Tu peux utiliser celui-ci, ou une appli gratuite de métronome sur ton téléphone.</p>
-        </div>
-        <div class="pulse-box">
-          <div class="beats" id="r1-beats" aria-hidden="true"><span class="beat strong">1</span><span class="beat">2</span><span class="beat">3</span><span class="beat">4</span></div>
-          <div class="row centered">
-            <div class="seg" id="r1-tempo" role="group" aria-label="Tempo">
-              <button type="button" data-v="50" aria-pressed="false">50</button>
-              <button type="button" data-v="60" aria-pressed="true">60</button>
-              <button type="button" data-v="70" aria-pressed="false">70</button>
-              <button type="button" data-v="80" aria-pressed="false">80</button>
-            </div>
-            <button type="button" class="btn primary" id="r1-play">Lancer la pulsation</button>
-          </div>
-          <p class="note-muted center">Compte à voix haute avec elle : « 1, 2, 3, 4 ».</p>
-        </div>
-      </div>
-      <div class="exercise">
-        <span class="ex-title"><span class="ex-ico" aria-hidden="true"><svg class="ico"><use href="#i-hand"/></svg></span>À toi de jouer, sur ton piano</span>
-        <ul>
-          <li>Lance la pulsation. Pose ton pouce droit sur le Do central et joue Do <b>sur chaque battement</b>, en comptant à voix haute « 1, 2, 3, 4 ».</li>
-          <li>Ensuite, joue Do <b>seulement sur le 1</b>, et continue de compter 2, 3, 4 sans jouer.</li>
-          <li>Pareil avec la main gauche, sur le Do plus grave.</li>
-        </ul>
-        <p><b>Le test du rythme :</b> le site ne peut pas entendre ton piano, mais il peut vérifier ton rythme. Appuie sur le gros bouton exactement en même temps que chaque battement. Objectif : <b>8 battements réussis d'affilée</b>. Fais ce test <b>sans écouteurs Bluetooth</b> : ils ajoutent un petit retard au son, et le site croirait que tu tapes trop tard.</p>
-        <div class="row">
-          <button type="button" class="tap" id="r1-tap">Tape ici</button>
-          <div class="streak" id="r1-streak" aria-hidden="true"></div>
-        </div>
-        <div class="ex-msg" id="r1-msg" aria-live="polite">Appuie sur le bouton pour commencer.</div>
-      </div>
-    </article>
-
-    <article class="card lesson" id="r2">
-      <div class="lesson-head"><span class="step-tag">Étape 2</span><h3>Combien de temps dure une note ?</h3></div>
-      <p>Une note ne dure pas toujours un seul battement. Sa <b>forme</b> dit combien de <b>temps</b> il faut la tenir. Pendant que tu tiens la note, tu continues à compter dans ta tête.</p>
-      <div class="durations" id="r2-cards"></div>
-      <p class="callout"><b>Le truc :</b> une ronde = 2 blanches = 4 noires. Dans ce cours, une mesure a toujours <b>4 temps en tout</b>.</p>
-      <div class="exercise">
-        <span class="ex-title"><span class="ex-ico" aria-hidden="true"><svg class="ico"><use href="#i-hand"/></svg></span>À toi de jouer : remplis la mesure</span>
-        <p>Ajoute des notes jusqu'à avoir exactement 4 temps et écoute ta mesure. Puis appuie sur <b>Jouer sur mon piano</b> : tu n'entends que la pulsation, les notes s'allument, et tu joues ta mesure sur un Do de ton piano.</p>
-        <div class="row ex-actions" id="r2-add">
-          <button type="button" class="btn small wide" data-add="4">+ Ronde (4 temps)</button>
-          <button type="button" class="btn small" data-add="2">+ Blanche (2 temps)</button>
-          <button type="button" class="btn small" data-add="1">+ Noire (1 temps)</button>
-        </div>
-        <div class="meas" id="r2-meas"></div>
-        <div class="row ex-actions">
-          <button type="button" class="btn" id="r2-listen">Écouter ma mesure</button>
-          <button type="button" class="btn primary" id="r2-along">Jouer sur mon piano</button>
-          <button type="button" class="btn" id="r2-clear">Effacer</button>
-        </div>
-        <div class="ex-msg" id="r2-msg" aria-live="polite">Ta mesure est vide : il reste 4 temps à remplir.</div>
-      </div>
-    </article>
-
-    <article class="card lesson" id="r3">
-      <div class="lesson-head"><span class="step-tag">Étape 3</span><h3>Tes accords en rythme</h3></div>
-      <p>Tu connais déjà Do, Fa et Sol majeur. On les enchaîne : <b>Do – Fa – Sol – Do</b>, un accord par mesure. La pulsation continue pendant que tu changes d'accord : c'est ça, toute la difficulté.</p>
-      <p class="callout">On commence toujours par une mesure de <b>décompte</b> : on écoute « 1, 2, 3, 4 » sans jouer, puis on démarre sur le 1. Astuce : pendant le dernier temps, pense déjà au prochain accord.</p>
-      <p><b>Écouter</b> : le site joue la grille pour que tu entendes le résultat. <b>Jouer sur mon piano</b> : tu n'entends que la pulsation, l'accord à jouer s'allume, et c'est toi qui joues.</p>
-      <div class="row between">
-        <div class="seg" id="r3-dur" role="group" aria-label="Durée des accords">
-          <button type="button" data-v="4" aria-pressed="false">Rondes</button>
-          <button type="button" data-v="2" aria-pressed="true">Blanches</button>
-          <button type="button" data-v="1" aria-pressed="false">Noires</button>
-        </div>
-        <div class="row">
-          <div class="seg" id="r3-tempo" role="group" aria-label="Tempo">
-            <button type="button" data-v="50" aria-pressed="false">50</button>
-            <button type="button" data-v="60" aria-pressed="true">60</button>
-            <button type="button" data-v="70" aria-pressed="false">70</button>
-          </div>
-          <button type="button" class="btn" id="r3-listen">Écouter</button>
-          <button type="button" class="btn primary" id="r3-play">Jouer sur mon piano</button>
-        </div>
-      </div>
-      <div class="row"><span class="bigcount" id="r3-count" aria-hidden="true"></span><span class="note-muted" id="r3-cap" aria-live="polite"></span></div>
-      <div class="grille" id="r3-grille"></div>
-      <div id="kb-r3" class="kb-mid"></div>
-    </article>
-
-    <article class="card lesson" id="r4">
-      <div class="lesson-head"><span class="step-tag">Étape 4</span><h3>Ton premier morceau : l'Ode à la joie</h3></div>
-      <p>Une mélodie de Beethoven que tu peux jouer entièrement à la <b>main droite en position de Do</b>, sans bouger la main : pouce sur Do, puis un doigt par touche. Presque toutes les notes sont des noires (1 temps). Seule la dernière note de chaque phrase (toutes les 4 mesures) est une blanche (2 temps).</p>
+    <article class="card lesson" id="a1">
+      <div class="lesson-head"><span class="step-tag">Étape 1</span><h3>L'arpège : un accord note par note</h3></div>
+      <p>Au premier cours, tu jouais les trois notes d'un accord <b>ensemble</b>. Dans un <b>arpège</b>, on joue les mêmes notes <b>l'une après l'autre</b>. C'est toujours le même accord, mais le son devient plus doux et plus fluide.</p>
+      <ul>
+        <li><b>On monte</b> : la fondamentale, les deux autres notes de l'accord, puis la fondamentale une octave plus haut. Pour Do : <b>Do – Mi – Sol – Do</b>.</li>
+        <li><b>On redescend</b> : <b>Sol – Mi</b>, puis on recommence sur Do.</li>
+        <li><b>Doigts de la main droite</b> : 1 – 2 – 3 – 5 en montant (pouce, index, majeur, auriculaire), puis 3 – 2 en redescendant.</li>
+      </ul>
+      <p class="callout">Pour atteindre le Do du haut, la main s'ouvre un peu plus que pour l'accord. Garde les doigts arrondis et le poignet souple.</p>
       <div class="row">
-        <div class="seg" id="r4-tempo" role="group" aria-label="Tempo">
-          <button type="button" data-v="50" aria-pressed="false">50</button>
-          <button type="button" data-v="60" aria-pressed="true">60</button>
-          <button type="button" data-v="80" aria-pressed="false">80</button>
-        </div>
-        <button type="button" class="btn" id="r4-listen">Écouter</button>
-        <button type="button" class="btn primary" id="r4-along">Jouer sur mon piano</button>
+        <button type="button" class="btn primary" id="a1-play">Écouter l'arpège de Do</button>
       </div>
-      <div class="ode" id="r4-ode"></div>
-      <div id="kb-r4" class="kb-mid"></div>
-      <p class="note-muted" id="r4-cap" aria-live="polite">« Jouer sur mon piano » : tu n'entends que la pulsation, et la note à jouer s'allume. À toi de la jouer sur ton piano.</p>
-      <p class="note-muted">Version simplifiée pour débuter : la fin de chaque phrase a un rythme un peu différent dans l'original, on le verra plus tard.</p>
+      <div class="strip arp-notes" id="a1-notes"></div>
+      <div id="kb-a1" class="kb-mid"></div>
     </article>
 
-    <article class="card lesson" id="r5">
+    <article class="card lesson" id="a2">
+      <div class="lesson-head"><span class="step-tag">Étape 2</span><h3>Ton exercice : Do – Sol – La m – Fa</h3></div>
+      <p>Chaque accord se joue <b>deux fois</b> en arpège, puis on passe au suivant. Après Fa, on recommence la grille depuis Do.</p>
+      <ul>
+        <li><b>Main gauche</b> : elle joue la <b>basse</b>, c'est-à-dire la fondamentale de l'accord, au début de l'arpège, avec le doigt 5. Elle la tient pendant que la main droite joue.</li>
+        <li><b>Main droite</b> : l'arpège en montant puis en descendant, deux fois.</li>
+      </ul>
+      <ul class="arp-list">
+        <li><b>Do</b><span>Do – Mi – Sol – Do – Sol – Mi</span></li>
+        <li><b>Sol</b><span>Sol – Si – Ré – Sol – Ré – Si</span></li>
+        <li><b>La m</b><span>La – Do – Mi – La – Mi – Do</span></li>
+        <li><b>Fa</b><span>Fa – La – Do – Fa – Do – La</span></li>
+      </ul>
+      <p class="callout">Commence lentement, à 50. Accélère seulement quand tu enchaînes les 4 accords sans t'arrêter. Pendant les deux dernières notes d'un accord, pense déjà au suivant.</p>
+      <p><b>Jouer sur mon piano</b> : tu n'entends que la pulsation, la note à jouer s'allume, et c'est toi qui joues. <b>Écouter</b> : le site joue l'exercice pour que tu entendes le résultat.</p>
+      <div class="row between">
+        <div class="seg" id="a2-hands" role="group" aria-label="Mains">
+          <button type="button" data-v="2" aria-pressed="true">Les deux mains</button>
+          <button type="button" data-v="1" aria-pressed="false">Main droite seule</button>
+        </div>
+        <div class="row">
+          <div class="seg" id="a2-tempo" role="group" aria-label="Tempo">
+            <button type="button" data-v="50" aria-pressed="true">50</button>
+            <button type="button" data-v="60" aria-pressed="false">60</button>
+            <button type="button" data-v="70" aria-pressed="false">70</button>
+            <button type="button" data-v="80" aria-pressed="false">80</button>
+          </div>
+          <button type="button" class="btn" id="a2-listen">Écouter</button>
+          <button type="button" class="btn primary" id="a2-play">Jouer sur mon piano</button>
+        </div>
+      </div>
+      <div class="row"><span class="bigcount" id="a2-count" aria-hidden="true"></span><span class="note-muted" id="a2-cap" aria-live="polite">Appuie sur « Jouer sur mon piano » : une mesure de décompte, puis c'est parti.</span></div>
+      <div class="grille" id="a2-grille"></div>
+      <div class="strip arp-notes" id="a2-notes"></div>
+      <div id="kb-a2" class="kb-mid kb-fit"></div>
+    </article>
+
+    <article class="card lesson" id="a3">
+      <div class="lesson-head"><span class="step-tag">Étape 3</span><h3>Les tons et les demi-tons dans une gamme</h3></div>
+      <p>Un <b>demi-ton</b>, c'est l'écart entre deux touches voisines, blanches ou noires. Un <b>ton</b>, c'est 2 demi-tons.</p>
+      <ul>
+        <li>Entre Do et Ré, il y a une touche noire : c'est un <b>ton</b>.</li>
+        <li>Entre <b>Mi et Fa</b>, et entre <b>Si et Do</b>, il n'y a pas de touche noire : c'est un <b>demi-ton</b>.</li>
+      </ul>
+      <p>Une <b>gamme</b>, ce sont les notes rangées dans l'ordre, d'une note jusqu'à la même note une octave plus haut. Toutes les gammes majeures suivent la même formule :</p>
+      <div class="formula"><span class="n">ton</span><span class="n">ton</span><span class="n">½</span><span class="n">ton</span><span class="n">ton</span><span class="n">ton</span><span class="n">½</span></div>
+      <p class="note-muted">En comptant les notes comme pour les accords : +2 +2 +1 +2 +2 +2 +1.</p>
+      <p class="callout">La gamme de Do majeur, ce sont toutes les touches blanches de Do à Do : les deux demi-tons tombent pile sur Mi – Fa et Si – Do. Sur une autre note, la formule fait apparaître des touches noires.</p>
+      <div class="row">
+        <span class="label">Gamme de</span>
+        <div class="seg" id="a3-start" role="group" aria-label="Note de départ de la gamme">
+          <button type="button" data-v="60" aria-pressed="true">Do</button>
+          <button type="button" data-v="67" aria-pressed="false">Sol</button>
+          <button type="button" data-v="65" aria-pressed="false">Fa</button>
+          <button type="button" data-v="62" aria-pressed="false">Ré</button>
+        </div>
+        <button type="button" class="btn" id="a3-play">Écouter la gamme</button>
+      </div>
+      <div class="strip scale-notes" id="a3-scale"></div>
+      <div id="kb-a3" class="kb-mid"></div>
+      <div class="exercise">
+        <span class="ex-title"><span class="ex-ico" aria-hidden="true"><svg class="ico"><use href="#i-hand"/></svg></span>À toi de jouer : ton ou demi-ton ?</span>
+        <p id="a3-q" style="font-size:18px"></p>
+        <div id="kb-a3q" class="kb-small"></div>
+        <div class="row ex-actions">
+          <button type="button" class="btn" id="a3-ton">Un ton</button>
+          <button type="button" class="btn" id="a3-demi">Un demi-ton</button>
+          <button type="button" class="btn" id="a3-next">Question suivante</button>
+        </div>
+        <div class="ex-msg" id="a3-msg" aria-live="polite">Regarde les deux touches sur le clavier : y a-t-il une touche entre elles ?</div>
+      </div>
+    </article>
+
+    <article class="card lesson" id="a4">
       <div class="lesson-head"><span class="step-tag">Pour finir</span><h3>À retenir et à travailler</h3></div>
       <div class="recipes">
         <div class="recipe">
           <h4>À retenir</h4>
           <ul>
-            <li>La <b>pulsation</b> est régulière : elle ne ralentit jamais, même quand c'est difficile.</li>
-            <li>Dans ce cours, une <b>mesure</b> = 4 temps. On compte 1, 2, 3, 4.</li>
-            <li><b>Ronde</b> = 4 temps, <b>blanche</b> = 2 temps, <b>noire</b> = 1 temps.</li>
-            <li>Tempo 60 = un battement par seconde.</li>
-            <li>On compte <b>à voix haute</b>. Toujours.</li>
-            <li>Mieux vaut lent et régulier que rapide et irrégulier.</li>
+            <li>Un <b>arpège</b>, ce sont les notes d'un accord jouées l'une après l'autre.</li>
+            <li>Arpège de Do : <b>Do – Mi – Sol – Do</b> en montant, <b>Sol – Mi</b> en redescendant. Doigts 1 – 2 – 3 – 5, puis 3 – 2.</li>
+            <li>La main gauche joue la <b>basse</b> : la fondamentale de l'accord.</li>
+            <li><b>Demi-ton</b> = touche voisine. <b>Ton</b> = 2 demi-tons.</li>
+            <li>Gamme majeure : ton, ton, demi-ton, ton, ton, ton, demi-ton (+2 +2 +1 +2 +2 +2 +1).</li>
           </ul>
         </div>
         <div class="recipe">
           <h4>À travailler avant le prochain cours</h4>
           <ul class="todo">
-            <li><label><input type="checkbox" id="c2todo1"><span>Chaque jour, 5 minutes à ton piano : Do – Fa – Sol – Do en blanches, avec « Jouer sur mon piano » à 60, en comptant à voix haute.</span></label></li>
-            <li><label><input type="checkbox" id="c2todo2"><span>Ode à la joie à la main droite sur ton piano, d'abord à 50, puis à 60 quand tu ne t'arrêtes plus.</span></label></li>
-            <li><label><input type="checkbox" id="c2todo3"><span>Taper la pulsation sur deux chansons que tu aimes.</span></label></li>
-            <li><label><input type="checkbox" id="c2todo4"><span>Bonus : Do – Fa – Sol – Do en noires, sans t'arrêter.</span></label></li>
+            <li><label><input type="checkbox" id="c2atodo1"><span>Chaque jour, à ton piano : l'arpège de Do à la main droite, en montant et en descendant, jusqu'à ce qu'il soit régulier.</span></label></li>
+            <li><label><input type="checkbox" id="c2atodo2"><span>Do – Sol – La m – Fa en arpèges, main droite seule, avec « Jouer sur mon piano » à 50.</span></label></li>
+            <li><label><input type="checkbox" id="c2atodo3"><span>Le même exercice avec la basse à la main gauche.</span></label></li>
+            <li><label><input type="checkbox" id="c2atodo4"><span>Quand tu enchaînes sans t'arrêter, passe à 60.</span></label></li>
+            <li><label><input type="checkbox" id="c2atodo5"><span>Joue la gamme de Do en disant à voix haute « ton » ou « demi-ton » entre chaque note.</span></label></li>
           </ul>
           <p class="note-muted">Coche ce que tu as fait : ta liste reste enregistrée sur cet appareil.</p>
         </div>
@@ -867,18 +862,13 @@ body.in-player{--tabbar-h:0px}
       </dl>
     </div>
     <div class="card lex-group" data-cours="2">
-      <h3>Cours 2 · Le rythme</h3>
+      <h3>Cours 2 · Les arpèges et les gammes</h3>
       <dl class="lex">
-        <div><dt>Pulsation</dt><dd>Le battement régulier de la musique, celui qu’on tape du pied. Il ne ralentit jamais.</dd></div>
-        <div><dt>Temps</dt><dd>Un battement de la pulsation.</dd></div>
-        <div><dt>Mesure</dt><dd>Un groupe de temps. Dans le cours 2, une mesure a 4 temps : on compte 1, 2, 3, 4.</dd></div>
-        <div><dt>Tempo</dt><dd>La vitesse de la pulsation, en battements par minute. 60 = un battement par seconde.</dd></div>
-        <div><dt>Métronome</dt><dd>L’outil qui donne la pulsation : celui du site, ou une appli sur ton téléphone.</dd></div>
-        <div><dt>Décompte</dt><dd>Une mesure qu’on écoute sans jouer, « 1, 2, 3, 4 », pour démarrer ensemble sur le 1.</dd></div>
-        <div><dt>Ronde</dt><dd>Rond vide sans queue : la note dure 4 temps.</dd></div>
-        <div><dt>Blanche</dt><dd>Rond vide avec une queue : la note dure 2 temps.</dd></div>
-        <div><dt>Noire</dt><dd>Rond plein avec une queue : la note dure 1 temps.</dd></div>
-        <div><dt>Grille d’accords</dt><dd>La suite des accords d’un morceau, dans l’ordre. Exemple : Do – Fa – Sol – Do.</dd></div>
+        <div><dt>Arpège</dt><dd>Les notes d’un accord jouées l’une après l’autre, au lieu d’ensemble. Arpège de Do : Do – Mi – Sol – Do.</dd></div>
+        <div><dt>Basse</dt><dd>La note la plus grave, jouée à la main gauche. Dans l’exercice du cours 2, c’est la fondamentale de l’accord.</dd></div>
+        <div><dt>La m</dt><dd>« La mineur ». Le « m » après le nom d’un accord veut dire mineur.</dd></div>
+        <div><dt>Gamme</dt><dd>Les notes rangées dans l’ordre, d’une note jusqu’à la même note une octave plus haut.</dd></div>
+        <div><dt>Gamme majeure</dt><dd>Ton, ton, demi-ton, ton, ton, ton, demi-ton. En comptant les notes : +2 +2 +1 +2 +2 +2 +1.</dd></div>
       </dl>
     </div>
   </section>
@@ -1461,7 +1451,7 @@ document.addEventListener('keydown', e=>{
   if(e.key==='Tab'){ e.preventDefault(); document.getElementById('sheet-btn').focus(); }  // un seul bouton : Tab y reste
 });
 
-/* ================= Cours 2 : le rythme ================= */
+/* ================= Cours 2 : les arpèges et les gammes ================= */
 function tick(t, strong, dest){
   const c=ac(), o=c.createOscillator(), g=c.createGain();
   o.type='triangle'; o.frequency.value = strong ? 1760 : 1175;
@@ -1471,7 +1461,8 @@ function tick(t, strong, dest){
   o.connect(g); g.connect(dest); o.start(t); o.stop(t+0.07);
 }
 // Pulsation : un battement toutes les 60/bpm secondes, programmé un peu en avance sur l'horloge audio.
-// at(i) peut renvoyer {m:[midi], d:temps} pour jouer des notes sur le battement i.
+// at(i) peut renvoyer {m:[midi], d:temps, extra:[{m, d}]} pour jouer des notes sur le battement i.
+// accent(i) dit quels battements sont marqués plus fort (par défaut, le 1 de chaque mesure de 4).
 let pulse=null;
 function stopPulse(){
   if(!pulse) return;
@@ -1480,7 +1471,7 @@ function stopPulse(){
   try{ p.gain.gain.setTargetAtTime(0, ctx.currentTime, 0.02); }catch(e){}
   p.onStop && p.onStop();
 }
-function startPulse({owner, bpm, beats=Infinity, at, onBeat, onStop, clicks=true}){
+function startPulse({owner, bpm, beats=Infinity, at, onBeat, onStop, clicks=true, accent=i=>i%4===0}){
   stopPulse(); stopSeq();
   const c=ac(), gain=c.createGain(); gain.connect(master);
   const spb=60/bpm, t0=c.currentTime+0.15;
@@ -1488,9 +1479,12 @@ function startPulse({owner, bpm, beats=Infinity, at, onBeat, onStop, clicks=true
   function sched(){
     while(p.next<beats && t0+p.next*spb < c.currentTime+0.12){
       const i=p.next, t=t0+i*spb;
-      if(clicks) tick(t, i%4===0, gain);
+      if(clicks) tick(t, accent(i), gain);
       const ev = at && at(i);
-      if(ev) ev.m.forEach(m=>playNote(m, t-c.currentTime, gain, ev.d*spb));
+      if(ev){
+        ev.m.forEach(m=>playNote(m, t-c.currentTime, gain, ev.d*spb));
+        (ev.extra||[]).forEach(x=>playNote(x.m, t-c.currentTime, gain, x.d*spb));
+      }
       p.timers.push(setTimeout(()=>{ if(pulse===p && onBeat) onBeat(i); }, Math.max(0,(t-c.currentTime)*1000)));
       p.next++;
     }
@@ -1506,191 +1500,132 @@ const segVal = id => Number(document.querySelector(`#${id} [aria-pressed="true"]
 const lit = (els, i) => els.forEach((e,k)=>e.classList.toggle('on', k===i));
 const running = o => pulse && pulse.owner===o;
 
-// Étape 1 : la pulsation et l'exercice « tape en rythme »
-const r1Beats=[...document.querySelectorAll('#r1-beats .beat')], r1Btn=document.getElementById('r1-play');
-const TAP_GOAL=8; let streak=0;
-const streakEl=document.getElementById('r1-streak');
-streakEl.innerHTML='<i></i>'.repeat(TAP_GOAL);
-const drawStreak=()=>[...streakEl.children].forEach((d,k)=>d.classList.toggle('on', k<streak));
-function startR1(){
-  startPulse({owner:'r1', bpm:segVal('r1-tempo'), onBeat:i=>lit(r1Beats,i%4),
-    onStop:()=>{ r1Btn.textContent='Lancer la pulsation'; lit(r1Beats,-1); }});
-  r1Btn.textContent='Arrêter';
-}
-r1Btn.addEventListener('click',()=> running('r1') ? stopPulse() : startR1());
-bindSeg('r1-tempo', ()=>{ if(running('r1')) startR1(); });
-const tapBtn=document.getElementById('r1-tap'), r1Msg=document.getElementById('r1-msg');
-function tap(){
-  tapBtn.classList.add('hit'); setTimeout(()=>tapBtn.classList.remove('hit'),110);
-  if(!running('r1')){
-    streak=0; drawStreak(); startR1();
-    r1Msg.className='ex-msg'; r1Msg.textContent='C’est parti ! Écoute deux ou trois battements, puis tape en même temps qu’eux.';
-    return;
-  }
-  const lat=(ctx.outputLatency||0)+(ctx.baseLatency||0), t=ctx.currentTime-lat;
-  const k=Math.round((t-pulse.t0)/pulse.spb); if(k<0) return;
-  const off=t-(pulse.t0+k*pulse.spb);
-  if(Math.abs(off)<=0.11){
-    streak=Math.min(TAP_GOAL, streak+1); r1Msg.className='ex-msg ok';
-    r1Msg.textContent = streak>=TAP_GOAL ? 'Bravo ! 8 battements d’affilée : tu as le rythme. Essaie un autre tempo.' : `En rythme ! ${streak} sur ${TAP_GOAL}.`;
-    if(streak>=TAP_GOAL) setTimeout(()=>{ streak=0; drawStreak(); }, 1500);
-  } else {
-    streak=0; r1Msg.className='ex-msg no';
-    r1Msg.textContent = off<0 ? 'Un peu trop tôt. Attends le battement.' : 'Un peu trop tard. Écoute bien et anticipe.';
-  }
-  drawStreak();
-}
-tapBtn.addEventListener('pointerdown', e=>{ e.preventDefault(); tap(); });
-tapBtn.addEventListener('keydown', e=>{ if((e.key===' '||e.key==='Enter') && !e.repeat){ e.preventDefault(); tap(); } });
-tapBtn.addEventListener('click', e=>{ if(e.detail===0) e.preventDefault(); });
+// Un arpège : on monte (fondamentale, tierce, quinte, octave) puis on redescend (quinte, tierce)
+const arpOf = (root, minor) => { const t=root+(minor?3:4), q=root+7; return [root, t, q, root+12, q, t]; };
+const ARP_FING=[1,2,3,5,3,2];
+const arpChips = notes => notes.map((m,k)=>`<span class="ode-n"><b>${frName(m)}</b><small>${ARP_FING[k]}</small></span>`).join('');
 
-// Étape 2 : les durées
-const DUR={4:'ronde', 2:'blanche', 1:'noire'};
-function noteSvg(d){
-  const stem=d<4, filled=d===1;
-  return `<svg class="nsym" viewBox="0 0 30 60" aria-hidden="true"><ellipse cx="13" cy="48" rx="${stem?8.5:10}" ry="6.5" transform="rotate(-20 13 48)" class="${filled?'fill':'hollow'}"/>${stem?'<line x1="20.6" y1="45" x2="20.6" y2="6"/>':''}</svg>`;
+// Étape 1 : l'arpège de Do
+const A1=arpOf(60,false);
+const a1El=document.getElementById('a1-notes'); a1El.innerHTML=arpChips(A1);
+const a1Chips=[...a1El.children];
+const kbA1 = Keyboard(document.getElementById('kb-a1'), {from:60, to:72, labels:'fr', onPress:m=>playNote(m)});
+function a1Marks(cur){
+  const marks={}; [60,64,67,72].forEach((m,k)=>marks[m]={cls: m===cur?'mark':'mark-soft', label:frName(m), finger:[1,2,3,5][k]});
+  kbA1.setMarks(marks);
 }
-// Dessine une mesure : blocs de notes sur la 1re ligne, numéros des temps sur la 2e
-function drawMeas(el, durs, withName=true){
-  let h='', col=1;
-  durs.forEach((d,k)=>{ h+=`<div class="blk" data-k="${k}" style="grid-column:${col} / span ${d}">${noteSvg(d)}${withName?`<span>${DUR[d]}</span>`:''}</div>`; col+=d; });
-  if(col<=4) h+=`<div class="blk empty" style="grid-column:${col} / span ${5-col}">${5-col} temps libre${5-col>1?'s':''}</div>`;
-  for(let b=1;b<=4;b++) h+=`<span class="bt" style="grid-column:${b}">${b}</span>`;
-  el.innerHTML=h;
-}
-const startsOf = durs => { const s=[]; let b=0; durs.forEach(d=>{ s.push([b,d]); b+=d; }); return s; };
-// Joue une mesure deux fois et éclaire le temps et la note en cours
-function playMeas(owner, el, durs, onStop, silent=false){
-  const st=startsOf(durs);
-  const bts=[...el.querySelectorAll('.bt')], blks=[...el.querySelectorAll('.blk:not(.empty)')];
-  startPulse({owner, bpm:60, beats:silent?12:8,
-    at:i=>{ if(silent) return null; const s=st.find(([b])=>b===i%4); return s ? {m:[60], d:s[1]} : null; },
-    onBeat:i=>{ lit(bts,i%4); let k=-1; st.forEach(([b],j)=>{ if(b<=i%4) k=j; }); lit(blks,k); },
-    onStop:()=>{ lit(bts,-1); lit(blks,-1); onStop && onStop(); }});
-}
-const R2_INFO={4:['La ronde','4 temps','Un rond vide, sans queue. Tu joues sur le 1 et tu tiens jusqu’au bout de la mesure : 1, 2, 3, 4.'],
-               2:['La blanche','2 temps','Un rond vide avec une queue. Tu joues sur le 1, tu tiens pendant le 2 ; tu rejoues sur le 3, tu tiens pendant le 4.'],
-               1:['La noire','1 temps','Un rond plein avec une queue. Une note par battement : 1, 2, 3, 4.']};
-document.getElementById('r2-cards').innerHTML = [4,2,1].map(d=>`
-  <div class="recipe">
-    <h4>${R2_INFO[d][0]} <span class="note-muted dur-sub">· ${R2_INFO[d][1]}</span></h4>
-    <p class="note-muted">${R2_INFO[d][2]}</p>
-    <div class="meas" data-meas="${d}"></div>
-    <button type="button" class="btn small" data-hear="${d}">Écouter</button>
-  </div>`).join('');
-document.querySelectorAll('[data-meas]').forEach(el=>{ const d=Number(el.dataset.meas); drawMeas(el, Array(4/d).fill(d), false); });
-document.querySelectorAll('[data-hear]').forEach(b=>b.addEventListener('click',()=>{
-  const d=Number(b.dataset.hear), owner='r2-'+d;
-  if(running(owner)) return stopPulse();
-  playMeas(owner, document.querySelector(`[data-meas="${d}"]`), Array(4/d).fill(d), ()=>b.textContent='Écouter');
-  b.textContent='Arrêter';
-}));
-let r2=[];
-const r2El=document.getElementById('r2-meas'), r2Msg=document.getElementById('r2-msg');
-const r2Sum=()=>r2.reduce((a,b)=>a+b,0);
-function r2Render(){ drawMeas(r2El, r2); }
-document.querySelectorAll('#r2-add [data-add]').forEach(b=>b.addEventListener('click',()=>{
-  const d=Number(b.dataset.add), left=4-r2Sum();
-  if(d>left){
-    r2Msg.className='ex-msg no';
-    r2Msg.textContent = left===0 ? 'La mesure est déjà pleine : 4 temps. Écoute-la, ou efface pour recommencer.'
-      : `Trop long : une ${DUR[d]} dure ${d} temps, mais il ne reste que ${left} temps.`;
-    return;
-  }
-  r2.push(d); r2Render();
-  const rest=4-r2Sum();
-  r2Msg.className = rest ? 'ex-msg' : 'ex-msg ok';
-  r2Msg.textContent = rest ? `Encore ${rest} temps à remplir.` : 'Bravo, ta mesure fait exactement 4 temps. Écoute-la !';
-}));
-[['r2-listen','Écouter ma mesure',false],['r2-along','Jouer sur mon piano',true]].forEach(([id,lbl,silent])=>{
-  const b=document.getElementById(id);
-  b.addEventListener('click',()=>{
-    if(running(id)) return stopPulse();
-    if(r2Sum()<4){ r2Msg.className='ex-msg no'; r2Msg.textContent=`Remplis d’abord les 4 temps : il en manque ${4-r2Sum()}.`; return; }
-    playMeas(id, r2El, r2, ()=>b.textContent=lbl, silent);
-    b.textContent='Arrêter';
-    if(silent){ r2Msg.className='ex-msg'; r2Msg.textContent='Joue ta mesure 3 fois de suite sur un Do, en suivant ce qui s’allume.'; }
-  });
+a1Marks(-1);
+const a1Btn=document.getElementById('a1-play');
+a1Btn.addEventListener('click',()=>{
+  if(running('a1')) return stopPulse();
+  startPulse({owner:'a1', bpm:80, beats:12, clicks:false,
+    at:i=>({m:[A1[i%6]], d:1}),
+    onBeat:i=>{ lit(a1Chips,i%6); a1Marks(A1[i%6]); },
+    onStop:()=>{ a1Btn.textContent='Écouter l’arpège de Do'; lit(a1Chips,-1); a1Marks(-1); }});
+  a1Btn.textContent='Arrêter';
 });
-document.getElementById('r2-clear').addEventListener('click',()=>{
-  stopPulse(); r2=[]; r2Render(); r2Msg.className='ex-msg'; r2Msg.textContent='Ta mesure est vide : il reste 4 temps à remplir.';
-});
-r2Render();
 
-// Étape 3 : Do – Fa – Sol – Do en rythme
-const GRILLE=[['Do',[60,64,67]],['Fa',[65,69,72]],['Sol',[67,71,74]],['Do',[60,64,67]]];
-const R3_TXT={4:'En rondes : tu joues l’accord sur le 1 et tu le tiens pendant 4 temps.',
-              2:'En blanches : tu joues l’accord sur le 1 et sur le 3.',
-              1:'En noires : tu joues l’accord sur chaque temps.'};
-const kbR3 = Keyboard(document.getElementById('kb-r3'), {from:60, to:76, labels:'fr', onPress:m=>playNote(m)});
-const r3Grille=document.getElementById('r3-grille');
-const r3Count=document.getElementById('r3-count'), r3Cap=document.getElementById('r3-cap');
-function r3Render(){
-  const d=segVal('r3-dur');
-  r3Grille.innerHTML = GRILLE.map(([n])=>`<div class="bar-box"><b>${n}</b><div class="dots">${[0,1,2,3].map(b=>`<i class="${b%d===0?'play':''}"></i>`).join('')}</div></div>`).join('');
-  r3Cap.textContent = R3_TXT[d] + ' Les points pleins montrent quand jouer.';
+// Étape 2 : Do – Sol – La m – Fa, deux arpèges par accord, la basse à la main gauche
+const GRILLE2=[['Do',60,false],['Sol',55,false],['La m',57,true],['Fa',53,false]];
+const ARPS2=GRILLE2.map(([,r,mi])=>arpOf(r,mi));
+const A2_LEN=GRILLE2.length*12;   // 4 accords × 2 fois × 6 notes
+const kbA2 = Keyboard(document.getElementById('kb-a2'), {from:41, to:72, labels:'none', onPress:m=>playNote(m)});
+const a2Grille=document.getElementById('a2-grille'), a2NotesEl=document.getElementById('a2-notes');
+const a2Count=document.getElementById('a2-count'), a2Cap=document.getElementById('a2-cap'), A2_CAP=a2Cap.textContent;
+a2Grille.innerHTML = GRILLE2.map(([n])=>`<div class="bar-box"><b>${n}</b><div class="dots"><i class="play"></i><i class="play"></i></div></div>`).join('');
+const a2Boxes=[...a2Grille.children];
+let a2Shown=-1;
+function a2Show(c, cur){
+  if(a2Shown!==c){ a2NotesEl.innerHTML=arpChips(ARPS2[c]); a2Shown=c; }
+  const arp=ARPS2[c], root=GRILLE2[c][1], marks={};
+  [...new Set(arp)].forEach(m=>marks[m]={cls: m===cur?'mark':'mark-soft', label:frName(m), finger:ARP_FING[arp.indexOf(m)]});
+  if(segVal('a2-hands')===2) marks[root-12]={cls:'mark-good', label:frName(root-12), finger:5};
+  kbA2.setMarks(marks);
 }
-function r3Chord(k){
-  const marks={}; if(k>=0) GRILLE[k][1].forEach((m,j)=>marks[m]={cls:'mark', label:frName(m), finger:[1,3,5][j]});
-  kbR3.setMarks(marks);
-}
-const R3_BTN={'r3-play':'Jouer sur mon piano','r3-listen':'Écouter'};
-function startR3(owner='r3-play'){
-  const d=segVal('r3-dur'), boxes=[...r3Grille.children], btn=document.getElementById(owner);
-  r3Cap.setAttribute('aria-live','off');  // sinon le lecteur d'écran parle à chaque battement
-  startPulse({owner, bpm:segVal('r3-tempo'),
-    at:i=>{ if(i<4 || owner==='r3-play') return null; const j=i-4; return j%4%d===0 ? {m:GRILLE[Math.floor(j/4)%4][1], d} : null; },
-    onBeat:i=>{
-      r3Count.textContent = i%4+1;
-      if(i<4){ r3Cap.textContent='Décompte : écoute, prépare ta main sur Do.'; if(i===0) r3Chord(0); return; }
-      const j=i-4, k=Math.floor(j/4)%4;
-      lit(boxes,k); boxes.forEach((bx,n)=>lit([...bx.querySelectorAll('.dots i')], n===k ? j%4 : -1));
-      r3Chord(k);
-      r3Cap.textContent = j%4===3 ? `Prépare ${GRILLE[(k+1)%4][0]}…` : `${GRILLE[k][0]} majeur`;
+const A2_BTN={'a2-play':'Jouer sur mon piano','a2-listen':'Écouter'};
+function startA2(owner='a2-play'){
+  const btn=document.getElementById(owner), both=segVal('a2-hands')===2;
+  a2Cap.setAttribute('aria-live','off');  // sinon le lecteur d'écran parle à chaque battement
+  startPulse({owner, bpm:segVal('a2-tempo'),
+    accent:i=> i<4 ? i===0 : (i-4)%6===0,
+    at:i=>{
+      if(i<4 || owner==='a2-play') return null;
+      const j=(i-4)%A2_LEN, c=Math.floor(j/12), k=j%6;
+      return {m:[ARPS2[c][k]], d:1, extra: both && k===0 ? [{m:GRILLE2[c][1]-12, d:6}] : []};
     },
-    onStop:()=>{ btn.textContent=R3_BTN[owner]; r3Count.textContent=''; r3Render(); r3Chord(-1); r3Cap.setAttribute('aria-live','polite'); }});
+    onBeat:i=>{
+      if(i<4){
+        a2Count.textContent=i+1; a2Cap.textContent='Décompte : prépare ta main droite sur Do'+(both?', et la main gauche sur le Do plus grave.':'.');
+        if(i===0){ a2Show(0,-1); lit(a2Boxes,0); }
+        return;
+      }
+      const j=(i-4)%A2_LEN, c=Math.floor(j/12), rep=Math.floor(j/6)%2, k=j%6;
+      a2Count.textContent=k+1;
+      lit(a2Boxes,c); a2Boxes.forEach((bx,n)=>lit([...bx.querySelectorAll('.dots i')], n===c ? rep : -1));
+      a2Show(c, ARPS2[c][k]); lit([...a2NotesEl.children], k);
+      a2Cap.textContent = rep===1 && k>=4 ? `Prépare ${GRILLE2[(c+1)%4][0]}…` : `${GRILLE2[c][0]} · ${rep===0?'1re':'2e'} fois`;
+    },
+    onStop:()=>{
+      btn.textContent=A2_BTN[owner]; a2Count.textContent=''; a2Cap.textContent=A2_CAP; a2Cap.setAttribute('aria-live','polite');
+      lit(a2Boxes,-1); a2Boxes.forEach(bx=>lit([...bx.querySelectorAll('.dots i')],-1)); a2Show(0,-1); lit([...a2NotesEl.children],-1);
+    }});
   btn.textContent='Arrêter';
 }
-const r3Owner=()=>Object.keys(R3_BTN).find(running);
-Object.keys(R3_BTN).forEach(id=>document.getElementById(id).addEventListener('click',()=> running(id) ? stopPulse() : startR3(id)));
-bindSeg('r3-dur', ()=>{ const o=r3Owner(); if(o) startR3(o); else r3Render(); });
-bindSeg('r3-tempo', ()=>{ const o=r3Owner(); if(o) startR3(o); });
-r3Render();
+const a2Owner=()=>Object.keys(A2_BTN).find(running);
+Object.keys(A2_BTN).forEach(id=>document.getElementById(id).addEventListener('click',()=> running(id) ? stopPulse() : startA2(id)));
+bindSeg('a2-tempo', ()=>{ const o=a2Owner(); if(o) startA2(o); });
+bindSeg('a2-hands', ()=>{ const o=a2Owner(); if(o) startA2(o); else a2Show(0,-1); });
+a2Show(0,-1);
 
-// Étape 4 : Ode à la joie, main droite en position de Do (version simplifiée)
-const L1=[[64,64,65,67],[67,65,64,62],[60,60,62,64]];
-const ODE=[...L1, [[64,1],[62,1],[62,2]], ...L1, [[62,1],[60,1],[60,2]]]
-  .map(bar=>bar.map(x=>Array.isArray(x)?x:[x,1]));
-const RH_FING={60:1,62:2,64:3,65:4,67:5};
-const ODE_EV=[]; ODE.forEach((bar,b)=>{ let t=b*4; bar.forEach(([m,d])=>{ ODE_EV.push({m,d,t}); t+=d; }); });
-document.getElementById('r4-ode').innerHTML = ODE.map(bar=>`<div class="ode-bar">${bar.map(([m,d])=>
-  `<span class="ode-n${d>1?' long':''}" style="--d:${d}"><b>${frName(m)}</b><small>${RH_FING[m]}</small></span>`).join('')}</div>`).join('');
-const odeEls=[...document.querySelectorAll('.ode-n')];
-const kbR4 = Keyboard(document.getElementById('kb-r4'), {from:60, to:71, labels:'fr', onPress:m=>playNote(m)});
-function r4Marks(cur){
-  const marks={}; Object.entries(RH_FING).forEach(([m,f])=>marks[m]={cls: Number(m)===cur?'mark':'mark-soft', label:frName(Number(m)), finger:f});
-  kbR4.setMarks(marks);
+// Étape 3 : la formule de la gamme majeure
+const SCALE_STEPS=[2,2,1,2,2,2,1];
+const kbA3 = Keyboard(document.getElementById('kb-a3'), {from:60, to:79, labels:'none', onPress:m=>playNote(m)});
+const a3Scale=document.getElementById('a3-scale');
+let a3Notes=[];
+function a3Render(){
+  const root=segVal('a3-start'), l=PC_LETTER[pcOf(root)];
+  a3Notes=[root]; SCALE_STEPS.forEach(s=>a3Notes.push(a3Notes[a3Notes.length-1]+s));
+  const names=a3Notes.map((m,k)=>spell(l+k, pcOf(m)));
+  a3Scale.innerHTML = names.map((n,k)=>`<span class="ode-n"><b>${n}</b></span>`+(k<7?`<span class="tt${SCALE_STEPS[k]===1?' half':''}">${SCALE_STEPS[k]===1?'½':'ton'}</span>`:'')).join('');
+  const marks={}; a3Notes.forEach((m,k)=>marks[m]={cls:'mark', label:names[k]});
+  kbA3.setMarks(marks);
 }
-r4Marks(-1);
-const r4Btns={listen:document.getElementById('r4-listen'), along:document.getElementById('r4-along')};
-const R4_LBL={listen:'Écouter', along:'Jouer sur mon piano'};
-const r4Cap=document.getElementById('r4-cap'), R4_CAP=r4Cap.textContent;
-function startR4(mode){
-  const total=ODE.length*4;
-  r4Cap.setAttribute('aria-live','off');  // sinon le lecteur d'écran parle à chaque battement
-  startPulse({owner:'r4-'+mode, bpm:segVal('r4-tempo'), beats:4+total,
-    at:i=>{ if(mode!=='listen') return null; const e=ODE_EV.find(x=>x.t===i-4); return e ? {m:[e.m], d:e.d} : null; },
-    onBeat:i=>{
-      if(i<4){ r4Cap.textContent=`Décompte : ${i+1}…`; return; }
-      let k=-1; ODE_EV.forEach((e,j)=>{ if(e.t<=i-4) k=j; });
-      lit(odeEls,k); r4Marks(ODE_EV[k].m);
-      r4Cap.textContent = `Mesure ${Math.floor((i-4)/4)+1} sur 8 · temps ${(i-4)%4+1}`;
-    },
-    onStop:()=>{ r4Btns[mode].textContent=R4_LBL[mode]; lit(odeEls,-1); r4Marks(-1); r4Cap.textContent=R4_CAP; r4Cap.setAttribute('aria-live','polite'); }});
-  r4Btns[mode].textContent='Arrêter';
+bindSeg('a3-start', ()=>{ stopSeq(); a3Render(); });
+document.getElementById('a3-play').addEventListener('click',()=>{
+  a3Render();
+  const seqN=[...a3Notes, ...a3Notes.slice(0,-1).reverse()];
+  playSeq(seqN.map((m,k)=>({notes:[m], at:k*0.42})), kbA3);
+});
+a3Render();
+// Petit quiz : ton ou demi-ton ?
+const A3_PAIRS=[[60,62],[64,65],[67,69],[71,72],[65,67],[62,64],[69,71],[60,61],[66,67],[63,65]];
+let a3I=-1, a3Done=false, a3Streak=0;
+const kbA3q = Keyboard(document.getElementById('kb-a3q'), {from:60, to:72, labels:'none', onPress:m=>playNote(m)});
+const a3Q=document.getElementById('a3-q'), a3Msg=document.getElementById('a3-msg');
+function a3Next(){
+  let n; do{ n=Math.floor(Math.random()*A3_PAIRS.length); } while(n===a3I);
+  a3I=n; a3Done=false;
+  const [x,y]=A3_PAIRS[n];
+  a3Q.innerHTML=`Entre <b>${frName(x)}</b> et <b>${frName(y)}</b> : un ton ou un demi-ton ?`;
+  a3Msg.className='ex-msg'; a3Msg.textContent='Regarde les deux touches sur le clavier : y a-t-il une touche entre elles ?';
+  kbA3q.setMarks({[x]:{cls:'mark-sel', label:frName(x)}, [y]:{cls:'mark-sel', label:frName(y)}});
 }
-Object.keys(r4Btns).forEach(mode=>r4Btns[mode].addEventListener('click',()=> running('r4-'+mode) ? stopPulse() : startR4(mode)));
-bindSeg('r4-tempo', ()=>{ ['listen','along'].forEach(m=>{ if(running('r4-'+m)) startR4(m); }); });
+function a3Answer(isTon){
+  if(a3I<0 || a3Done) return;
+  const [x,y]=A3_PAIRS[a3I], ton=(y-x)===2, ok=isTon===ton; a3Done=true;
+  a3Streak = ok ? a3Streak+1 : 0;
+  const marks={[x]:{cls:ok?'mark-good':'mark-bad', label:frName(x)}, [y]:{cls:ok?'mark-good':'mark-bad', label:frName(y)}};
+  if(ton) marks[x+1]={cls:'mark-step', label:frName(x+1)};
+  kbA3q.setMarks(marks);
+  a3Msg.className='ex-msg '+(ok?'ok':'no');
+  const why = ton ? `Il y a une touche entre les deux (${frName(x+1)}) : c’est un ton.` : 'Les deux touches sont voisines, sans touche entre elles : c’est un demi-ton.';
+  a3Msg.textContent = (ok ? (a3Streak>=3 ? `Bravo, ${a3Streak} bonnes réponses d’affilée ! ` : 'Bravo ! ') : 'Pas tout à fait. ') + why;
+  playSeq([{notes:[x],at:0},{notes:[y],at:0.45}], kbA3q);
+}
+document.getElementById('a3-ton').addEventListener('click',()=>a3Answer(true));
+document.getElementById('a3-demi').addEventListener('click',()=>a3Answer(false));
+document.getElementById('a3-next').addEventListener('click',a3Next);
+a3Next();
 
 // Un cours vient d'être débloqué : on l'ouvre directement, sinon on reprend le dernier cours ouvert
 renderHome();
